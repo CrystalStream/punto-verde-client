@@ -1,5 +1,5 @@
 {
-  "name": "punt-verde-client",
+  "name": "punto-verde-client",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
     "core-js": "^2.4.1",
+    "foundation-sites": "^6.4.4-rc1",
+    "jquery": "^3.2.1",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
