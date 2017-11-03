@@ -26,16 +26,20 @@
       </div>
       <div class="app-dashboard-sidebar-inner">
         <ul class="menu vertical">
-          <li class="is-active"><a href="#">
+          <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:
+true}"><a routerLink="">
             <i class="large fa fa-home"></i><span class="app-dashboard-sidebar-text">Inicio</span>
           </a></li>
-          <li><a>
+          <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:
+true}"><a routerLink="users">
             <i class="large fa fa-users"></i><span class="app-dashboard-sidebar-text">Usuarios</span>
           </a></li>
-          <li><a>
+          <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:
+true}"><a routerLink="sectors">
             <i class="large fa fa-industry"></i><span class="app-dashboard-sidebar-text">Sectores/Colonias</span>
           </a></li>
-          <li><a href="#" class="is-active">
+          <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:
+true}"><a routerLink="scraps">
             <i class="large fa fa-institution"></i><span class="app-dashboard-sidebar-text">Desechos</span>
           </a></li>
         </ul>
@@ -43,6 +47,7 @@
     </div>
 
     <div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
+    	<router-outlet></router-outlet>
     </div>
   </div>
 </div>
