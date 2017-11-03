@@ -18,10 +18,10 @@
 @import '../node_modules/foundation-sites/scss/util/util';
 
 // Settings (Custom)
-@import "assets/foundation-sites/settings";
+@import "./assets/foundation-sites/settings";
 
 // Global variables and styles (Custom)
-@import 'assets/foundation-sites/global';
+@import './assets/foundation-sites/global';
 
 // Components
 @import '../node_modules/foundation-sites/scss/grid/grid';
