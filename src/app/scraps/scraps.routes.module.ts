@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from '../home/home.component';
+import { ScrapsComponent } from './scraps.component';
 
-const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' }
+const scrapsRoutes: Routes = [
+  { path: 'scraps', component: ScrapsComponent }
 ]
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forChild(scrapsRoutes)
   ],
   declarations: [],
   exports: [RouterModule]
 })
-export class RoutesModule { }
+export class ScrapsRoutesModule { }
