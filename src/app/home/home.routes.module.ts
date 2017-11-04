@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SectorsComponent } from './sectors.component';
+import { HomeComponent } from './home.component';
 
-const sectorRoutes: Routes = [
-  { path: 'sectors', component: SectorsComponent }
+const homeRoutes: Routes = [
+  { path: 'home', component: HomeComponent }
 ]
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forChild(sectorRoutes)
+    RouterModule.forChild(homeRoutes)
   ],
   exports: [RouterModule]
 })
-export class SectorsRoutesModule { }
+export class HomeRoutesModule { }

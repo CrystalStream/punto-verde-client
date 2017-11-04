@@ -9,11 +9,11 @@ const scrapsRoutes: Routes = [
 ]
 
 @NgModule({
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(scrapsRoutes)
   ],
-  declarations: [],
   exports: [RouterModule]
 })
 export class ScrapsRoutesModule { }

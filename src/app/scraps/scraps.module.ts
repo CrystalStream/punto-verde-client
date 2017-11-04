@@ -6,12 +6,12 @@ import { ScrapsComponent } from './scraps.component';
 
 
 @NgModule({
+  declarations: [
+  	ScrapsComponent
+  ],
   imports: [
     CommonModule,
     ScrapsRoutesModule
-  ],
-  declarations: [
-  	ScrapsComponent
   ]
 })
 export class ScrapsModule { }

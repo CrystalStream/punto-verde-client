@@ -5,12 +5,12 @@ import { SectorsRoutesModule } from './sectors.route.module';
 import { SectorsComponent } from './sectors.component';
 
 @NgModule({
+  declarations: [
+  	SectorsComponent
+  ],
   imports: [
     CommonModule,
     SectorsRoutesModule
-  ],
-  declarations: [
-  	SectorsComponent
   ]
 })
 export class SectorsModule { }
