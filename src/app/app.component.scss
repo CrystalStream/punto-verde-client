@@ -1,4 +1,4 @@
-// @import '../../node_modules/foundation-sites/scss/util/util'; 
+@import '../../node_modules/foundation-sites/scss/util/util'; 
 
 $app-dashboard-top-nav-color: #2c3840;
 $app-dashboard-top-nav-height: 55px;
@@ -96,9 +96,7 @@ body {
   overflow-y: auto;
   z-index: 1;
   transition: all .3s .3s;
-  // @include breakpoint(small only){
-  //   padding-top: 1rem;    
-  // }
+  padding-top: 1rem;
 
 
   .app-dashboard-open-sidebar, .app-dashboard-close-sidebar{
