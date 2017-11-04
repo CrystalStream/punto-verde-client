@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from '../home/home.component';
-import { SectorsComponent } from '../sectors/sectors.component';
 import { ScrapsComponent } from '../scraps/scraps.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'sectors', component: SectorsComponent },
   { path: 'scraps', component: ScrapsComponent }
 ]
 
