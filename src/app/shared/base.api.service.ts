@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 *	Base api service class
 */
 @Injectable()
-export class BaseApiService {
+export abstract class BaseApiService {
 	// http header
 	headers: Headers;
 
@@ -22,9 +22,7 @@ export class BaseApiService {
 	/*
 	* Get base url (should be implemented on the child class)
 	*/
-	getBaseUrl() {
-		return null;
-	}
+	abstract getBaseUrl(): string;
 
 	/*
 	* Return a list of items
@@ -52,7 +50,7 @@ export class BaseApiService {
 	}
 
 	/*
-	* Return a list of items
+	* Return a single item
 	* param{string} id
 	*/
 	findOne(id: string) {
