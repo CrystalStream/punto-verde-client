@@ -34,10 +34,18 @@ export class BaseApiService {
 	* param{Number} sort
 	* param{Number} populate
 	*/
-	findAll() {
+	findAll(where: object = {}, limit: number = 20, skip: number = 0, sort: string = null, populate: string = null) {
 		return this.http
       .get(this.getBaseUrl(), 
-      	{ headers: this.headers })
+      	{ headers: this.headers,
+      		params: {
+      			where,
+      			limit,
+      			skip,
+      			sort,
+      			populate
+      		} 
+      	})
       .toPromise()
       .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
