@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -9,14 +9,14 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class BaseApiService {
 	// http header
-	headers: HttpHeaders;
+	headers: Headers;
 
 	/*
 	* constructor
 	* param{Http} http service
 	*/
-  constructor(public http: HttpClient) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json'});
+  constructor(public http: Http) {
+    this.headers = new Headers({'Content-Type': 'application/json'});
   }
 
 	/*
@@ -39,7 +39,7 @@ export class BaseApiService {
       .get(this.getBaseUrl(), 
       	{ headers: this.headers })
       .toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
@@ -54,7 +54,7 @@ export class BaseApiService {
 				{ headers: this.headers }
 				)
 			.toPromise()
-      .then( response => response)
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
@@ -68,7 +68,7 @@ export class BaseApiService {
 				data, 
 				{ headers: this.headers })
 			.toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
@@ -83,7 +83,7 @@ export class BaseApiService {
 				{ headers: this.headers }
 				)
 			.toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
@@ -98,7 +98,7 @@ export class BaseApiService {
 				data, 
 				{ headers: this.headers })
 			.toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
