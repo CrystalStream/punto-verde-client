@@ -14,30 +14,18 @@
 		<table class="stack">
 		  <thead>
 		    <tr>
-		      <th width="200">Table Header</th>
-		      <th>Table Header</th>
-		      <th width="150">Table Header</th>
-		      <th width="150">Table Header</th>
+		      <th width="200">Nombre</th>
+		      <th>Email</th>
+		      <th width="150">Role</th>
+		      <th width="150">Puntos</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <td>Content Goes Here</td>
-		      <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
-		      <td>Content Goes Here</td>
-		      <td>Content Goes Here</td>
-		    </tr>
-		    <tr>
-		      <td>Content Goes Here</td>
-		      <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-		      <td>Content Goes Here</td>
-		      <td>Content Goes Here</td>
-		    </tr>
-		    <tr>
-		      <td>Content Goes Here</td>
-		      <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-		      <td>Content Goes Here</td>
-		      <td>Content Goes Here</td>
+		    <tr *ngFor="let user of users">
+		      <td>{{ user.name }}</td>
+		      <td>{{ user.email }}</td>
+		      <td>{{ user.role }}</td>
+		      <td>{{ user.points }}</td>
 		    </tr>
 		  </tbody>
 		</table>

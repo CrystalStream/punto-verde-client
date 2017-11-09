@@ -54,7 +54,7 @@ export class BaseApiService {
 				{ headers: this.headers }
 				)
 			.toPromise()
-      .then( response => response )
+      .then( response => response)
       .catch( err => Promise.reject(err.message || err) );
 	}
 

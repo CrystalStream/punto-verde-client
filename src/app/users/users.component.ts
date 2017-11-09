@@ -8,13 +8,14 @@ import { UserService } from '../shared/api/user.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
+  users: any;
   constructor(private UserService: UserService) { }
 
   ngOnInit() {
   	this.UserService.findAll()
-  		.then( response => {
-  			console.log(response);
+  		.then( (response: any) => {
+        this.users = response.data
+        console.log("this.users", this.users);
   		})
 
   }
