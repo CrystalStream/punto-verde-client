@@ -12,6 +12,7 @@ export class UserService extends BaseApiService {
 
 	/*
 	* constructor
+  * @param{Htpp} http
 	*/
   constructor(public http: Http) { 
   	super(http) 
