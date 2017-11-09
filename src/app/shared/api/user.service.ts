@@ -22,7 +22,7 @@ export class UserService extends BaseApiService {
 	* Get base url
 	*/
   getBaseUrl(){
-  	return `${environment.baseUrl}users`
+  	return `${environment.baseUrl}users/`
   }
 
 
