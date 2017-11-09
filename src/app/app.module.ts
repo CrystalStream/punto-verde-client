@@ -5,6 +5,9 @@ import { UsersModule } from './users/users.module';
 import { SectorsModule } from './sectors/sectors.module';
 import { ScrapsModule } from './scraps/scraps.module';
 import { HomeModule } from './home/home.module';
+import { HttpClientModule } from '@angular/common/http';
+
+import { UserService } from './shared/api/user.service';
 
 import { AppComponent } from './app.component';
 
@@ -14,13 +17,14 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RoutesModule,
     UsersModule,
     SectorsModule,
     ScrapsModule,
     HomeModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
