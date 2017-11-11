@@ -6,12 +6,14 @@ import { UsersRoutesModule } from './users.routes.module';
 import { UsersComponent } from './users.component';
 import { AddComponent } from './add/add.component';
 import { FormComponent } from './form/form.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
   	UsersComponent,
   	AddComponent,
-  	FormComponent
+  	FormComponent,
+  	EditComponent
   ],
   imports: [
     CommonModule,

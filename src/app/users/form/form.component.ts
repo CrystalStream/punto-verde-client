@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+import { Observable } from 'rxjs/Observable';
 
 import { UserService } from '../../shared/api/user.service';
 import { SectorService } from '../../shared/api/sector.service';
@@ -16,10 +19,16 @@ export class FormComponent implements OnInit {
 	// Sectors array
 	sectors: [{[key: string]: any}];
 
+	// user uuid
+	userId: string;
+
+	// promises array
+	promises: Promise<any>[] = [];
+
 	// userForm FormGroup
 	userForm: FormGroup;
 
-  constructor(public UserService: UserService, public SectorService: SectorService) { }
+  constructor(public UserService: UserService, public SectorService: SectorService, public route: ActivatedRoute) { }
 
   ngOnInit() {
   	this.userForm = new FormGroup ({
@@ -34,8 +43,21 @@ export class FormComponent implements OnInit {
 	    password: new FormControl('default')
 	  });
 
-	  this.getAllSectors()
-	  	.then( sectors => this.sectors = sectors );
+
+	  /* EDIT MODE*/
+  	if(this.editMode){
+  		this.route.params.subscribe( params => {
+  			this.userId = params.id;
+  		});
+  		this.promises.push(this.getUser(this.userId));
+  	}
+
+	  this.promises.push(this.getAllSectors());
+
+	  Promise.all(this.promises)
+	  	.then( (response) => {
+	  		console.log("response", response);
+	  	})
   }
 
   save() {
@@ -45,9 +67,20 @@ export class FormComponent implements OnInit {
   		})
   }
 
+  update() {
+  	delete this.userForm.value.password;
+  	this.UserService.update(this.userId, this.userForm.value)
+  		.then( response => {
+  		    console.log("response", response);
+  		})
+  		.catch( err => {
+  			console.log(err)
+  		})
+  }
+
   getAllSectors() {
   	return this.SectorService.findAll()
-	  	.then( response => response.data );
+	  	.then( response => this.sectors = response.data );
   }
 
   isRegularUser() {
@@ -56,6 +89,14 @@ export class FormComponent implements OnInit {
 
   isAdmin() {
   	return this.userForm.value.role == 'admin';
+  }
+
+  getUser(uuid) {
+  	return this.UserService.findOne(uuid)
+  		.then( response => { 
+  			this.userForm.reset(response.data) 
+  		})
+  		.catch( err => console.log(JSON.parse(`{'error': ${err}}`)));
   }
 
 }

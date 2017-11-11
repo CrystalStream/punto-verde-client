@@ -48,4 +48,11 @@ export class UsersComponent implements OnInit {
       })
   }
 
+   deleteUser(uuid) {
+    this.UserService.destroy(uuid)
+      .then( response => {
+        console.log(response);
+      })
+  }
+
 }

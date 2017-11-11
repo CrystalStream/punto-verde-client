@@ -56,7 +56,7 @@ export abstract class BaseApiService {
 	findOne(id: string) {
 		return this.http
 			.get(
-				`${this.getBaseUrl()}${id}`,
+				`${this.getBaseUrl()}/${id}`,
 				{ headers: this.headers }
 				)
 			.toPromise()
@@ -85,7 +85,7 @@ export abstract class BaseApiService {
 	destroy(id: string) {
 		return this.http
 			.delete(
-				`${this.getBaseUrl()}${id}`,
+				`${this.getBaseUrl()}/${id}`,
 				{ headers: this.headers }
 				)
 			.toPromise()
@@ -99,8 +99,9 @@ export abstract class BaseApiService {
 	* param{Object} data
 	*/
 	update(id: string, data: object) {
+		console.log("data", data);
 		return this.http
-			.put(`${this.getBaseUrl()}${id}`,
+			.put(`${this.getBaseUrl()}/${id}`,
 				data, 
 				{ headers: this.headers })
 			.toPromise()
