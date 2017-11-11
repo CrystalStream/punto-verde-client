@@ -5,8 +5,8 @@ import { UsersModule } from './users/users.module';
 import { SectorsModule } from './sectors/sectors.module';
 import { ScrapsModule } from './scraps/scraps.module';
 import { HomeModule } from './home/home.module';
-import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { UserService } from './shared/api/user.service';
 
@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpModule,
     ReactiveFormsModule,
     RoutesModule,
     UsersModule,

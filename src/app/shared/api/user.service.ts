@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 import { BaseApiService } from '../base.api.service';
-
 import { environment } from '../../../environments/environment';
 
 /*
@@ -14,7 +13,7 @@ export class UserService extends BaseApiService {
 	/*
 	* constructor
 	*/
-  constructor(public http: HttpClient) { 
+  constructor(public http: Http) { 
   	super(http) 
   }
 

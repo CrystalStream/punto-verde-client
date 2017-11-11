@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -7,24 +7,22 @@ import 'rxjs/add/operator/toPromise';
 *	Base api service class
 */
 @Injectable()
-export class BaseApiService {
+export abstract class BaseApiService {
 	// http header
-	headers: HttpHeaders;
+	headers: Headers;
 
 	/*
 	* constructor
 	* param{Http} http service
 	*/
-  constructor(public http: HttpClient) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json'});
+  constructor(public http: Http) {
+    this.headers = new Headers({'Content-Type': 'application/json'});
   }
 
 	/*
 	* Get base url (should be implemented on the child class)
 	*/
-	getBaseUrl() {
-		return null;
-	}
+	abstract getBaseUrl(): string;
 
 	/*
 	* Return a list of items
@@ -34,17 +32,25 @@ export class BaseApiService {
 	* param{Number} sort
 	* param{Number} populate
 	*/
-	findAll() {
+	findAll(where: object = {}, limit: number = 20, skip: number = 0, sort: string = null, populate: string = null) {
 		return this.http
       .get(this.getBaseUrl(), 
-      	{ headers: this.headers })
+      	{ headers: this.headers,
+      		params: {
+      			where,
+      			limit,
+      			skip,
+      			sort,
+      			populate
+      		} 
+      	})
       .toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
 	/*
-	* Return a list of items
+	* Return a single item
 	* param{string} id
 	*/
 	findOne(id: string) {
@@ -54,7 +60,7 @@ export class BaseApiService {
 				{ headers: this.headers }
 				)
 			.toPromise()
-      .then( response => response)
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
@@ -68,7 +74,7 @@ export class BaseApiService {
 				data, 
 				{ headers: this.headers })
 			.toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
@@ -83,7 +89,7 @@ export class BaseApiService {
 				{ headers: this.headers }
 				)
 			.toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
@@ -98,7 +104,7 @@ export class BaseApiService {
 				data, 
 				{ headers: this.headers })
 			.toPromise()
-      .then( response => response )
+      .then( response => response.json() )
       .catch( err => Promise.reject(err.message || err) );
 	}
 
