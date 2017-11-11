@@ -8,11 +8,13 @@
       <table>
         <thead>
           <tr>
+            <th>id</th>
             <th>Nombre</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let sector of sectors">
+            <td>{{sector.uuid}}</td>
             <td>{{sector.name}}</td>
           </tr>
         </tbody>
