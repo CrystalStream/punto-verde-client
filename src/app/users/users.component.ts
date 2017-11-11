@@ -20,8 +20,15 @@ export class UsersComponent implements OnInit {
   // promises array
   promises: Promise<any>[] = [];
 
+  /*
+  * constructor
+  * @param{UserService} UserService
+  */
   constructor(private UserService: UserService) { }
 
+  /*
+  * init
+  */
   ngOnInit() {
     this.promises.push(this.getAllUsers());
     Promise.all(this.promises)
