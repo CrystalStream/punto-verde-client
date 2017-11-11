@@ -35,6 +35,7 @@ export class UsersComponent implements OnInit {
       .then(() => {
         this.loading.all = true;
       })
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
   /*
@@ -46,6 +47,7 @@ export class UsersComponent implements OnInit {
         this.users = response.data
         console.log("this.users", this.users);
       })
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
   /*
@@ -57,6 +59,7 @@ export class UsersComponent implements OnInit {
       .then( response => {
         console.log(response);
       })
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
 }
