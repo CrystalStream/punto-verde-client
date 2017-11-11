@@ -8,7 +8,7 @@ import { HomeModule } from './home/home.module';
 import { HttpModule } from '@angular/http';
 
 import { UserService } from './shared/api/user.service';
-
+import { SectorService } from './shared/api/sector.service';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -25,7 +25,7 @@ import { AppComponent } from './app.component';
     ScrapsModule,
     HomeModule
   ],
-  providers: [UserService],
+  providers: [UserService, SectorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
