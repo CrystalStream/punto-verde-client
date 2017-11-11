@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" novalidate>
+<form [formGroup]="userForm" novalidate (ngSubmit)="save()">
 	<div class="small-12 medium-6 columns">
 		<div class="row">
 		<div class="columns">
@@ -115,11 +115,15 @@
 	
 	<hr>
  	<div class="">
- 		<button *ngIf="!editMode" class="button warning large" (click)="save()">
+ 		<button *ngIf="!editMode" class="button warning large" type="submit">
  			Guardar <i class="fa fa-save"></i>
 		</button>
- 		<button *ngIf="editMode" class="button secondary large" (click)="update()">
+ 		<button *ngIf="editMode" class="button secondary large" (click)="update()" type="button">
  			Actualizar <i class="fa fa-save"></i>
+		</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button routerLink="/users" class="button alert large" type="button">
+ 			Cancelar <i class="fa fa-reply fa-fw"></i>
 		</button>
  	</div>
 </form>

@@ -28,9 +28,19 @@ export class FormComponent implements OnInit {
 	// userForm FormGroup
 	userForm: FormGroup;
 
+  /*
+  * constructor
+  * @param{UserService} UserService
+  * @param{SectorService} SectorService
+  * @param{ActivatedRoute} route
+  */
   constructor(public UserService: UserService, public SectorService: SectorService, public route: ActivatedRoute) { }
 
+  /*
+  * init
+  */
   ngOnInit() {
+    // Create the form
   	this.userForm = new FormGroup ({
 	    role: 	new FormControl('regular'),
 	    rfc: 		new FormControl(),
@@ -55,48 +65,60 @@ export class FormComponent implements OnInit {
 	  this.promises.push(this.getAllSectors());
 
 	  Promise.all(this.promises)
-	  	.then( (response) => {
-	  		console.log("response", response);
-	  	})
+	  	.then( (response) => console.log("response", response))
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
+  /*
+  * Creates an user
+  */
   save() {
   	this.UserService.save(this.userForm.value)
-  		.then( response => {
-  		   console.log("response", response);
-  		})
+  		.then( response => console.log("response", response))
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
+  /*
+  * update an user
+  */
   update() {
   	delete this.userForm.value.password;
   	this.UserService.update(this.userId, this.userForm.value)
-  		.then( response => {
-  		    console.log("response", response);
-  		})
-  		.catch( err => {
-  			console.log(err)
-  		})
+  		.then( response => console.log("response", response))
+  		.catch( err => console.log(JSON.parse(`{'error': ${err}}`)))
   }
 
+  /*
+  * Get all the sectors from the API
+  */
   getAllSectors() {
   	return this.SectorService.findAll()
-	  	.then( response => this.sectors = response.data );
+	  	.then( response => this.sectors = response.data )
+      .catch( err => console.error("error", err));
   }
 
+  /*
+  * check if the user to be add is regular
+  */
   isRegularUser() {
   	return this.userForm.value.role == 'regular';
   }
 
+  /*
+  * check if the user to be add is admin
+  */
   isAdmin() {
   	return this.userForm.value.role == 'admin';
   }
 
+  /*
+  * Get user by the given uuid and set it to the form object
+  * @param{string} uuid
+  */
   getUser(uuid) {
   	return this.UserService.findOne(uuid)
-  		.then( response => { 
-  			this.userForm.reset(response.data) 
-  		})
-  		.catch( err => console.log(JSON.parse(`{'error': ${err}}`)));
+  		.then( response => this.userForm.reset(response.data))
+  		.catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
 }
