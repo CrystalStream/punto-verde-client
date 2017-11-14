@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -33,8 +33,12 @@ export class FormComponent implements OnInit {
   * @param{UserService} UserService
   * @param{SectorService} SectorService
   * @param{ActivatedRoute} route
+  * @param{Router} router
   */
-  constructor(public UserService: UserService, public SectorService: SectorService, public route: ActivatedRoute) { }
+  constructor(public UserService: UserService, 
+              public SectorService: SectorService, 
+              public route: ActivatedRoute, 
+              public router: Router) { }
 
   /*
   * init
@@ -74,7 +78,14 @@ export class FormComponent implements OnInit {
   */
   save() {
   	this.UserService.save(this.userForm.value)
-  		.then( response => console.log("response", response))
+  		.then( response => {
+         if ( response.code == 'CREATED') {
+           // redirect to /users and show a notification
+           this.router.navigateByUrl('/users');
+         } else {
+           // Show the alert.
+         }
+      })
       .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
@@ -84,7 +95,14 @@ export class FormComponent implements OnInit {
   update() {
   	delete this.userForm.value.password;
   	this.UserService.update(this.userId, this.userForm.value)
-  		.then( response => console.log("response", response))
+  		.then( response => {
+        if ( response.code == 'OK') {
+           // redirect to /users and show a notification
+           this.router.navigateByUrl('/users');
+         } else {
+           // Show the alert.
+         }
+      })
   		.catch( err => console.log(JSON.parse(`{'error': ${err}}`)))
   }
 
