@@ -54,4 +54,16 @@ export class UsersComponent implements OnInit {
       })
   }
 
+  /*
+  * Delete a user by the given uuid
+  * @param{string} uuid
+  */
+  deleteUser(uuid) {
+    this.UserService.destroy(uuid)
+      .then( response => {
+        console.log(response);
+      })
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+  }
+
 }

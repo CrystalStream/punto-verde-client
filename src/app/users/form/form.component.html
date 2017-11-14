@@ -1,0 +1,129 @@
+<form [formGroup]="userForm" novalidate (ngSubmit)="save()">
+	<div class="small-12 medium-6 columns">
+		<div class="row">
+		<div class="columns">
+		 		<label>Usuario Regular:</label>
+		 		<div class="switch">
+				  <input class="switch-input" id="regular?" type="radio" value="regular" formControlName="role">
+			    <label class="switch-paddle" for="regular?">
+			      <span class="switch-active" aria-hidden="Si">Si</span>
+			      <span class="switch-inactive" aria-hidden="No">No</span>
+			    </label>
+				</div>
+		 	</div>
+		 	<div class="columns">
+		 		<label>Empresa:</label>
+		 		<div class="switch">
+				  <input class="switch-input" id="company?" type="radio" value="company" formControlName="role">
+			    <label class="switch-paddle" for="company?">
+			      <span class="switch-active" aria-hidden="company">Si</span>
+			      <span class="switch-inactive" aria-hidden="nocompany">No</span>
+			    </label>
+				</div>
+		 	</div>
+		 	<div class="columns">
+		 		<div class="columns">
+			 		<label>Administrador:</label>
+			 		<div class="switch">
+					  <input class="switch-input" id="admin?" type="radio" value="admin" formControlName="role">
+				    <label class="switch-paddle" for="admin?">
+				      <span class="switch-active" aria-hidden="admind">Si</span>
+				      <span class="switch-inactive" aria-hidden="nodamin">No</span>
+				    </label>
+					</div> 
+		 		</div>
+		 	</div>
+	 	</div>
+ 	</div>
+ 	<hr>
+ 	<!-- Personal -->
+ 	<fieldset class="fieldset borderB_succes">
+ 		<legend>Datos Personales</legend>
+		 	<div class="row">
+			 	<div class="small-12 medium-6 columns" *ngIf="!isRegularUser() && !isAdmin()">
+				 	<div class="columns text-center">
+				 		<label>RFC:</label>
+				 		<input type="text" placeholder="RFC" formControlName="rfc">
+				 	</div>
+			 	</div>
+			 	<div class="small-12 medium-6 columns">
+				 	<div class="columns text-center">
+				 		<label>Nombre:</label>
+				 		<input type="text" placeholder="Nombre" formControlName="name">
+				 	</div>
+			 	</div>
+		 	</div>
+		 	<div class="row">
+	 		 	<div class="small-12 medium-6 columns">
+	 			 	<div class="columns text-center">
+	 			 		<label>
+	 			 		Email:</label>
+	 			 		<input type="text" placeholder="Email" formControlName="email">
+	 			 	</div>
+	 		 	</div>
+	 		 	<div class="small-12 medium-6">
+	 			 	<div class="row">
+	 				 	<div class="small-12 medium-6 columns">
+	 					 	<div class="columns text-center">
+	 					 		<label>Edad:</label>
+	 					 		<input type="number" placeholder="Edad" formControlName="age">
+	 					 	</div>
+	 				 	</div>
+	 				 	<div class="small-12 medium-6 columns">
+	 					 	<div class="columns text-center">
+	 					 		<label>Genero:</label>
+	 					 		<div class="small-12 columns">
+		 					 		<label class="float-left">Masculino
+		 					 			<input type="radio" name="genre" value="men" formControlName="genre">
+		 					 		</label>
+		 					 		<label class="float-right">Femenino
+		 					 			<input type="radio" name="genre" value="women" formControlName="genre">
+	 					 			</label>
+	 					 		</div>
+	 					 	</div>
+	 			 		</div>
+	 		 		</div>
+	 		 	</div>
+		 	</div>
+ 	</fieldset>
+	
+	<!-- Location -->
+ 	<fieldset class="fieldset borderB_secondary">
+ 		<legend>Dirección</legend>
+ 		<div class="row">
+	 		<div class="small-12 medium-6 columns">
+			 	<div class="columns">
+			 		<label>Sector:</label>
+					  <select formControlName="sector">
+					    <option *ngFor="let sector of sectors" value="{{sector.uuid}}">{{ sector.name }}</option>
+					  </select>
+			 	</div>
+		 	</div>
+		 	<div class="small-12 medium-6 columns">
+			 	<div class="columns text-center">
+			 		<label>Domicilio:</label>
+			 		<input type="text" placeholder="Domicilio" formControlName="address">
+			 	</div>
+		 	</div>
+	 	</div>
+ 	</fieldset>
+	
+	<!-- Image -->
+ 	<fieldset class="fieldset borderB_primary">
+ 		<legend>Imagenes</legend>
+ 	</fieldset>
+	
+	<hr>
+ 	<div class="">
+ 		<button *ngIf="!editMode" class="button warning large" type="submit">
+ 			Guardar <i class="fa fa-save"></i>
+		</button>
+ 		<button *ngIf="editMode" class="button secondary large" (click)="update()" type="button">
+ 			Actualizar <i class="fa fa-save"></i>
+		</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button routerLink="/users" class="button alert large" type="button">
+ 			Cancelar <i class="fa fa-reply fa-fw"></i>
+		</button>
+ 	</div>
+</form>
