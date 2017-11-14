@@ -1,1 +1,12 @@
 @import '../../../node_modules/foundation-sites/scss/util/util';
+
+$hoverLinkColor: #B22D09;
+
+a {
+	color: black;
+	transition: .1s;
+	&:hover{
+		color: $hoverLinkColor;
+		text-decoration: underline;
+	}
+}

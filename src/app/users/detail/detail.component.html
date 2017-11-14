@@ -1,3 +1,50 @@
-<p>
-  detail works!
-</p>
+<div class="row" *ngIf="loading.all">
+	<div class="small-12 medium-3 columns">
+		<img src="" alt="IMAGEN">
+	</div>
+	<div class="small-12 medium-7 medium-offset-1 columns">
+		<div class="small-12">
+			<span class="label large primary">{{ user.role }}</span>
+		</div>
+		<div class="small-12 columns">
+			{{ user.points }} Puntos.
+		</div>
+		<ul class="accordion">
+			<li>Nombre: <span class="float-right">{{ user.name }}</span></li>
+			<hr>
+			<li>Email: <span class="float-right">{{ user.email }}</span></li>
+			<hr>
+			<li>
+				<div class="small-up-2 columns">
+					<div>
+						Edad: <span class="float-right">{{ user.age }}</span>
+					</div>
+					<div>
+						Genero: <span class="float-right">{{ user.genre }}</span>
+					</div>
+				</div>
+			</li>
+			<hr>
+			<li>Telefono <span class="float-right">{{ user.phone }}</span></li>
+			<hr>
+			<li>Domicilio <span class="float-right">{{ user.address }}</span></li>
+		</ul>
+	</div>
+	<div class="small-12 columns">
+		<hr>
+		<div class="float-right">
+			<a [routerLink]="['/users/edit', user.uuid]" class="button warning large">
+				<i class="fa fa-pencil fa-fw"></i> Editar
+			</a>
+			<button (click)="deleteUser(user.uuid)" class="button alert large">
+				<i class="fa fa-times fa-fw"></i> Borrar
+			</button>
+			<button class="button primary large">
+				<i class="fa fa-reset fa-fw"></i> Resetear Contraseña
+			</button>
+		</div>
+	</div>
+</div>
+<div *ngIf="!loading.all" class="row">
+	<i class="fa fa-spinner fa-pulse fa-3x float-center"></i>
+</div>

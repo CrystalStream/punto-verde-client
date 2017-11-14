@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
@@ -32,7 +32,7 @@ export class DetailComponent implements OnInit {
   * @param{UserService} UserService
   * @param{ActivatedRoute} route
   */
-  constructor(private UserService: UserService, private route: ActivatedRoute) { }
+  constructor(private UserService: UserService, private route: ActivatedRoute, public router: Router) { }
 
   ngOnInit() {
   	this.route.params.map(p => p.id).subscribe( id => this.userUuid = id);
@@ -43,7 +43,7 @@ export class DetailComponent implements OnInit {
   			this.loading.all = true;
   		})
   		.catch( err => {
-        console.error(JSON.parse("{Code: '500', message: err, method: 'DetailComponent.ngOnInit()' }"))
+        // console.error(JSON.parse("{Code: '500', message: err, method: 'DetailComponent.ngOnInit()' }"))
       })
   }
 
@@ -54,8 +54,21 @@ export class DetailComponent implements OnInit {
   			console.log("this.user", this.user);
   		})
   		.catch( err => {
-        console.error(JSON.parse("{Code: '500', message: err, method: 'DetailComponent.getUser()' }"))
+        // console.error(JSON.parse("{Code: '500', message: err, method: 'DetailComponent.getUser()' }"))
       })
+  }
+
+  /*
+  * Delete a user by the given uuid
+  * @param{string} uuid
+  */
+  deleteUser(uuid) {
+    this.UserService.destroy(uuid)
+      .then( response => {
+        console.log(response);
+        this.router.navigateByUrl('/users');
+      })
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
 }
