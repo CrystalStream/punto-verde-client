@@ -28,8 +28,12 @@
 		      <td>{{ user.role }}</td>
 		      <td>{{ user.points }}</td>
 		      <td colspan="2">
-		      	<a [routerLink]="['edit', user.uuid]">Editar</a>
-		      	<a (click)="deleteUser(user.uuid)">Eliminar</a>
+		      	<a [routerLink]="['edit', user.uuid]" class="button small warning">
+		      		<i class="fa fa-pencil"></i>
+		      	</a>
+		      	<a (click)="deleteUser(user.uuid)" class="button small alert">
+		      		<i class="fa fa-times"></i>
+		      	</a>
 		      </td>
 		    </tr>
 		  </tbody>
