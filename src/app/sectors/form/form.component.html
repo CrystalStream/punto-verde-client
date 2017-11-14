@@ -1,0 +1,22 @@
+<form [formGroup]="sectorForm" novalidate>
+	<fieldset class="small-12 medium-6 cell fieldset borderB_succes">
+ 		<legend>Datos de sector</legend>
+		 	<div class="row">
+				<div class="small-12 medium-12 cell text-center">
+					<label>Nombre de sector:</label>
+					<input type="text" placeholder="Nombre" formControlName="name">
+				</div>
+			 </div>
+	 </fieldset>
+	 <div *ngIf="messageSave" class="small-12 medium-6 cell callout primary text-center">
+		<h5>Sector registrado correctamente</h5>
+	  </div>
+	 <div class="">
+		<button *ngIf="!editMode" class="button warning large" (click)="save()">
+			Guardar <i class="fa fa-save"></i>
+	   </button>
+		<button *ngIf="editMode" class="button secondary large" (click)="update()">
+			Actualizar <i class="fa fa-save"></i>
+	   </button>
+	</div>
+</form>

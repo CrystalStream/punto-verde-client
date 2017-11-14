@@ -10,12 +10,13 @@ import { HttpModule } from '@angular/http';
 
 import { UserService } from './shared/api/user.service';
 import { SectorService } from './shared/api/sector.service';
+
 import { AppComponent } from './app.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-
+    AppComponent
   ],
   imports: [
     BrowserModule,

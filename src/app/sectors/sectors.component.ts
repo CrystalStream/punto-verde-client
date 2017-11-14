@@ -49,5 +49,11 @@ export class SectorsComponent implements OnInit {
   		})
       .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
-
+  
+  deleteSector(uuid) {
+    this.SectorService.destroy(uuid)
+      .then( response => {
+        console.log(response);
+      })
+  }
 }

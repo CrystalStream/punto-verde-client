@@ -10,12 +10,17 @@
           <tr>
             <th>id</th>
             <th>Nombre</th>
+            <th width="150">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let sector of sectors">
             <td>{{sector.uuid}}</td>
             <td>{{sector.name}}</td>
+            <td colspan="2">
+              <!--<a [routerLink]="['edit', sector.uuid]">Editar</a>
+              <a (click)="deleteSector(sector.uuid)">Eliminar</a>-->
+            </td>
           </tr>
         </tbody>
       </table>
