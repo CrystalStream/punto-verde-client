@@ -48,7 +48,7 @@ export class DetailComponent implements OnInit {
   }
 
   getUser(userId) {
-  	return this.UserService.findOne(userId)
+  	return this.UserService.findOne(userId, 'sector')
   		.then((response: any) => {
   			this.user = response.data;
   			console.log("this.user", this.user);

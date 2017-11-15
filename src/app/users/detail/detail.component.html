@@ -1,26 +1,41 @@
 <div class="row" *ngIf="loading.all">
 	<div class="small-12 medium-3 columns">
-		<img src="" alt="IMAGEN">
+		<img src="http://icons.iconarchive.com/icons/icons8/ios7/512/Users-User-Male-2-icon.png" alt="IMAGEN">
 	</div>
 	<div class="small-12 medium-7 medium-offset-1 columns">
-		<div class="small-12">
-			<span class="label large primary">{{ user.role }}</span>
+		<div class="row align-center">
+			<div class="column align-self-middle user-points">
+				<span>{{ user.points }}</span> <span class="subheader">Puntos.</span>
+			</div>
+			<div class="column align-self-middle text-center">
+				<div class="panel callout" [ngClass]="user.role">
+					<span>{{ user.role }}</span>
+				</div>
+			</div>
 		</div>
-		<div class="small-12 columns">
-			{{ user.points }} Puntos.
-		</div>
+		<br><br>
 		<ul class="accordion">
 			<li>Nombre: <span class="float-right">{{ user.name }}</span></li>
 			<hr>
 			<li>Email: <span class="float-right">{{ user.email }}</span></li>
 			<hr>
 			<li>
-				<div class="small-up-2 columns">
-					<div>
-						Edad: <span class="float-right">{{ user.age }}</span>
+				<div class="row align-center">
+					<div class="small-6 small-centered column text-center borderR1rem">
+						<div class="small-12">
+							Edad: 
+						</div>
+						<div class="small-12">
+							<span>{{ user.age }}</span>
+						</div>
 					</div>
-					<div>
-						Genero: <span class="float-right">{{ user.genre }}</span>
+					<div class="small-6 small-centered column text-center">
+						<div class="small-12">
+							Genero: 
+						</div>
+						<div class="small-12">
+							<span>{{ user.genre }}</span>
+						</div>
 					</div>
 				</div>
 			</li>
@@ -29,6 +44,19 @@
 			<hr>
 			<li>Domicilio <span class="float-right">{{ user.address }}</span></li>
 		</ul>
+	</div>
+	<div class="small-12 columns" *ngIf="user.sector">
+		<h3 class="">Sector</h3>
+		<table>
+			<thead>
+				<th>Nombre</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{ user.sector.name }}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<div class="small-12 columns">
 		<hr>
@@ -40,7 +68,7 @@
 				<i class="fa fa-times fa-fw"></i> Borrar
 			</button>
 			<button class="button primary large">
-				<i class="fa fa-reset fa-fw"></i> Resetear Contraseña
+				<i class="fa fa-refresh fa-fw"></i> Resetear Contraseña
 			</button>
 		</div>
 	</div>

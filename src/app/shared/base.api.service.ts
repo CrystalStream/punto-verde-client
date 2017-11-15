@@ -53,11 +53,16 @@ export abstract class BaseApiService {
 	* Return a single item
 	* param{string} id
 	*/
-	findOne(id: string) {
+	findOne(id: string, populate:string = null ) {
+		console.log("populate", populate);
 		return this.http
 			.get(
 				`${this.getBaseUrl()}/${id}`,
-				{ headers: this.headers }
+				{ headers: this.headers,
+					params: {
+						populate
+					}
+				 }
 				)
 			.toPromise()
       .then( response => response.json() )
