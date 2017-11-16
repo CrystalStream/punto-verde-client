@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,31 +12,60 @@ import { SectorService } from '../../shared/api/sector.service';
 })
 export class FormComponent implements OnInit {
   
-  //@Input() editMode: boolean = false;
+  @Input() editMode: boolean = false;
   
 
-  sectors: [{[key: string]: any}];
+  /*Sector uuid*/
+  sectorId: string;
 
-  //sectorId: string;
-
-  promises: Promise<any>[] = [];
+  // promises array
+	promises: Promise<any>[] = [];
 
   messageSave: boolean = false;
 
   sectorForm: FormGroup;
-  constructor(public SectorService: SectorService) { }
 
-  ngOnInit() {
+  constructor(public SectorService: SectorService,  public route: ActivatedRoute) { }
+
+  ngOnInit() {    
     this.sectorForm = new FormGroup({
       name: new FormControl()
     });
+
+
+    /* EDIT MODE*/
+  	if(this.editMode){
+  		this.route.params.subscribe( params => {
+  			this.sectorId = params.id;
+      });
+      this.promises.push(this.getSector(this.sectorId));
+  	}
   }
 
   save() {
   	this.SectorService.save(this.sectorForm.value)
   		.then( response => {
         this.messageSave = true;
-  		   console.log("response", response);
+         console.log("response", response);
   		})
+  }
+  
+  update() {
+  	delete this.sectorForm.value.password;
+  	this.SectorService.update(this.sectorId, this.sectorForm.value)
+  		.then( response => {
+  		    console.log("response", response);
+  		})
+  		.catch( err => {
+  			console.log(err)
+  		})
+  }
+  getSector(uuid) {
+  	return this.SectorService.findOne(uuid)
+  		.then( response => { 
+        this.sectorForm.reset(response.data);
+        console.log("response", response);
+  		})
+  		.catch( err => console.log(JSON.parse(`{'error': ${err}}`)));
   }
 }

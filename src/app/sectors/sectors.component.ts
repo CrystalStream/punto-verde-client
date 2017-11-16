@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SectorService } from '../shared/api/sector.service';
 
 @Component({
@@ -8,8 +8,10 @@ import { SectorService } from '../shared/api/sector.service';
   styleUrls: ['./sectors.component.scss']
 })
 export class SectorsComponent implements OnInit {
-
-	 // array to hold users
+  // Edit mode
+  @Input() editMode: boolean = false;
+   
+  // array to hold users
   sectors: [{[value: string]: any}];
 
   // loading object
@@ -24,7 +26,7 @@ export class SectorsComponent implements OnInit {
   * constructor
   * @param{SectorService} SectorService
   */
-  constructor(public SectorService: SectorService) { }
+  constructor(public SectorService: SectorService, public route: ActivatedRoute) { }
 
   /*
   * init
@@ -54,6 +56,8 @@ export class SectorsComponent implements OnInit {
     this.SectorService.destroy(uuid)
       .then( response => {
         console.log(response);
+        window.location.reload(true);
       })
   }
+
 }
