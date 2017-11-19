@@ -18,3 +18,12 @@ $primary-color:#2BAB60;
 .borderB_danger {
   border-bottom: 5px solid $danger-color;
 }
+
+.button-group {
+  input {
+    display: none;
+  }
+  label > input:checked {
+    background-color: red !important;
+  }
+}
