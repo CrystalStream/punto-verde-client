@@ -2,11 +2,38 @@
 
 $hoverLinkColor: #B22D09;
 
+$blue-color: #1779ba;
+$green-color: #2BAB60;
+$orange-color: #ffae00;
+
 a {
 	color: black;
 	transition: .1s;
 	&:hover{
 		color: $hoverLinkColor;
 		text-decoration: underline;
+	}
+}
+table {
+  thead {
+    color: rgb(49, 49, 49);
+  }
+  tbody {
+    font-weight: bold;
+  }
+}
+
+.label {
+  text-transform: uppercase;
+  font-weight: bold;
+  &.regular {
+		background: $green-color;
+	}
+	&.admin {
+		background: $blue-color;
+	}
+	&.company {
+    background: $orange-color;
+    color: black;
 	}
 }

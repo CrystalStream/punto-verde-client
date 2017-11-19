@@ -25,7 +25,7 @@
 		    <tr *ngFor="let user of users">
 		      <td><a [routerLink]="['show', user.uuid]">{{ user.name }}</a></td>
 		      <td><a [routerLink]="['show', user.uuid]">{{ user.email }}</a></td>
-		      <td>{{ user.role }}</td>
+		      <td><span class="label" [ngClass]="user.role">{{ user.role }}</span></td>
 		      <td>{{ user.points }}</td>
 		      <td colspan="2">
 		      	<a [routerLink]="['edit', user.uuid]" class="button small warning">
