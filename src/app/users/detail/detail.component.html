@@ -23,18 +23,18 @@
 				<div class="row align-center">
 					<div class="small-6 small-centered column text-center borderR1rem">
 						<div class="small-12">
-							Edad: 
+							Edad:
 						</div>
-						<div class="small-12">
+						<div class="small-12 user-age">
 							<span>{{ user.age }}</span>
 						</div>
 					</div>
 					<div class="small-6 small-centered column text-center">
 						<div class="small-12">
-							Genero: 
+							Genero:
 						</div>
 						<div class="small-12">
-							<span>{{ user.genre }}</span>
+							<span> <i [ngClass]="getGenreLabel()"></i> </span>
 						</div>
 					</div>
 				</div>

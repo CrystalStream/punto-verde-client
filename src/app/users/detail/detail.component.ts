@@ -71,4 +71,12 @@ export class DetailComponent implements OnInit {
       .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
+  /*
+  * Delete a user by the given uuid
+  * @param{string} uuid
+  */
+  getGenreLabel() {
+    return this.user.genre === 'men' ? 'fa fa-mars fa-fw fa-3x' : 'fa fa-venus fa-fw fa-3x';
+  }
+
 }
