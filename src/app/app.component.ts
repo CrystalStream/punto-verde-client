@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-declare var $:any
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  ngOnInit(){
-  	// init foundation
-  	$(document).foundation();
-  }
+  ngOnInit() {}
 }

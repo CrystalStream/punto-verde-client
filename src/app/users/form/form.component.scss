@@ -1,13 +1,20 @@
 $success-color:#B1D781;
 $secondary-color:#FAD02F;
+$danger-color:rgb(250, 94, 47);
 $primary-color:#2BAB60;
 
 .borderB_succes {
 	border-bottom: 5px solid $success-color;
 }
-.borderB_secondary{
+
+.borderB_secondary {
 	border-bottom: 5px solid $secondary-color;
 }
-.borderB_primary{
+
+.borderB_primary {
 	border-bottom: 5px solid $primary-color;
+}
+
+.borderB_danger {
+  border-bottom: 5px solid $danger-color;
 }

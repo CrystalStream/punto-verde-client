@@ -4,7 +4,7 @@
 		<div class="columns">
 		 		<label>Usuario Regular:</label>
 		 		<div class="switch">
-				  <input class="switch-input" id="regular?" type="radio" value="regular" formControlName="role">
+				  <input class="switch-input" id="regular?" type="radio" value="regular" formControlName="role" (click)="checkValidators()">
 			    <label class="switch-paddle" for="regular?">
 			      <span class="switch-active" aria-hidden="Si">Si</span>
 			      <span class="switch-inactive" aria-hidden="No">No</span>
@@ -14,7 +14,7 @@
 		 	<div class="columns">
 		 		<label>Empresa:</label>
 		 		<div class="switch">
-				  <input class="switch-input" id="company?" type="radio" value="company" formControlName="role">
+				  <input class="switch-input" id="company?" type="radio" value="company" formControlName="role" (click)="checkValidators()">
 			    <label class="switch-paddle" for="company?">
 			      <span class="switch-active" aria-hidden="company">Si</span>
 			      <span class="switch-inactive" aria-hidden="nocompany">No</span>
@@ -25,17 +25,18 @@
 		 		<div class="columns">
 			 		<label>Administrador:</label>
 			 		<div class="switch">
-					  <input class="switch-input" id="admin?" type="radio" value="admin" formControlName="role">
+					  <input class="switch-input" id="admin?" type="radio" value="admin" formControlName="role" (click)="checkValidators()">
 				    <label class="switch-paddle" for="admin?">
 				      <span class="switch-active" aria-hidden="admind">Si</span>
 				      <span class="switch-inactive" aria-hidden="nodamin">No</span>
 				    </label>
-					</div> 
+					</div>
 		 		</div>
 		 	</div>
 	 	</div>
  	</div>
- 	<hr>
+   <hr>
+
  	<!-- Personal -->
  	<fieldset class="fieldset borderB_succes">
  		<legend>Datos Personales</legend>
@@ -86,8 +87,34 @@
 	 		 	</div>
 		 	</div>
  	</fieldset>
-	
-	<!-- Location -->
+
+
+   <!-- Seguridad -->
+ 	<fieldset class="fieldset borderB_danger">
+ 		<legend>Seguridad</legend>
+		 	<div class="row">
+			 	<div class="small-12 medium-6 columns">
+				 	<div class="columns text-center">
+            <label>
+              Contaseña:
+              <span data-tooltip aria-haspopup="true" class="has-tip right" data-disable-hover="false" tabindex="1"
+                title="Puedes poner la contraseña por defecto ('default123'), seleccionando el checkbox bajo la caja de texto.">
+                <i class="fa fa-question-circle fa-fw"></i>
+              </span>
+            </label>
+            <input type="password" placeholder="Contraseña" formControlName="password">
+            <small>
+              <label>
+                <input #defaultPassword type="checkbox" (change)="setDefaultPassword(defaultPassword.checked)">
+                Usar contraseña por defecto.
+              </label>
+            </small>
+				 	</div>
+			 	</div>
+		 	</div>
+ 	</fieldset>
+
+  <!-- Location -->
  	<fieldset class="fieldset borderB_secondary">
  		<legend>Dirección</legend>
  		<div class="row">
@@ -107,12 +134,12 @@
 		 	</div>
 	 	</div>
  	</fieldset>
-	
+
 	<!-- Image -->
  	<fieldset class="fieldset borderB_primary">
  		<legend>Imagenes</legend>
  	</fieldset>
-	
+
 	<hr>
  	<div class="">
  		<button *ngIf="!editMode" class="button warning large" type="submit">
