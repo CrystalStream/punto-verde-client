@@ -123,6 +123,10 @@
             </span>
           </label>
           <input type="password" placeholder="Contraseña" formControlName="password">
+          <span class="form-error"
+                *ngIf="userForm.get('password').hasError('required') && userForm.get('password').touched">
+            Se ocupa una contraseña para que puedan iniciar sesion.
+          </span>
           <small>
             <label>
               <input #defaultPassword type="checkbox" (change)="setDefaultPassword(defaultPassword.checked)">
