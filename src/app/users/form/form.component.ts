@@ -59,7 +59,7 @@ export class FormComponent implements OnInit {
       role: new FormControl('regular', Validators.required),
       rfc: new FormControl(),
       name: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.email),
+      email: new FormControl(null, [Validators.required, Validators.email]),
       age: new FormControl(),
       genre: new FormControl(),
       sector: new FormControl(null, Validators.required),
@@ -89,17 +89,23 @@ export class FormComponent implements OnInit {
   * Creates an user
   */
   save() {
-    this.UserService
-      .save(this.userForm.value)
-      .then(response => {
-        if (response.code === 'CREATED') {
-          // redirect to /users and show a notification
-          this.router.navigateByUrl('/users');
-        } else {
-          // Show the alert.
-        }
-      })
-      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+    console.log('this.userForm: ', this.userForm);
+    if (this.userForm.valid) {
+      this.UserService
+        .save(this.userForm.value)
+        .then(response => {
+          if (response.code === 'CREATED') {
+            // redirect to /users and show a notification
+            this.router.navigateByUrl('/users');
+          } else {
+            // Show the alert.
+          }
+        })
+        .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+    } else {
+      console.log("should be scrolling");
+      $(document).scrollTop();
+    }
   }
 
   /*
@@ -160,13 +166,18 @@ export class FormComponent implements OnInit {
   */
   checkValidators() {
     this.userForm.get('role').valueChanges.subscribe((role: string) => {
-      console.log('role: ', role);
       if (role === 'admin') {
         this.userForm.get('rfc').setValidators(null);
+        this.userForm.get('sector').setValidators(null);
+        this.userForm.get('address').setValidators(null);
       } else if (role === 'company') {
         this.userForm.get('rfc').setValidators([Validators.required]);
+        this.userForm.get('sector').setValidators([Validators.required]);
+        this.userForm.get('address').setValidators([Validators.required]);
       } else {
         this.userForm.get('rfc').setValidators(null);
+        this.userForm.get('sector').setValidators([Validators.required]);
+        this.userForm.get('address').setValidators([Validators.required]);
       }
       this.userForm.get('rfc').updateValueAndValidity();
     });
@@ -185,6 +196,16 @@ export class FormComponent implements OnInit {
     } else {
       this.userForm.controls['password'].setValue(null);
       this.userForm.controls['password'].enable();
+    }
+  }
+
+  /*
+  * Check the limit of the rfc input to prevent limit.
+  * @param{any} e
+  */
+  checkRFCLimit(e: any) {
+    if ( e.target.value.length > 13 ) {
+      e.preventDefault();
     }
   }
 }
