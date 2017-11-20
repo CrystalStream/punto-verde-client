@@ -37,7 +37,7 @@ export class UsersComponent implements OnInit {
       })
       .catch( err => {
         console.error(JSON.parse("{Code: '500', message: err, method: 'UsersComponent.ngOnInit()'}"))
-      })
+      });
   }
 
   /*
