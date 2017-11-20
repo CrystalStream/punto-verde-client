@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
-import { UserService } from "../../shared/api/user.service";
-import { SectorService } from "../../shared/api/sector.service";
+import { UserService } from '../../shared/api/user.service';
+import { SectorService } from '../../shared/api/sector.service';
+import { NotificationService } from 'ng2-notify-popup';
 
 declare var $: any;
 
@@ -44,7 +45,8 @@ export class FormComponent implements OnInit {
     public UserService: UserService,
     public SectorService: SectorService,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private NotifyService: NotificationService
   ) {}
 
   /*
@@ -89,7 +91,6 @@ export class FormComponent implements OnInit {
   * Creates an user
   */
   save() {
-    console.log('this.userForm: ', this.userForm);
     if (this.userForm.valid) {
       this.UserService
         .save(this.userForm.value)
@@ -103,8 +104,8 @@ export class FormComponent implements OnInit {
         })
         .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
     } else {
-      console.log("should be scrolling");
-      $(document).scrollTop();
+      this.NotifyService.show('ERROR. Porfavor corrigue los datos e intentalo de nuevo!.',
+        { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
     }
   }
 

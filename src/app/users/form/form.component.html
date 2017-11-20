@@ -1,14 +1,4 @@
-<form [formGroup]="userForm" novalidate (ngSubmit)="save()" #userFormCustom="ngForm">
-  <div class="small-12 columns">
-    <div class="callout alert" data-closable *ngIf="userForm.invalid && userFormCustom.submitted">
-      Hay errores! Porfavor corrigue e intentalo de nuevo.
-      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-
-  {{ userFormCustom.submitted }}
+<form [formGroup]="userForm" novalidate (ngSubmit)="save()">
   <!-- Type -->
 	<div class="small-12 medium-6 columns">
 		<div class="row">
