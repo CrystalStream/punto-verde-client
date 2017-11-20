@@ -1,13 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from "rxjs/Observable";
 
-import { UserService } from '../../shared/api/user.service';
-import { SectorService } from '../../shared/api/sector.service';
+import { UserService } from "../../shared/api/user.service";
+import { SectorService } from "../../shared/api/sector.service";
 
-declare var $:any
+declare var $: any;
 
 @Component({
   selector: 'app-form-users',
@@ -15,19 +15,19 @@ declare var $:any
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-	// Edit mode
-	@Input() editMode: boolean = false;
+  // Edit mode
+  @Input() editMode: boolean = false;
 
-	// Sectors array
-	sectors: [{[key: string]: any}];
+  // Sectors array
+  sectors: [{ [key: string]: any }];
 
-	// user uuid
-	userId: string;
+  // user uuid
+  userId: string;
 
-	// promises array
-	promises: Promise<any>[] = [];
+  // promises array
+  promises: Promise<any>[] = [];
 
-	// userForm FormGroup
+  // userForm FormGroup
   userForm: FormGroup;
 
   // Default password value
@@ -40,10 +40,12 @@ export class FormComponent implements OnInit {
   * @param{ActivatedRoute} route
   * @param{Router} router
   */
-  constructor(public UserService: UserService,
-              public SectorService: SectorService,
-              public route: ActivatedRoute,
-              public router: Router) { }
+  constructor(
+    public UserService: UserService,
+    public SectorService: SectorService,
+    public route: ActivatedRoute,
+    public router: Router
+  ) {}
 
   /*
   * init
@@ -53,32 +55,31 @@ export class FormComponent implements OnInit {
     $(document).foundation();
 
     // Create the form
-  	this.userForm = new FormGroup ({
-	    role: 	new FormControl('regular', Validators.required),
-	    rfc: 		new FormControl(),
-	    name: 	new FormControl(null, Validators.required),
-	    email: 	new FormControl(null, Validators.email),
-	    age: 		new FormControl(),
-	    genre: 	new FormControl(),
-	    sector: new FormControl(null, Validators.required),
-	    address: new FormControl(null, Validators.required),
-	    password: new FormControl(null, Validators.required)
-	  });
+    this.userForm = new FormGroup({
+      role: new FormControl('regular', Validators.required),
+      rfc: new FormControl(),
+      name: new FormControl(null, Validators.required),
+      email: new FormControl(null, Validators.email),
+      age: new FormControl(),
+      genre: new FormControl(),
+      sector: new FormControl(null, Validators.required),
+      address: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)
+    });
 
+    /* EDIT MODE*/
+    if (this.editMode) {
+      this.route.params.subscribe(params => {
+        this.userId = params.id;
+      });
+      this.promises.push(this.getUser(this.userId));
+    }
 
-	  /* EDIT MODE*/
-  	if(this.editMode){
-  		this.route.params.subscribe( params => {
-  			this.userId = params.id;
-  		});
-  		this.promises.push(this.getUser(this.userId));
-  	}
+    this.promises.push(this.getAllSectors());
 
-	  this.promises.push(this.getAllSectors());
-
-	  Promise.all(this.promises)
-	  	.then( (response) => console.log('response', response))
-      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+    Promise.all(this.promises)
+      .then(response => console.log('response', response))
+      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
 
     // Change the validators depending on the role
     this.checkValidators();
@@ -88,56 +89,59 @@ export class FormComponent implements OnInit {
   * Creates an user
   */
   save() {
-  	this.UserService.save(this.userForm.value)
-  		.then( response => {
-         if ( response.code === 'CREATED') {
-           // redirect to /users and show a notification
-           this.router.navigateByUrl('/users');
-         } else {
-           // Show the alert.
-         }
+    this.UserService
+      .save(this.userForm.value)
+      .then(response => {
+        if (response.code === 'CREATED') {
+          // redirect to /users and show a notification
+          this.router.navigateByUrl('/users');
+        } else {
+          // Show the alert.
+        }
       })
-      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
   /*
   * update an user
   */
   update() {
-  	delete this.userForm.value.password;
-  	this.UserService.update(this.userId, this.userForm.value)
-  		.then( response => {
-        if ( response.code === 'OK') {
-           // redirect to /users and show a notification
-           this.router.navigateByUrl('/users');
-         } else {
-           // Show the alert.
-         }
+    delete this.userForm.value.password;
+    this.UserService
+      .update(this.userId, this.userForm.value)
+      .then(response => {
+        if (response.code === 'OK') {
+          // redirect to /users and show a notification
+          this.router.navigateByUrl('/users');
+        } else {
+          // Show the alert.
+        }
       })
-  		.catch( err => console.log(JSON.parse(`{'error': ${err}}`)))
+      .catch(err => console.log(JSON.parse(`{'error': ${err}}`)));
   }
 
   /*
   * Get all the sectors from the API
   */
   getAllSectors() {
-  	return this.SectorService.findAll()
-	  	.then( response => this.sectors = response.data )
-      .catch( err => console.error('error', err));
+    return this.SectorService
+      .findAll()
+      .then(response => (this.sectors = response.data))
+      .catch(err => console.error('error', err));
   }
 
   /*
   * check if the user to be add is regular
   */
   isRegularUser() {
-  	return this.userForm.value.role === 'regular';
+    return this.userForm.value.role === 'regular';
   }
 
   /*
   * check if the user to be add is admin
   */
   isAdmin() {
-  	return this.userForm.value.role === 'admin';
+    return this.userForm.value.role === 'admin';
   }
 
   /*
@@ -145,27 +149,27 @@ export class FormComponent implements OnInit {
   * @param{string} uuid
   */
   getUser(uuid) {
-  	return this.UserService.findOne(uuid)
-  		.then( response => this.userForm.reset(response.data))
-  		.catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+    return this.UserService
+      .findOne(uuid)
+      .then(response => this.userForm.reset(response.data))
+      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
   /*
   * Apply different validators depending on the user role
   */
   checkValidators() {
-    this.userForm.get('role').valueChanges
-      .subscribe( (role: string) => {
-        console.log('role: ', role);
-        if ( role === 'admin') {
-          this.userForm.get('rfc').setValidators(null);
-        } else if ( role === 'company') {
-          this.userForm.get('rfc').setValidators([Validators.required]);
-        } else {
-          this.userForm.get('rfc').setValidators(null);
-        }
-        this.userForm.get('rfc').updateValueAndValidity();
-      });
+    this.userForm.get('role').valueChanges.subscribe((role: string) => {
+      console.log('role: ', role);
+      if (role === 'admin') {
+        this.userForm.get('rfc').setValidators(null);
+      } else if (role === 'company') {
+        this.userForm.get('rfc').setValidators([Validators.required]);
+      } else {
+        this.userForm.get('rfc').setValidators(null);
+      }
+      this.userForm.get('rfc').updateValueAndValidity();
+    });
   }
 
   /*
