@@ -59,7 +59,7 @@ export class FormComponent implements OnInit {
     // Create the form
     this.userForm = new FormGroup({
       role: new FormControl('regular', Validators.required),
-      rfc: new FormControl(),
+      RFC: new FormControl(),
       name: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       age: new FormControl(),
@@ -98,8 +98,11 @@ export class FormComponent implements OnInit {
           if (response.code === 'CREATED') {
             // redirect to /users and show a notification
             this.router.navigateByUrl('/users');
+            this.NotifyService.show(`Usuarios agregado correctamente`,
+            { position: 'top', location: '#main-wrapper', duration: '2000', type: 'success' });
           } else {
-            // Show the alert.
+            this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`,
+            { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
           }
         })
         .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
@@ -113,15 +116,16 @@ export class FormComponent implements OnInit {
   * update an user
   */
   update() {
-    delete this.userForm.value.password;
     this.UserService
       .update(this.userId, this.userForm.value)
       .then(response => {
         if (response.code === 'OK') {
-          // redirect to /users and show a notification
           this.router.navigateByUrl('/users');
+          this.NotifyService.show(`Usuarios actualizado correctamente`,
+          { position: 'top', location: '#main-wrapper', duration: '1000', type: 'success' });
         } else {
-          // Show the alert.
+          this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`,
+          { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
         }
       })
       .catch(err => console.log(JSON.parse(`{'error': ${err}}`)));
@@ -167,20 +171,23 @@ export class FormComponent implements OnInit {
   */
   checkValidators() {
     this.userForm.get('role').valueChanges.subscribe((role: string) => {
+      if (this.editMode) {
+        this.userForm.get('password').setValidators(null);
+      }
       if (role === 'admin') {
-        this.userForm.get('rfc').setValidators(null);
+        this.userForm.get('RFC').setValidators(null);
         this.userForm.get('sector').setValidators(null);
         this.userForm.get('address').setValidators(null);
       } else if (role === 'company') {
-        this.userForm.get('rfc').setValidators([Validators.required]);
+        this.userForm.get('RFC').setValidators([Validators.required]);
         this.userForm.get('sector').setValidators([Validators.required]);
         this.userForm.get('address').setValidators([Validators.required]);
       } else {
-        this.userForm.get('rfc').setValidators(null);
+        this.userForm.get('RFC').setValidators(null);
         this.userForm.get('sector').setValidators([Validators.required]);
         this.userForm.get('address').setValidators([Validators.required]);
       }
-      this.userForm.get('rfc').updateValueAndValidity();
+      this.userForm.get('RFC').updateValueAndValidity();
     });
   }
 

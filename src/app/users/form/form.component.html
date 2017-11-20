@@ -45,13 +45,13 @@
       <div class="small-12 medium-6 columns" *ngIf="!isRegularUser() && !isAdmin()">
         <div class="columns text-center">
             <label>*RFC:</label>
-          <input id="rfc-input" type="text" placeholder="RFC" formControlName="rfc" (keypress)="checkRFCLimit($event)" minlength="12">
+          <input id="rfc-input" type="text" placeholder="RFC" formControlName="RFC" (keypress)="checkRFCLimit($event)" minlength="12">
           <span class="form-error"
-                *ngIf="userForm.get('rfc').hasError('required') && userForm.get('rfc').touched">
+                *ngIf="userForm.get('RFC').hasError('required') && userForm.get('RFC').touched">
             Inserta el RFC de la empresa.
           </span>
           <span class="form-error"
-                *ngIf=" userForm.get('rfc').hasError('minlength') && !userForm.get('rfc').hasError('required') && userForm.get('rfc').touched">
+                *ngIf=" userForm.get('RFC').hasError('minlength') && !userForm.get('RFC').hasError('required') && userForm.get('RFC').touched">
             Porfavor ingresa un RFC valido. Longitud minima {{ userForm.get('rfc').getError('minlength').requiredLength }} caracteres.
           </span>
         </div>
@@ -110,7 +110,7 @@
 
 
    <!-- Seguridad -->
- 	<fieldset class="fieldset borderB_danger">
+ 	<fieldset class="fieldset borderB_danger" *ngIf="!editMode">
  		<legend><i class="fa fa-lock fa-fw"></i> Seguridad</legend>
     <div class="row">
       <div class="small-12 medium-6 columns">
@@ -170,10 +170,10 @@
 
 	<hr>
  	<div class="">
- 		<button *ngIf="!editMode" class="button warning large" type="submit">
+ 		<button *ngIf="!editMode" class="button warning large" type="submit" [disabled]="userForm.invalid">
  			Guardar <i class="fa fa-save"></i>
 		</button>
- 		<button *ngIf="editMode" class="button secondary large" (click)="update()" type="button">
+ 		<button *ngIf="editMode" class="button secondary large" (click)="update()" type="button" [disabled]="userForm.invalid">
  			Actualizar <i class="fa fa-save"></i>
 		</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
