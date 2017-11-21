@@ -10,10 +10,10 @@ import { UserService } from '../shared/api/user.service';
 export class UsersComponent implements OnInit {
 
   // array to hold users
-  users: [{[value: string]: any}];
+  users: [{[key: string]: any}];
 
   // loading object
-  loading: {[value: string]: any} = {
+  loading: {[key: string]: any} = {
     all: false,
   };
 
@@ -35,7 +35,9 @@ export class UsersComponent implements OnInit {
       .then(() => {
         this.loading.all = true;
       })
-      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .catch( err => {
+        console.error(JSON.parse("{Code: '500', message: err, method: 'UsersComponent.ngOnInit()'}"))
+      });
   }
 
   /*
@@ -47,7 +49,9 @@ export class UsersComponent implements OnInit {
         this.users = response.data
         console.log("this.users", this.users);
       })
-      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .catch( err => {
+        console.error(JSON.parse("{Code: '500', message: err, method: 'UsersComponent.getAllUsers()'}"))
+      })
   }
 
   /*

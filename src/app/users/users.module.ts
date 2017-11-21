@@ -5,6 +5,7 @@ import { UsersRoutesModule } from './users.routes.module';
 
 import { UsersComponent } from './users.component';
 import { AddComponent } from './add/add.component';
+import { DetailComponent } from './detail/detail.component';
 import { FormComponent } from './form/form.component';
 import { EditComponent } from './edit/edit.component';
 
@@ -12,6 +13,7 @@ import { EditComponent } from './edit/edit.component';
   declarations: [
   	UsersComponent,
   	AddComponent,
+  	DetailComponent,
   	FormComponent,
   	EditComponent
   ],

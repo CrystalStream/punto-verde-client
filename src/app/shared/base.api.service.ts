@@ -32,7 +32,7 @@ export abstract class BaseApiService {
 	* param{Number} sort
 	* param{Number} populate
 	*/
-	findAll(where: object = {}, limit: number = 20, skip: number = 0, sort: string = null, populate: string = null) {
+	findAll(where: object = {}, limit: number = 20, skip: number = 0, sort: string = 'id ASC', populate: string = null) {
 		return this.http
       .get(this.getBaseUrl(), 
       	{ headers: this.headers,
@@ -53,11 +53,16 @@ export abstract class BaseApiService {
 	* Return a single item
 	* param{string} id
 	*/
-	findOne(id: string) {
+	findOne(id: string, populate:string = null ) {
+		console.log("populate", populate);
 		return this.http
 			.get(
 				`${this.getBaseUrl()}/${id}`,
-				{ headers: this.headers }
+				{ headers: this.headers,
+					params: {
+						populate
+					}
+				 }
 				)
 			.toPromise()
       .then( response => response.json() )
