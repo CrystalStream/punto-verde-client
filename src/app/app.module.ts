@@ -11,8 +11,8 @@ import { NgNotifyPopup } from 'ng2-notify-popup';
 import { NotificationService } from 'ng2-notify-popup';
 
 
-import { UserService } from './shared/api/user.service';
-import { SectorService } from './shared/api/sector.service';
+import { UserService } from './shared/services/api/user.service';
+import { SectorService } from './shared/services/api/sector.service';
 import { AppComponent } from './app.component';
 
 @NgModule({

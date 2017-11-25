@@ -1,0 +1,36 @@
+@import '../../assets/foundation-sites/_global.scss';
+
+.home-header{
+  background: url('/assets/homeB.jpg');
+  margin: -2rem -3rem;
+  padding: 10px;
+  font-weight: bold;
+  .subheader {
+    &.white {
+      color: white;
+    }
+  }
+}
+
+.marginB3rem {
+  margin-bottom: 3rem;
+}
+
+.card {
+  i, h4 {
+    align-self: center;
+  }
+  .card-divider {
+    color: white;
+    &.success {
+      background: $primary-color;
+    }
+    &.secondary {
+      background: $secondary-color;
+      color: $black;
+    }
+    &.warning {
+      background: $warning-color;
+    }
+  }
+}
