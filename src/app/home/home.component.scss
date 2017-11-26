@@ -33,4 +33,35 @@
       background: $warning-color;
     }
   }
+  .card-section{
+    p {
+      font-size: 3rem;
+      text-align: center;
+    }
+    .view-more{
+      &.success {
+        background: lighten($primary-color, 50);
+      }
+      &.secondary {
+        background: lighten($secondary-color, 30);
+        color: $black;
+      }
+      &.warning {
+        background: lighten($warning-color, 30);
+      }
+
+      overflow: hidden;
+      margin: -1rem;
+      padding: .5rem;
+      a {
+        color: darken($primary-color, 20);
+        &:hover {
+          text-decoration: underline;
+        }
+        i {
+          font-size: .7rem;
+        }
+      }
+    }
+  }
 }
