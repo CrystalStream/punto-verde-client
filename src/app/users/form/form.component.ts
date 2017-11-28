@@ -2,13 +2,19 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { environment } from './../../../environments/environment';
+
 import { Observable } from 'rxjs/Observable';
 
 import { UserService } from '../../shared/services/api/user.service';
 import { SectorService } from '../../shared/services/api/sector.service';
 import { NotificationService } from 'ng2-notify-popup';
 
+// for jquery
 declare var $: any;
+
+// for cloudinary widget uploader
+declare var cloudinary: any;
 
 @Component({
   selector: 'app-form-users',
@@ -33,6 +39,15 @@ export class FormComponent implements OnInit {
 
   // Default password value
   DEFAULT_PASSWORD: string = 'default123';
+
+  // Notification error message
+  notificationError: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' };
+
+  // Notification success message
+  notificationSuccess: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' };
+
+  // user photos
+  photos: string[] = [];
 
   /*
   * constructor
@@ -66,7 +81,8 @@ export class FormComponent implements OnInit {
       genre: new FormControl(),
       sector: new FormControl(null, Validators.required),
       address: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
+      password: new FormControl(null, Validators.required),
+      photos: new FormControl(null)
     });
 
     /* EDIT MODE*/
@@ -98,17 +114,14 @@ export class FormComponent implements OnInit {
           if (response.code === 'CREATED') {
             // redirect to /users and show a notification
             this.router.navigateByUrl('/users');
-            this.NotifyService.show(`Usuarios agregado correctamente`,
-            { position: 'top', location: '#main-wrapper', duration: '2000', type: 'success' });
+            this.NotifyService.show(`Usuarios agregado correctamente`, this.notificationSuccess);
           } else {
-            this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`,
-            { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
+            this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
           }
         })
         .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
     } else {
-      this.NotifyService.show('ERROR. Porfavor corrigue los datos e intentalo de nuevo!.',
-        { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
+      this.NotifyService.show('ERROR. Porfavor corrigue los datos e intentalo de nuevo!.', this.notificationError);
     }
   }
 
@@ -121,11 +134,9 @@ export class FormComponent implements OnInit {
       .then(response => {
         if (response.code === 'OK') {
           this.router.navigateByUrl('/users');
-          this.NotifyService.show(`Usuarios actualizado correctamente`,
-          { position: 'top', location: '#main-wrapper', duration: '1000', type: 'success' });
+          this.NotifyService.show(`Usuarios actualizado correctamente`, this.notificationSuccess);
         } else {
-          this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`,
-          { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
+          this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
         }
       })
       .catch(err => console.log(JSON.parse(`{'error': ${err}}`)));
@@ -215,5 +226,21 @@ export class FormComponent implements OnInit {
     if ( e.target.value.length > 13 ) {
       e.preventDefault();
     }
+  }
+
+  /*
+  * Show the clodinary uploader
+  */
+  showUploader() {
+    cloudinary.openUploadWidget({ cloud_name: environment.cloudName, upload_preset: environment.uploadPreset},
+    (error, photos)  => {
+      if (!error) {
+        this.photos.push(photos.map( p => p.path));
+        console.log('this.photos: ', this.photos);
+      } else {
+        this.NotifyService.show(`Error al subir la imagen`, this.notificationError);
+      }
+      console.log(error, photos);
+    });
   }
 }

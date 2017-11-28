@@ -8,6 +8,7 @@ import { AddComponent } from './add/add.component';
 import { DetailComponent } from './detail/detail.component';
 import { FormComponent } from './form/form.component';
 import { EditComponent } from './edit/edit.component';
+import { CloudinaryPipe } from '../shared/pipes/cloudinary.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { EditComponent } from './edit/edit.component';
   	AddComponent,
   	DetailComponent,
   	FormComponent,
-  	EditComponent
+    EditComponent,
+    CloudinaryPipe
   ],
   imports: [
     CommonModule,

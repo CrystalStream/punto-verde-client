@@ -169,7 +169,13 @@
 
 	<!-- Image -->
  	<fieldset class="fieldset borderB_primary">
- 		<legend><i class="fa fa-picture-o fa-fw"></i> Imagenes</legend>
+    <legend><i class="fa fa-picture-o fa-fw"></i> Imagenes</legend>
+    <button class="button success" type="button" id="btn-uploader" (click)="showUploader()">Subir fotos</button>
+    <div *ngIf="photos && photos.length">
+      Fotos:
+      <hr>
+      <img *ngFor="let photo of photos" src="{{photo | cloudinaryUrl: 'thumb_200x150'}}" alt="photo" class="thumbnail small-12 medium-3">
+    </div>
  	</fieldset>
 
 	<hr>

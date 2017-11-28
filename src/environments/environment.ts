@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://localhost:5000/v1/"
+  baseUrl: 'http://localhost:5000/v1/',
+  cloudName: 'crystalstream',
+  uploadPreset: 'cu8bwt31'
 };
