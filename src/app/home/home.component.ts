@@ -50,14 +50,14 @@ export class HomeComponent implements OnInit {
   getSectorsCount(): Promise<any> {
       return this.SectorService.count()
         .then((response) => this.sectorCount = response.data.count)
-        .catch(error => console.error('ERROR: HomeComponent@getSectorsCount() :', error ));;
+        .catch(error => console.error('ERROR: HomeComponent@getSectorsCount() :', error ));
   }
 
    /**
    * Get the users count.
    */
   getUsersCount(): Promise<any> {
-    return this.UserService.count()
+    return this.UserService.count({ role: { '!': 'company' }})
       .then((response) => this.usersCount = response.data.count)
       .catch(error => console.error('ERROR: HomeComponent@getUsersCount() :', error ));
   }
