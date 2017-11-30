@@ -1,3 +1,4 @@
+import { NotificationService } from 'ng2-notify-popup';
 import { Component, OnInit, Input} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -25,7 +26,7 @@ export class FormComponent implements OnInit {
 
   sectorForm: FormGroup;
 
-  constructor(public SectorService: SectorService,  public route: ActivatedRoute) { }
+  constructor(public SectorService: SectorService,  public route: ActivatedRoute, private NotifyService: NotificationService) { }
 
   ngOnInit() {    
     this.sectorForm = new FormGroup({
@@ -45,8 +46,18 @@ export class FormComponent implements OnInit {
   save() {
   	this.SectorService.save(this.sectorForm.value)
   		.then( response => {
-        this.messageSave = true;
-         console.log("response", response);
+        if(response.code === 'CREATED'){
+          this.messageSave = true;
+          this.NotifyService.show(`Sector agregado`,
+          {position: 'top', location: '#main-wrapper', duration: '2000', type: 'error'});
+        }
+        else{
+          this.NotifyService.show(`Error al agregar`,
+          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+        }
+      })
+      .catch( err => {
+  			console.log(err)
   		})
   }
   
@@ -54,7 +65,14 @@ export class FormComponent implements OnInit {
   	delete this.sectorForm.value.password;
   	this.SectorService.update(this.sectorId, this.sectorForm.value)
   		.then( response => {
-  		    console.log("response", response);
+        if(response.code === 'OK'){
+          this.NotifyService.show(`Sector editado`,
+          {position: 'top', location: '#main-wrapper', duration: '2000', type: 'error'});
+        }
+        else{
+          this.NotifyService.show(`Error al actualizar`,
+          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+        }
   		})
   		.catch( err => {
   			console.log(err)

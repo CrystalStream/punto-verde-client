@@ -1,3 +1,4 @@
+import { NotificationService } from 'ng2-notify-popup';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SectorService } from '../shared/api/sector.service';
@@ -12,7 +13,7 @@ export class SectorsComponent implements OnInit {
   @Input() editMode: boolean = false;
    
   // array to hold users
-  sectors: [{[value: string]: any}];
+  sectors: Array<any>;
 
   // loading object
   loading: {[value: string]: any} = {
@@ -26,7 +27,7 @@ export class SectorsComponent implements OnInit {
   * constructor
   * @param{SectorService} SectorService
   */
-  constructor(public SectorService: SectorService, public route: ActivatedRoute) { }
+  constructor(private SectorService: SectorService,  private NotifyService: NotificationService) { }
 
   /*
   * init
@@ -37,7 +38,10 @@ export class SectorsComponent implements OnInit {
       .then(() => {
         this.loading.all = true;
       })
-      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .catch( err =>
+      {
+        console.error(JSON.parse("{Code: '500', message: err, method: 'SectorComponent.ngOnInit()'}"))
+      });
   }
 
   /*
@@ -49,15 +53,26 @@ export class SectorsComponent implements OnInit {
   			this.sectors = response.data;
   			console.log("this.sectors", this.sectors);
   		})
-      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .catch( err => 
+        {
+          console.error(JSON.parse("{Code: '500', message: err, method: 'SectorsComponent.getAllUsers()'}"))
+        })
+          
   }
-  
+ 
   deleteSector(uuid) {
     this.SectorService.destroy(uuid)
       .then( response => {
-        console.log(response);
-        window.location.reload(true);
+        if (response.code === 'OK') {
+          this.sectors = this.sectors.filter( sector => sector.uuid !== uuid);
+          this.NotifyService.show(`Sector eliminado`,
+          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+        } else {
+          this.NotifyService.show(`Error al eliminar`,
+          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+        }
       })
+      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
 
 }

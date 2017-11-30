@@ -1,31 +1,39 @@
+<div class="row align-spaced">
+	<div class="columns">
+		<h3>Sectores</h3>
+		<hr>
+	</div>
+</div>
+<div class="row align-spaced">
+	<div class="small-12 medium-12 columns">
+		<a routerLink="add" class="button primary float-right">Agregar</a>
+	</div>
+</div>
 <div class="row">
-    <div class="small-12 medium-6 columns">
-      <h3>Sectores</h3>
-      <hr>
-      <div class="small-12 medium-9 columns">
-          <a routerLink="add" class="button primary float-right">Agregar</a>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Nombre</th>
-            <th width="150">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let sector of sectors">
-            <td>{{sector.uuid}}</td>
-            <td>{{sector.name}}</td>
-            <td colspan="2">
-              <a [routerLink]="['edit', sector.uuid]">Editar</a>
-              <a (click)="deleteSector(sector.uuid)">Eliminar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="small-12 medium-6 columns">
+  <table class="stack">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th width="350">Nombre</th>
+        <th width="150">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sector of sectors">
+        <td><a href="">{{sector.uuid}}</a></td>
+        <td><a href="">{{sector.name}}</a></td>
+        <td colspan="2">
+          <a [routerLink]="['edit', sector.uuid]" class="button small warning">
+            <i class="fa fa-pencil"></i>
+          </a>
+          <a (click)="deleteSector(sector.uuid)" class="button small alert">
+            <i class="fa fa-times"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+    <div class="small-12 medium-12 columns">
       <h3>Colonias</h3>
       <hr>
       <div class="small-12 medium-9 columns">
