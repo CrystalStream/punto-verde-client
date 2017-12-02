@@ -238,9 +238,11 @@ export class FormComponent implements OnInit {
         this.photos.push(photos.map( p => p.path));
         console.log('this.photos: ', this.photos);
       } else {
-        this.NotifyService.show(`Error al subir la imagen`, this.notificationError);
+        if (error.message !== 'User closed widget') {
+          this.NotifyService.show(`Error al subir la imagen`, this.notificationError);
+          console.error('FormComponent@showUploader(): ', error);
+        }
       }
-      console.log(error, photos);
     });
   }
 }
