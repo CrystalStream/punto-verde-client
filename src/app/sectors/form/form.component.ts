@@ -1,7 +1,7 @@
 import { NotificationService } from 'ng2-notify-popup';
 import { Component, OnInit, Input} from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { SectorService } from '../../shared/api/sector.service';
@@ -22,15 +22,19 @@ export class FormComponent implements OnInit {
   // promises array
 	promises: Promise<any>[] = [];
 
-  messageSave: boolean = false;
-
   sectorForm: FormGroup;
 
-  constructor(public SectorService: SectorService,  public route: ActivatedRoute, private NotifyService: NotificationService) { }
+  constructor(
+    public SectorService: SectorService,  
+    public route: ActivatedRoute, 
+    public router: Router,
+    private NotifyService: NotificationService
+  ) { }
 
   ngOnInit() {    
+    
     this.sectorForm = new FormGroup({
-      name: new FormControl()
+      name: new FormControl(null, Validators.required)
     });
 
 
@@ -44,10 +48,13 @@ export class FormComponent implements OnInit {
   }
 
   save() {
-  	this.SectorService.save(this.sectorForm.value)
-  		.then( response => {
+    if(this.sectorForm.valid){
+      this.SectorService
+      .save(this.sectorForm.value)
+      .then( response => {
         if(response.code === 'CREATED'){
-          this.messageSave = true;
+          // redirect to /sectors and show a notification
+          this.router.navigateByUrl('/sectors');
           this.NotifyService.show(`Sector agregado`,
           {position: 'top', location: '#main-wrapper', duration: '2000', type: 'error'});
         }
@@ -56,9 +63,11 @@ export class FormComponent implements OnInit {
           { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
         }
       })
-      .catch( err => {
-  			console.log(err)
-  		})
+      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+    } else{
+      this.NotifyService.show('ERROR. Porfavor corrigue los datos e intentalo de nuevo!.',
+      { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
+    }
   }
   
   update() {
