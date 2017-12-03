@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../shared/services/api/user.service';
 import { SectorService } from '../../shared/services/api/sector.service';
 import { NotificationService } from 'ng2-notify-popup';
+import { ImageService } from '../../shared/services/api/image.service';
 
 // for jquery
 declare var $: any;
@@ -47,7 +48,7 @@ export class FormComponent implements OnInit {
   notificationSuccess: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' };
 
   // user photos
-  photos: string[] = [];
+  photos: object[] = [];
 
   /*
   * constructor
@@ -61,7 +62,8 @@ export class FormComponent implements OnInit {
     public SectorService: SectorService,
     public route: ActivatedRoute,
     public router: Router,
-    private NotifyService: NotificationService
+    private NotifyService: NotificationService,
+    public ImageService: ImageService
   ) {}
 
   /*
@@ -82,7 +84,7 @@ export class FormComponent implements OnInit {
       sector: new FormControl(null, Validators.required),
       address: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
-      photos: new FormControl(null)
+      assets: new FormControl(null)
     });
 
     /* EDIT MODE*/
@@ -235,8 +237,8 @@ export class FormComponent implements OnInit {
     cloudinary.openUploadWidget({ cloud_name: environment.cloudName, upload_preset: environment.uploadPreset},
     (error, photos)  => {
       if (!error) {
-        this.photos.push(photos.map( p => p.path));
-        console.log('this.photos: ', this.photos);
+        this.photos.push(...photos.map( p => p.path));
+        this.attachToUser();
       } else {
         if (error.message !== 'User closed widget') {
           this.NotifyService.show(`Error al subir la imagen`, this.notificationError);
@@ -244,5 +246,22 @@ export class FormComponent implements OnInit {
         }
       }
     });
+  }
+
+  /*
+  * Attach the images to the user
+  */
+  attachToUser() {
+    const photosObj = this.photos.reduce((o, key: any) => ({ ...o, ['src']: key}), {});
+    this.ImageService.save(photosObj)
+      .then( response => {
+        console.log('response: ', response);
+      });
+
+
+    // Promise.all(imgPromises)
+    //   .then( response => {
+    //     console.log('response: ', response);
+    //   });
   }
 }
