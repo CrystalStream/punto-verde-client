@@ -45,7 +45,7 @@ export class FormComponent implements OnInit {
   notificationError: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' };
 
   // Notification success message
-  notificationSuccess: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' };
+  notificationSuccess: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'success' };
 
   // user photos
   photos: object[] = [];
@@ -253,15 +253,14 @@ export class FormComponent implements OnInit {
   */
   attachToUser() {
     const photosObj = this.photos.reduce((o, key: any) => ({ ...o, ['src']: key}), {});
+    console.log('photosObj: ', photosObj);
     this.ImageService.save(photosObj)
       .then( response => {
-        console.log('response: ', response);
+        if (response.code === 'OK') {
+          this.userForm.controls['assets'].setValue(response.data.uuid);
+        } else {
+          console.error('Error Storing asssets. FormComponent@attachToUser: ', response);
+        }
       });
-
-
-    // Promise.all(imgPromises)
-    //   .then( response => {
-    //     console.log('response: ', response);
-    //   });
   }
 }
