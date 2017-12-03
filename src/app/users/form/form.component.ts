@@ -99,7 +99,7 @@ export class FormComponent implements OnInit {
 
     Promise.all(this.promises)
       .then(response => console.log('response', response))
-      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .catch(err => console.error(`{'error': ${err}}`));
 
     // Change the validators depending on the role
     this.checkValidators();
@@ -121,7 +121,7 @@ export class FormComponent implements OnInit {
             this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
           }
         })
-        .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+        .catch(err => console.error('Error: FormComponent@save: ', err));
     } else {
       this.NotifyService.show('ERROR. Porfavor corrigue los datos e intentalo de nuevo!.', this.notificationError);
     }
@@ -141,7 +141,7 @@ export class FormComponent implements OnInit {
           this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
         }
       })
-      .catch(err => console.log(JSON.parse(`{'error': ${err}}`)));
+      .catch(err => console.log('Error: FormComponent@update: ', err));
   }
 
   /*
@@ -174,9 +174,13 @@ export class FormComponent implements OnInit {
   */
   getUser(uuid) {
     return this.UserService
-      .findOne(uuid)
-      .then(response => this.userForm.reset(response.data))
-      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .findOne(uuid, 'assets')
+      .then(response => {
+        this.photos = response.data.assets;
+        delete response.data.assets;
+        this.userForm.reset(response.data);
+      })
+      .catch(err => console.error(`{'error': ${err}}`));
   }
 
   /*
@@ -256,7 +260,7 @@ export class FormComponent implements OnInit {
     console.log('photosObj: ', photosObj);
     this.ImageService.save(photosObj)
       .then( response => {
-        if (response.code === 'OK') {
+        if (response.code === 'CREATED') {
           this.userForm.controls['assets'].setValue(response.data.uuid);
         } else {
           console.error('Error Storing asssets. FormComponent@attachToUser: ', response);
