@@ -274,8 +274,17 @@ export class FormComponent implements OnInit {
   /*
   * Delete the given asset
   */
-  deleteAsset(assetUrl) {
-    console.log('assetUrl: ', assetUrl);
+  deleteAsset(assetId) {
+    this.UserService.remove(this.userId, 'assets', assetId)
+      .then(response => {
+        if (response.code === 'OK') {
+          $('.user-images-thumb').fadeOut();
+          this.photos = this.photos.filter( p => p.uuid !== assetId);
+        } else {
+          this.NotifyService.show(`No se puede borrar la imagen!`, this.notificationError);
+          console.error('Error: FormComponent@deleteAsset: ', response);
+        }
+      })
     console.log('before this.photos: ', this.photos);
     console.log('affter this.photos: ', this.photos);
   }

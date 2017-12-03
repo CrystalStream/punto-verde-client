@@ -115,7 +115,6 @@ export abstract class BaseApiService {
   * @param{object} filter. Object to establish a criteria on the count query.
   */
   count(filter: object = {}) {
-    console.log('filter: ', filter);
     return this.http
       .get(`${this.getBaseUrl()}/count`, {
         params: {
@@ -125,5 +124,19 @@ export abstract class BaseApiService {
       .toPromise()
       .then(response => response.json())
       .catch(err => Promise.reject(err.message || err))
+  }
+
+  /*
+  * Remove the association
+  * @param{string} uuid. the model uuid over we are going to remove from.
+  * @param{string} association. The association name of the model.
+  * @param{string} fk. the foreign key of the relationship object to remove.
+  */
+  remove(uuid: string, association: string, fk: string) {
+    return this.http
+      .delete(`${this.getBaseUrl()}/${uuid}/${association}/${fk}`, { headers: this.headers })
+      .toPromise()
+      .then(response => response.json())
+      .catch(err => Promise.reject(err.message || err));
   }
 }
