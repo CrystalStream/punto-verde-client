@@ -48,7 +48,7 @@ export class FormComponent implements OnInit {
   notificationSuccess: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'success' };
 
   // user photos
-  photos: object[] = [];
+  photos: Array<any> = [];
 
   /*
   * constructor
@@ -241,7 +241,12 @@ export class FormComponent implements OnInit {
     cloudinary.openUploadWidget({ cloud_name: environment.cloudName, upload_preset: environment.uploadPreset},
     (error, photos)  => {
       if (!error) {
-        this.photos.push(...photos.map( p => p.path));
+        photos.forEach( p => {
+          let pObject = {
+            'src': p.path
+          };
+          this.photos.push(pObject);
+        });
         this.attachToUser();
       } else {
         if (error.message !== 'User closed widget') {
@@ -256,9 +261,7 @@ export class FormComponent implements OnInit {
   * Attach the images to the user
   */
   attachToUser() {
-    const photosObj = this.photos.reduce((o, key: any) => ({ ...o, ['src']: key}), {});
-    console.log('photosObj: ', photosObj);
-    this.ImageService.save(photosObj)
+    this.ImageService.save(this.photos[0])
       .then( response => {
         if (response.code === 'CREATED') {
           this.userForm.controls['assets'].setValue(response.data.uuid);
@@ -266,5 +269,14 @@ export class FormComponent implements OnInit {
           console.error('Error Storing asssets. FormComponent@attachToUser: ', response);
         }
       });
+  }
+
+  /*
+  * Delete the given asset
+  */
+  deleteAsset(assetUrl) {
+    console.log('assetUrl: ', assetUrl);
+    console.log('before this.photos: ', this.photos);
+    console.log('affter this.photos: ', this.photos);
   }
 }

@@ -175,8 +175,8 @@
       <hr>
       <div class="row">
         <div class="user-images-thumb text-center small-12 medium-3 columns" *ngFor="let photo of photos" >
-          <img src="{{photo | cloudinaryUrl: 'thumb_200x150'}}" alt="photo" class="thumbnail"> <br>
-          <button type="button" class="button alert tiny"><i class="fa fa-times"></i></button>
+          <img src="{{photo.src | cloudinaryUrl: 'thumb_200x150'}}" alt="photo" class="thumbnail"> <br>
+          <button type="button" class="button alert tiny" (click)="deleteAsset(photo.uuid)"><i class="fa fa-times"></i></button>
         </div>
       </div>
     </div>
