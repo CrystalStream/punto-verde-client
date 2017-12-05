@@ -1,0 +1,44 @@
+<div class="row" *ngIf="loading.all">
+<div class="small-12 columns">
+  <h2><i class="fa fa-street-view fa-fw"></i> {{ sector.name }}</h2>
+  <hr>
+</div>
+<div class="small-12 columns" *ngIf="sector.users.length">
+  <h3>Usuarios</h3>
+  <table>
+    <thead>
+      <th>Nombre</th>
+      <th>Rol</th>
+      <th>Puntos</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of sector.users">
+        <td><a [routerLink]="['/users/show', user.uuid]">{{ user.name }}</a></td>
+        <td><span class="label" [ngClass]="user.role">{{ user.role }}</span></td>
+        <td>{{ user.points }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="small-12 columns" *ngIf="!sector.users.length">
+  <div class="callout no-users-callout">
+    <p>
+        <i class="fa fa-exclamation-triangle fa-fw"></i> No hay usuarios
+    </p>
+  </div>
+</div>
+<div class="small-12 columns">
+  <hr>
+  <div class="float-right">
+    <a [routerLink]="['/sectors/edit', sector.uuid]" class="button warning large">
+      <i class="fa fa-pencil fa-fw"></i> Editar
+    </a>
+    <button class="button alert large">
+      <i class="fa fa-times fa-fw"></i> Borrar
+    </button>
+  </div>
+</div>
+</div>
+<div *ngIf="!loading.all" class="row">
+	<i class="fa fa-spinner fa-pulse fa-3x float-center"></i>
+</div>

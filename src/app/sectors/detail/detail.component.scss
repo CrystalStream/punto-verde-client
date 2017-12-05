@@ -1,10 +1,13 @@
-@import '../../../node_modules/foundation-sites/scss/util/util';
-
-$hoverLinkColor: #B22D09;
-
 $blue-color: #1779ba;
 $green-color: #2BAB60;
 $orange-color: #ffae00;
+
+$background-gray-gt: #f6f8fa;
+
+.no-users-callout{
+  background: lighten($orange-color, 40);
+  font-size: 1.2rem;
+}
 
 .label {
   text-transform: uppercase;

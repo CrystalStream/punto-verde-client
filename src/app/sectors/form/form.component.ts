@@ -27,6 +27,22 @@ export class FormComponent implements OnInit {
 
   sectorForm: FormGroup;
 
+  // Notification error message
+  notificationError: object = {
+    position: 'top',
+    location: '#main-wrapper',
+    duration: '2200',
+    type: 'error'
+  };
+
+  // Notification success message
+  notificationSuccess: object = {
+    position: 'top',
+    location: '#main-wrapper',
+    duration: '2200',
+    type: 'success'
+  };
+
   constructor(
     public SectorService: SectorService,
     public route: ActivatedRoute,
@@ -54,7 +70,6 @@ export class FormComponent implements OnInit {
   /*
   * Creates a sector
   */
-
   save() {
     if (this.sectorForm.valid) {
       this.SectorService.save(this.sectorForm.value)
@@ -62,21 +77,11 @@ export class FormComponent implements OnInit {
           if (response.code === 'CREATED') {
             // redirect to /sectors and show a notification
             this.router.navigateByUrl('/sectors');
-            this.NotifyService.show(`Sector agregado`, {
-              position: 'top',
-              location: '#main-wrapper',
-              duration: '2000',
-              type: 'error'
-            });
+            this.NotifyService.show('Sector agregado correctamente', this.notificationSuccess);
           } else {
             this.NotifyService.show(
               `ERROR (${response.code}) - ${response.statusText}`,
-              {
-                position: 'top',
-                location: '#main-wrapper',
-                duration: '2200',
-                type: 'error'
-              }
+              this.notificationError
             );
           }
         })
@@ -84,12 +89,7 @@ export class FormComponent implements OnInit {
     } else {
       this.NotifyService.show(
         'ERROR. Porfavor corrigue los datos e intentalo de nuevo!.',
-        {
-          position: 'top',
-          location: '#main-wrapper',
-          duration: '2200',
-          type: 'error'
-        }
+        this.notificationError
       );
     }
   }
@@ -101,21 +101,11 @@ export class FormComponent implements OnInit {
         if (response.code === 'OK') {
           // redirect to /sectors and show a notification
           this.router.navigateByUrl('/sectors');
-          this.NotifyService.show(`Sector editado`, {
-            position: 'top',
-            location: '#main-wrapper',
-            duration: '2000',
-            type: 'error'
-          });
+          this.NotifyService.show('Sector actualizado correctamente', this.notificationSuccess);
         } else {
           this.NotifyService.show(
             `ERROR (${response.code}) - ${response.statusText}`,
-            {
-              position: 'top',
-              location: '#main-wrapper',
-              duration: '2200',
-              type: 'error'
-            }
+            this.notificationError
           );
         }
       })

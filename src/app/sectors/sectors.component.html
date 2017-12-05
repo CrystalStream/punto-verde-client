@@ -13,15 +13,13 @@
   <table class="stack">
     <thead>
       <tr>
-        <th>id</th>
         <th width="350">Nombre</th>
         <th width="150">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let sector of sectors">
-        <td><a href="">{{sector.uuid}}</a></td>
-        <td><a href="">{{sector.name}}</a></td>
+        <td><a [routerLink]="['show', sector.uuid]">{{sector.name}}</a></td>
         <td colspan="2">
           <a [routerLink]="['edit', sector.uuid]" class="button small warning">
             <i class="fa fa-pencil"></i>

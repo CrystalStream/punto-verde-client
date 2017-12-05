@@ -8,13 +8,15 @@ import { AddComponent } from './add/add.component';
 import { SectorsComponent } from './sectors.component';
 import { FormComponent } from './form/form.component';
 import { EditComponent } from './edit/edit.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
     SectorsComponent,
     AddComponent,
     EditComponent,
-    FormComponent
+    FormComponent,
+    DetailComponent
   ],
   imports: [
     CommonModule,

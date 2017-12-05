@@ -33,6 +33,9 @@ $foundation-palette: (
   alert: #F16950,
 ) !default;
 
+/// Color used for hover links on table
+$hoverLinkColor: #B22D09;
+
 /// Color used for light gray UI items.
 /// @type Color
 $light-gray: #e6e6e6 !default;
@@ -241,6 +244,27 @@ $global-color-pick-contrast-tolerance: 0 !default;
 
   .is-hidden {
     display: none !important;
+  }
+
+  table {
+    thead {
+      color: rgb(49, 49, 49);
+    }
+    tbody {
+      font-weight: bold;
+      tr {
+        td {
+          a {
+            color: black;
+            transition: .1s;
+            &:hover{
+              color: $hoverLinkColor;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

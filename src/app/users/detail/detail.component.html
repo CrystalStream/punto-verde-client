@@ -54,7 +54,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>{{ user.sector.name }}</td>
+					<td><a [routerLink]="['/sectors/show', user.sector.uuid]">{{ user.sector.name }}</a></td>
 				</tr>
 			</tbody>
 		</table>
