@@ -3,7 +3,13 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+import * as config from '../../config';
+
+console.log('config: ', config);
+
 export const environment = {
   production: false,
-  baseUrl: "http://localhost:5000/v1/"
+  baseUrl: 'http://localhost:5000/v1/',
+  cloudName: 'crystalstream',
+  uploadPreset: 'cu8bwt31'
 };

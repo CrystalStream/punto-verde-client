@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { BaseApiService } from '../base.api.service';
 
 import { environment } from '../../../../environments/environment';
 
-
-/*
-*	Sectors service class
-*/
 @Injectable()
-export class SectorService extends BaseApiService{
+export class ImageService extends BaseApiService {
 
   /*
-	* constructor
+  * Constructor
+  * @param{Http} http
 	*/
   constructor(public http: Http) {
     super(http);
@@ -23,8 +24,7 @@ export class SectorService extends BaseApiService{
 	* Get base url
 	*/
   getBaseUrl(){
-    return `${environment.baseUrl}sectors`;
+    return `${environment.baseUrl}images`;
   }
-
 
 }

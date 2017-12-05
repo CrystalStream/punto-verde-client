@@ -13,7 +13,9 @@ import { NotificationService } from 'ng2-notify-popup';
 
 import { UserService } from './shared/services/api/user.service';
 import { SectorService } from './shared/services/api/sector.service';
+import { ImageService } from './shared/services/api/image.service';
 import { AppComponent } from './app.component';
+import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
 
 
 @NgModule({
@@ -31,7 +33,7 @@ import { AppComponent } from './app.component';
     ScrapsModule,
     HomeModule
   ],
-  providers: [UserService, SectorService, NotificationService],
+  providers: [UserService, SectorService, NotificationService, ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

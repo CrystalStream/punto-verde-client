@@ -1,6 +1,7 @@
 <div class="row" *ngIf="loading.all">
-	<div class="small-12 medium-3 columns">
-		<img src="http://icons.iconarchive.com/icons/icons8/ios7/512/Users-User-Male-2-icon.png" alt="IMAGEN">
+	<div class="small-12 medium-3 text-center columns">
+		<img *ngIf="user.assets && user.assets.length" src="{{ user.assets[0].src | cloudinaryUrl : 'profile_300x250'}}" alt="Profile">
+		<img *ngIf="user.assets && !user.assets.length" src="http://icons.iconarchive.com/icons/icons8/ios7/512/Users-User-Male-2-icon.png" alt="Profile">
 	</div>
 	<div class="small-12 medium-7 medium-offset-1 columns">
 		<div class="row align-center">

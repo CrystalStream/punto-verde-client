@@ -169,7 +169,26 @@
 
 	<!-- Image -->
  	<fieldset class="fieldset borderB_primary">
- 		<legend><i class="fa fa-picture-o fa-fw"></i> Imagenes</legend>
+    <legend><i class="fa fa-picture-o fa-fw"></i> Imagenes</legend>
+    <button *ngIf="photos && !photos.length" class="button success" type="button" id="btn-uploader" (click)="showUploader()">Subir fotos</button>
+    <div *ngIf="photos && photos.length">
+      <hr>
+      <div class="row">
+        <div class="small-12" *ngIf="editMode">
+          <div class="panel callout image-callout">
+            <p>
+              <i class="fa fa-exclamation-circle fa-fw"></i>
+              Al borrar la imagen se borrara del sistema aunque no hayas terminado de actualizar al usuario.
+              Recuerda subir otra imagen en tal caso.
+            </p>
+          </div>
+        </div>
+        <div class="user-images-thumb text-center small-12 medium-3 columns" *ngFor="let photo of photos" >
+          <img src="{{photo.src | cloudinaryUrl: 'thumb_200x150'}}" alt="photo" class="thumbnail"> <br>
+          <button type="button" class="button alert tiny" (click)="deleteAsset(photo.uuid)"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+    </div>
  	</fieldset>
 
 	<hr>
