@@ -2,29 +2,26 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { BaseApiService } from '../base.api.service';
-
-import { environment } from '../../../environments/environment';
-
+import { environment } from '../../../../environments/environment';
 
 /*
-*	Sectors service class
+*	User service class
 */
 @Injectable()
-export class SectorService extends BaseApiService{
+export class UserService extends BaseApiService {
 
-  /*
+	/*
 	* constructor
+  * @param{Htpp} http
 	*/
   constructor(public http: Http) {
-    super(http)
+  	super(http);
   }
 
   /*
 	* Get base url
 	*/
   getBaseUrl(){
-  	return `${environment.baseUrl}sectors`
+  	return `${environment.baseUrl}users`;
   }
-
-  
 }

@@ -1,0 +1,49 @@
+@import '../../../assets/foundation-sites/global';
+
+$blue-color: #1779ba;
+$green-color: #2BAB60;
+$orange-color: #ffae00;
+
+.user-points {
+	font-size: 2rem;
+	border-right: 1px solid black;
+	span {
+		font-size: 4rem;
+	}
+	.subheader {
+		font-size: 2.5rem;
+	}
+}
+
+.panel {
+	&.regular {
+		background: $green-color;
+	}
+	&.admin {
+		background: $blue-color;
+	}
+	&.company {
+		background: $orange-color;
+	}
+	color: $white;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+ul {
+	li {
+		font-size: 1.15rem;
+	}
+}
+
+.user-age {
+  font-size: 2.3rem;
+}
+
+.accordion-title{
+	font-size: 1.2rem;
+}
+
+.borderR1rem {
+	border-right: 1px solid #C9CACD;
+}

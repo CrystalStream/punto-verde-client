@@ -26,7 +26,7 @@
     minimist "^1.2.0"
     rxjs "^5.5.2"
 
-"@angular/animations@^4.2.4":
+"@angular/animations@^4.0.3", "@angular/animations@^4.2.4":
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.4.6.tgz#fa661899a8a4e38cb7c583c7a5c97ce65d592a35"
   dependencies:
@@ -141,7 +141,7 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser@^4.2.4":
+"@angular/platform-browser@^4.0.3", "@angular/platform-browser@^4.2.4":
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.4.6.tgz#a9839c547e1b654fa1d24a89780c8ba6ab8dcce0"
   dependencies:
@@ -3379,9 +3379,12 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ng2-file-upload@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.2.1.tgz#5563c5dfd6f43fbfbe815c206e343464a0a6a197"
+ng2-notify-popup@^0.1.25:
+  version "0.1.25"
+  resolved "https://registry.yarnpkg.com/ng2-notify-popup/-/ng2-notify-popup-0.1.25.tgz#c0e23ba52c973cb075a154aa651578f95e3c11b2"
+  dependencies:
+    "@angular/animations" "^4.0.3"
+    "@angular/platform-browser" "^4.0.3"
 
 no-case@^2.2.0:
   version "2.3.2"

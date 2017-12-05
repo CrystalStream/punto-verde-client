@@ -1,0 +1,67 @@
+@import '../../assets/foundation-sites/_global.scss';
+
+.home-header{
+  background: url('/assets/homeB.jpg');
+  margin: -2rem -3rem;
+  padding: 10px;
+  font-weight: bold;
+  .subheader {
+    &.white {
+      color: white;
+    }
+  }
+}
+
+.marginB3rem {
+  margin-bottom: 3rem;
+}
+
+.card {
+  i, h4 {
+    align-self: center;
+  }
+  .card-divider {
+    color: white;
+    &.success {
+      background: $primary-color;
+    }
+    &.secondary {
+      background: $secondary-color;
+      color: $black;
+    }
+    &.warning {
+      background: $warning-color;
+    }
+  }
+  .card-section{
+    p {
+      font-size: 3rem;
+      text-align: center;
+    }
+    .view-more{
+      &.success {
+        background: lighten($primary-color, 50);
+      }
+      &.secondary {
+        background: lighten($secondary-color, 30);
+        color: $black;
+      }
+      &.warning {
+        background: lighten($warning-color, 30);
+      }
+
+      overflow: hidden;
+      margin: -1rem;
+      padding: .5rem;
+      a {
+        color: darken($primary-color, 20);
+        &:hover {
+          text-decoration: underline;
+        }
+        i {
+          font-size: .7rem;
+        }
+      }
+    }
+  }
+}

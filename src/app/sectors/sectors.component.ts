@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SectorService } from '../shared/api/sector.service';
+import { SectorService } from '../shared/services/api/sector.service';
 
 @Component({
   selector: 'app-sectors',

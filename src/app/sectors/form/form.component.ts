@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-import { SectorService } from '../../shared/api/sector.service';
+import { SectorService } from '../../shared/services/api/sector.service';
 
 @Component({
   selector: 'app-form-sectors',
@@ -11,9 +11,9 @@ import { SectorService } from '../../shared/api/sector.service';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  
+
   //@Input() editMode: boolean = false;
-  
+
 
   sectors: [{[key: string]: any}];
 

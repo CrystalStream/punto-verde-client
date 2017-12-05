@@ -23,13 +23,17 @@
 		  </thead>
 		  <tbody>
 		    <tr *ngFor="let user of users">
-		      <td>{{ user.name }}</td>
-		      <td>{{ user.email }}</td>
-		      <td>{{ user.role }}</td>
+		      <td><a [routerLink]="['show', user.uuid]">{{ user.name }}</a></td>
+		      <td><a [routerLink]="['show', user.uuid]">{{ user.email }}</a></td>
+		      <td><span class="label" [ngClass]="user.role">{{ user.role }}</span></td>
 		      <td>{{ user.points }}</td>
 		      <td colspan="2">
-		      	<a [routerLink]="['edit', user.uuid]">Editar</a>
-		      	<a (click)="deleteUser(user.uuid)">Eliminar</a>
+		      	<a [routerLink]="['edit', user.uuid]" class="button small warning">
+		      		<i class="fa fa-pencil"></i>
+		      	</a>
+		      	<a (click)="deleteUser(user.uuid)" class="button small alert">
+		      		<i class="fa fa-times"></i>
+		      	</a>
 		      </td>
 		    </tr>
 		  </tbody>
