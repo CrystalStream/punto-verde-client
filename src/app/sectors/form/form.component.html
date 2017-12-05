@@ -1,22 +1,27 @@
-<form [formGroup]="sectorForm" novalidate>
+<form [formGroup]="sectorForm" novalidate (ngSubmit)="save()">
 	<fieldset class="small-12 medium-6 cell fieldset borderB_succes">
  		<legend>Datos de sector</legend>
 		 	<div class="row">
 				<div class="small-12 medium-12 cell text-center">
 					<label>Nombre de sector:</label>
-					<input type="text" placeholder="Nombre" formControlName="name">
+						<input type="text" placeholder="Nombre" formControlName="name">
+						<span class="form-error"
+							*ngIf="sectorForm.get('name').hasError('required') && sectorForm.get('name').touched">
+						El nombre es requerido. Porfavor inserta un nombre.
+			  			</span>
 				</div>
 			 </div>
 	 </fieldset>
-	 <div *ngIf="messageSave" class="small-12 medium-6 cell callout primary text-center">
-		<h5>Sector registrado correctamente</h5>
-	  </div>
 	 <div class="">
-		<button *ngIf="!editMode" class="button warning large" (click)="save()">
+		<button *ngIf="!editMode" class="button warning large" type="submit" [disabled]="sectorForm.invalid">
 			Guardar <i class="fa fa-save"></i>
 	   </button>
-		<button *ngIf="editMode" class="button secondary large" (click)="update()">
+		<button *ngIf="editMode" class="button secondary large" (click)="update()" type="button" [disabled]="sectorForm.invalid">
 			Actualizar <i class="fa fa-save"></i>
+	   </button>
+	   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	   <button routerLink="/sectors" class="button alert large" type="button">
+			Cancelar <i class="fa fa-reply fa-fw"></i>
 	   </button>
 	</div>
 </form>
