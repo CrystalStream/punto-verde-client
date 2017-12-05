@@ -1,10 +1,15 @@
-import { NotificationService } from 'ng2-notify-popup';
+import { UserService } from './../../shared/api/user.service';
 import { Component, OnInit, Input} from '@angular/core';
-import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
+
 import { SectorService } from '../../shared/api/sector.service';
+import { NotificationService } from 'ng2-notify-popup';
+import { Response } from '@angular/http/src/static_response';
+
+declare var $: any;
 
 @Component({
   selector: 'app-form-sectors',
@@ -12,10 +17,10 @@ import { SectorService } from '../../shared/api/sector.service';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  
+
+  // Edit mode
   @Input() editMode: boolean = false;
   
-
   /*Sector uuid*/
   sectorId: string;
 
@@ -32,7 +37,9 @@ export class FormComponent implements OnInit {
   ) { }
 
   ngOnInit() {    
-    
+    // init foundation js
+    $(document).foundation();
+
     this.sectorForm = new FormGroup({
       name: new FormControl(null, Validators.required)
     });
@@ -44,27 +51,32 @@ export class FormComponent implements OnInit {
   			this.sectorId = params.id;
       });
       this.promises.push(this.getSector(this.sectorId));
-  	}
+    }
   }
+  
+  /*
+  * Creates a sector
+  */
 
   save() {
-    if(this.sectorForm.valid){
+    if(this.sectorForm.valid) {
       this.SectorService
       .save(this.sectorForm.value)
       .then( response => {
-        if(response.code === 'CREATED'){
+        if(response.code === 'CREATED') {
+          
           // redirect to /sectors and show a notification
           this.router.navigateByUrl('/sectors');
           this.NotifyService.show(`Sector agregado`,
           {position: 'top', location: '#main-wrapper', duration: '2000', type: 'error'});
         }
-        else{
-          this.NotifyService.show(`Error al agregar`,
-          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+        else {
+          this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`,
+          { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
         }
       })
       .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
-    } else{
+    } else {
       this.NotifyService.show('ERROR. Porfavor corrigue los datos e intentalo de nuevo!.',
       { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
     }
@@ -75,24 +87,24 @@ export class FormComponent implements OnInit {
   	this.SectorService.update(this.sectorId, this.sectorForm.value)
   		.then( response => {
         if(response.code === 'OK'){
+          // redirect to /sectors and show a notification
+          this.router.navigateByUrl('/sectors');
           this.NotifyService.show(`Sector editado`,
           {position: 'top', location: '#main-wrapper', duration: '2000', type: 'error'});
         }
         else{
-          this.NotifyService.show(`Error al actualizar`,
-          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+          this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`,
+          { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' });
         }
   		})
-  		.catch( err => {
-  			console.log(err)
-  		})
+  		.catch(err => console.log(JSON.parse(`{'error': ${err}}`)));
   }
+
   getSector(uuid) {
-  	return this.SectorService.findOne(uuid)
-  		.then( response => { 
-        this.sectorForm.reset(response.data);
-        console.log("response", response);
-  		})
-  		.catch( err => console.log(JSON.parse(`{'error': ${err}}`)));
+    return this.SectorService
+    .findOne(uuid)
+    .then(response => this.sectorForm.reset(response.data))
+    .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
   }
+
 }
