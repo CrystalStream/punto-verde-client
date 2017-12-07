@@ -76,25 +76,27 @@ export class SectorsComponent implements OnInit {
   * Delete a sector
   */
   deleteSector(uuid) {
-    this.SectorService.destroy(uuid)
-      .then(response => {
-        if (response.code === 'OK') {
-          this.sectors = this.sectors.filter(sector => sector.uuid !== uuid);
-          this.NotifyService.show(`Sector eliminado`, {
-            position: 'top',
-            location: '#main-wrapper',
-            duration: '2000',
-            type: 'success'
-          });
-        } else {
-          this.NotifyService.show(`Error al eliminar`, {
-            position: 'top',
-            location: '#main-wrapper',
-            duration: '2000',
-            type: 'error'
-          });
-        }
-      })
-      .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+    if (confirm('Estas seguro de borrar el sector? esto BORRARA TODOS LOS USUARIOS DENTRO DEL SECTOR!!!')) {
+      this.SectorService.destroy(uuid)
+        .then(response => {
+          if (response.code === 'OK') {
+            this.sectors = this.sectors.filter(sector => sector.uuid !== uuid);
+            this.NotifyService.show(`Sector eliminado`, {
+              position: 'top',
+              location: '#main-wrapper',
+              duration: '2000',
+              type: 'success'
+            });
+          } else {
+            this.NotifyService.show(`Error al eliminar`, {
+              position: 'top',
+              location: '#main-wrapper',
+              duration: '2000',
+              type: 'error'
+            });
+          }
+        })
+        .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+    }
   }
 }
