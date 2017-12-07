@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { SectorsModule } from './sectors/sectors.module';
 import { ScrapsModule } from './scraps/scraps.module';
 import { HomeModule } from './home/home.module';
+import { AuthModule } from './auth/auth.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgNotifyPopup } from 'ng2-notify-popup';
@@ -31,7 +32,8 @@ import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
     UsersModule,
     SectorsModule,
     ScrapsModule,
-    HomeModule
+    HomeModule,
+    AuthModule
   ],
   providers: [UserService, SectorService, NotificationService, ImageService],
   bootstrap: [AppComponent]

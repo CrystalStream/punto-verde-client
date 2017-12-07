@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SectorsRoutesModule } from './sectors.route.module';
+import { SectorsRoutesModule } from './sectors.routes.module';
 
 import { AddComponent } from './add/add.component';
 import { SectorsComponent } from './sectors.component';
