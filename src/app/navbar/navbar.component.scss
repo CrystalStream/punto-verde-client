@@ -1,0 +1,50 @@
+@import '../../assets/foundation-sites/_global.scss';
+
+.app-dashboard-top-nav-bar  {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $app-dashboard-top-nav-color;
+  height: $app-dashboard-top-nav-height;
+  width: 100%;
+  flex: 0 0 $app-dashboard-top-nav-height;
+  .menu-icon {
+    vertical-align: text-bottom;
+  }
+}
+
+.app-dashboard-logo {
+  color: $white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.app-dashboard-search-bar-container {
+  position: relative;
+  color: $white;
+}
+
+.app-dashboard-top-bar-actions {
+  align-items: center;
+  display: flex;
+
+  button {
+    margin-bottom: 0;
+    margin-right: 2rem;
+
+    &.hollow {
+      border-color: $white;
+      color: $white;
+
+      &:hover {
+        background: $white;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .fa-info-circle {
+    color: $white;
+    font-size: 1.5rem;
+  }
+}
