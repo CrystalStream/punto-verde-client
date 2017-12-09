@@ -1,0 +1,31 @@
+@import '../../../assets/foundation-sites/_global.scss';
+
+.login-panel {
+  border: 1px solid $light-gray;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 1px 1px 1.3rem $light-gray;
+  .panel-header {
+    height: 20px;
+    width: 100%;
+    background: $success-color;
+    margin-bottom: 10px;
+  }
+}
+.secondary {
+  &.black {
+    color: $black;
+    transition: .3s;
+    &:hover {
+      color: darken($dark-gray, 30);
+    }
+  }
+
+}
+
+.marginA1rem {
+  margin: 1rem 2rem 2.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
