@@ -1,8 +1,8 @@
 <div class="app-dashboard shrink-medium">
-  <app-navbar></app-navbar>
+  <app-navbar [isUserLoggedIn]="isUserLoggedIn"></app-navbar>
 
   <div class="app-dashboard-body off-canvas-wrapper">
-    <app-sidebar id="app-dashboard-sidebar" class="app-dashboard-sidebar position-left off-canvas off-canvas-absolute reveal-for-medium" data-off-canvas></app-sidebar>
+    <app-sidebar *ngIf="isUserLoggedIn" id="app-dashboard-sidebar" class="app-dashboard-sidebar position-left off-canvas off-canvas-absolute reveal-for-medium" data-off-canvas></app-sidebar>
     <div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
       <div class="" id="main-wrapper">
     	   <router-outlet></router-outlet>

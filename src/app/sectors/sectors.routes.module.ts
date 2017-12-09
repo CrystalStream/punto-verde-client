@@ -6,12 +6,13 @@ import { SectorsComponent } from './sectors.component';
 import { EditComponent } from './edit/edit.component';
 import { AddComponent } from './add/add.component';
 import { DetailComponent } from './detail/detail.component';
+import { AuthGuard } from '../shared/guards/auth.guard';
 
 const sectorRoutes: Routes = [
-  { path: 'sectors', component: SectorsComponent },
-  { path: 'sectors/add', component: AddComponent },
-  { path: 'sectors/edit/:id', component: EditComponent},
-  { path: 'sectors/show/:id', component: DetailComponent}
+  { path: 'sectors', component: SectorsComponent, canActivate: [AuthGuard] },
+  { path: 'sectors/add', component: AddComponent, canActivate: [AuthGuard] },
+  { path: 'sectors/edit/:id', component: EditComponent, canActivate: [AuthGuard] },
+  { path: 'sectors/show/:id', component: DetailComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -7,11 +7,13 @@ import { AddComponent } from './add/add.component';
 import { DetailComponent } from './detail/detail.component';
 import { EditComponent } from './edit/edit.component';
 
+import { AuthGuard } from '../shared/guards/auth.guard';
+
 const userRoutes: Routes = [
-  { path: 'users', component: UsersComponent },
-  { path: 'users/add', component: AddComponent },
-  { path: 'users/show/:id', component: DetailComponent },
-  { path: 'users/edit/:id', component: EditComponent }
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'users/add', component: AddComponent, canActivate: [AuthGuard] },
+  { path: 'users/show/:id', component: DetailComponent, canActivate: [AuthGuard] },
+  { path: 'users/edit/:id', component: EditComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
