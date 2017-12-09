@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
             this.errorLogin.hasError = false;
             this.StorageService.setItem(
               'currentUser',
-              `{"user": {"name": ${response.data.user.name},
-                  "email": ${response.data.user.email}, "token":
-                  ${response.data.token}}}`
+              `{"name": "${response.data.user.name}",
+                  "email": "${response.data.user.email}"}`
             );
+            this.StorageService.setItem('token', response.data.token);
             this.AuthService.isLogin.emit(true);
             this.router.navigate(['/home']);
           } else {

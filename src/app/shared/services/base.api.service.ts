@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { AuthService } from './auth.service';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -11,12 +12,16 @@ export abstract class BaseApiService {
   // http header
   headers: Headers;
 
+  // user jwt
+  token: string;
+
   /*
 	* constructor
 	* param{Http} http service
 	*/
-  constructor(public http: Http) {
-    this.headers = new Headers({ 'Content-Type': 'application/json' });
+  constructor(public http: Http, public AuthService: AuthService) {
+    this.token = this.AuthService.getToken();
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}`});
   }
 
   /*

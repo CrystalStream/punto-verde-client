@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { BaseApiService } from '../base.api.service';
 
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../auth.service';
 
 
 /*
@@ -15,8 +16,8 @@ export class SectorService extends BaseApiService{
   /*
 	* constructor
 	*/
-  constructor(public http: Http) {
-    super(http);
+  constructor(public http: Http, public AuthService: AuthService) {
+    super(http, AuthService);
   }
 
   /*

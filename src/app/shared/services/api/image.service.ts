@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import { BaseApiService } from '../base.api.service';
 
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class ImageService extends BaseApiService {
@@ -16,8 +17,8 @@ export class ImageService extends BaseApiService {
   * Constructor
   * @param{Http} http
 	*/
-  constructor(public http: Http) {
-    super(http);
+  constructor(public http: Http, public AuthService: AuthService) {
+    super(http, AuthService);
   }
 
   /*

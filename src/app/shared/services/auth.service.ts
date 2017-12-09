@@ -26,6 +26,20 @@ export class AuthService {
   }
 
   /*
+  * Return the current logged user
+  */
+  getUser() {
+    return this.StorageService.getCurrentUser();
+  }
+
+  /*
+  * Return the token
+  */
+  getToken() {
+    return this.StorageService.getItem('token');
+  }
+
+  /*
   * Login htt request
   * @param{data} user data
   */
