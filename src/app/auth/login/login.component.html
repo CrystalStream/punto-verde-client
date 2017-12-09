@@ -6,20 +6,37 @@
         <div class="small-12 text-center marginA1rem">
           <img src="/assets/logopv.jpg" alt="Ecodualigy">
         </div>
-        <form>
+        <form [formGroup]="loginForm" novalidate (submit)="login()">
+          <div class="small-12 columns" *ngIf="errorLogin.hasError">
+            <div class="panel callout alert">
+              <div class="text-center">
+                  <i class="fa fa-exclamation-triangle fa-fw fa-2x float-left"></i>
+                  <b>Error:</b>
+                  <p>{{ errorLogin.message }}</p>
+              </div>
+            </div>
+          </div>
           <div class="small-12 columns">
             <label> Email </label>
-            <input type="email">
+            <input type="email" formControlName="email">
+            <span class="form-error"
+            *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
+              Porfavor ingresa un email valido.
+            </span>
           </div>
           <div class="small-12 columns">
             <label> Contraseña </label>
-            <input type="password">
+            <input type="password" formControlName="password">
+            <span class="form-error"
+              *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+              Contraseña incorrecta
+            </span>
           </div>
           <div class="small-12 columns">
             <hr>
             <br class="hide-for-small-only">
-            <button class="button primary large full-width"> Ingresar <i class="fa fa-sign-in fa-fw"></i></button>
-            <button class="button secondary large full-width black">Olvide mi contraseña! <i class="fa fa-unlock-alt fa-fw"></i></button>
+            <button type="submit" class="button primary large full-width" [disabled]="loginForm.invalid"> Ingresar <i class="fa fa-sign-in fa-fw"></i></button>
+            <button type="button" class="button secondary large full-width black">Olvide mi contraseña! <i class="fa fa-unlock-alt fa-fw"></i></button>
           </div>
         </form>
       </div>

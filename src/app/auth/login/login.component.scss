@@ -11,6 +11,19 @@
     margin-bottom: 10px;
   }
 }
+input {
+  &.ng-invalid {
+    &.ng-touched {
+      border: 1px solid $alert-color;
+      margin-bottom: 0;
+    }
+  }
+}
+.form-error {
+  margin-bottom: 0;
+  display: inline-block;
+}
+
 .secondary {
   &.black {
     color: $black;
