@@ -5,7 +5,7 @@
 
 import * as config from '../../config';
 
-console.log('config: ', config);
+// console.log('config: ', config);
 
 export const environment = {
   production: false,

@@ -35,7 +35,14 @@
           <div class="small-12 columns">
             <hr>
             <br class="hide-for-small-only">
-            <button type="submit" class="button primary large full-width" [disabled]="loginForm.invalid"> Ingresar <i class="fa fa-sign-in fa-fw"></i></button>
+            <button type="submit" class="button primary large full-width" [disabled]="loginForm.invalid">
+              <span *ngIf="!logging">
+                Ingresar <i class="fa fa-sign-in fa-fw"></i>
+              </span>
+              <span *ngIf="logging">
+                  Ingresando <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                </span>
+            </button>
             <button type="button" class="button secondary large full-width black">Olvide mi contraseña! <i class="fa fa-unlock-alt fa-fw"></i></button>
           </div>
         </form>

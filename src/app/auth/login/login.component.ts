@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
+
+import { StorageService } from './../../shared/services/storage.service';
+import { AuthService } from './../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +22,10 @@ export class LoginComponent implements OnInit {
     message: ''
   };
 
-  constructor() { }
+  // Check if the user hits the login button
+  logging = false;
+
+  constructor(public AuthService: AuthService, public StorageService: StorageService , private router: Router) { }
 
   ngOnInit() {
 
@@ -32,7 +40,30 @@ export class LoginComponent implements OnInit {
    * Login.
    */
   login() {
-    console.log("fomr", this.loginForm);
+    if(!this.logging) {
+      this.logging = true;
+      this.AuthService.login(this.loginForm.value)
+        .then( response => {
+          if (response.code === 'OK') {
+            this.errorLogin.hasError = false;
+            this.StorageService.setItem('currentUser',
+                (`{"user": {"name": ${response.data.user.name},
+                  "email": ${response.data.user.email}, "token": ${response.data.token}}}`));
+            this.router.navigate(['/home']);
+          } else {
+            this.errorLogin.hasError = true;
+            this.errorLogin.message = 'Ocurrio un error. Porfavor contacta al administrador.';
+            console.error('LoginComponent@login :', response);
+          }
+          this.logging = false;
+        }).catch(err => {
+          this.logging = false;
+          this.errorLogin.hasError = true;
+          this.errorLogin.message = `No tenemos registro de un usuario con esas credenciales.
+            Porfavor intentalo de nuevo`;
+          console.error('LoginComponent@login: ', err);
+        })
+    }
   }
 
 }
