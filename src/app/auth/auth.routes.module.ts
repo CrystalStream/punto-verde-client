@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
+import { HomeGuard } from '../shared/guards/home.guard';
 
 const authRoutes: Routes = [
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent, canActivate: [HomeGuard] }
 ];
 
 @NgModule({

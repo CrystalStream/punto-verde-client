@@ -19,6 +19,7 @@ import { StorageService } from './shared/services/storage.service';
 import { AuthService } from './shared/services/auth.service';
 
 import { AuthGuard } from './shared/guards/auth.guard';
+import { HomeGuard } from './shared/guards/home.guard';
 
 import { AppComponent } from './app.component';
 import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
@@ -47,7 +48,8 @@ import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
     ImageService,
     StorageService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    HomeGuard
   ],
   bootstrap: [AppComponent]
 })
