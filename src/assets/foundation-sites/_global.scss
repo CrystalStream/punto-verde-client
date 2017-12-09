@@ -179,6 +179,10 @@ $global-color-pick-contrast-tolerance: 0 !default;
     }
   }
 
+  hr {
+    max-width: 100% !important;
+  }
+
   img {
     // Get rid of gap under images by making them display: inline-block; by default
     display: inline-block;

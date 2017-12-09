@@ -17,7 +17,7 @@ declare var $: any;
 })
 export class FormComponent implements OnInit {
   // Edit mode
-  @Input() editMode: boolean = false;
+  @Input() editMode = false;
 
   /*Sector uuid*/
   sectorId: string;

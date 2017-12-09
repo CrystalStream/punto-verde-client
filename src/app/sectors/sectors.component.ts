@@ -12,12 +12,12 @@ import { Observable } from 'rxjs/Observable';
 })
 export class SectorsComponent implements OnInit {
   // Edit mode
-  @Input() editMode: boolean = false;
+  @Input() editMode = false;
 
   // User
   user: { [key: string]: any };
 
-  haySector: boolean = false;
+  haySector = false;
 
   // array to hold users
   sectors: Array<any>;

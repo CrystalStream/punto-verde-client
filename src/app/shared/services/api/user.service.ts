@@ -9,19 +9,18 @@ import { environment } from '../../../../environments/environment';
 */
 @Injectable()
 export class UserService extends BaseApiService {
-
-	/*
+  /*
 	* constructor
   * @param{Htpp} http
 	*/
   constructor(public http: Http) {
-  	super(http);
+    super(http);
   }
 
   /*
 	* Get base url
 	*/
-  getBaseUrl(){
-  	return `${environment.baseUrl}users`;
+  getBaseUrl() {
+    return `${environment.baseUrl}users`;
   }
 }

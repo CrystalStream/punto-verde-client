@@ -25,7 +25,7 @@ export class DetailComponent implements OnInit {
   };
 
   // User points
-  userPoints: number = 0;
+  userPoints = 0;
 
   // promises array
   promises: Promise<any>[] = [];

@@ -37,7 +37,7 @@ export class UsersComponent implements OnInit {
         this.loading.all = true;
       })
       .catch( err => {
-        console.error(JSON.parse("{Code: '500', message: err, method: 'UsersComponent.ngOnInit()'}"))
+        console.error(JSON.parse('{Code: \'500\', message: err, method: \'UsersComponent.ngOnInit()\'}'));
       });
   }
 
@@ -47,12 +47,12 @@ export class UsersComponent implements OnInit {
   getAllUsers(): Promise<any> {
     return this.UserService.findAll()
       .then( (response: any) => {
-        this.users = response.data
-        console.log("this.users", this.users);
+        this.users = response.data;
+        console.log('this.users', this.users);
       })
       .catch( err => {
-        console.error(JSON.parse("{Code: '500', message: err, method: 'UsersComponent.getAllUsers()'}"))
-      })
+        console.error(JSON.parse('{Code: \'500\', message: err, method: \'UsersComponent.getAllUsers()\'}'));
+      });
   }
 
   /*

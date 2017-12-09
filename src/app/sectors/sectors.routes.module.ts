@@ -12,7 +12,7 @@ const sectorRoutes: Routes = [
   { path: 'sectors/add', component: AddComponent },
   { path: 'sectors/edit/:id', component: EditComponent},
   { path: 'sectors/show/:id', component: DetailComponent}
-]
+];
 
 @NgModule({
   declarations: [],

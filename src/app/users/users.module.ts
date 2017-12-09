@@ -12,17 +12,13 @@ import { CloudinaryPipe } from '../shared/pipes/cloudinary.pipe';
 
 @NgModule({
   declarations: [
-  	UsersComponent,
-  	AddComponent,
-  	DetailComponent,
-  	FormComponent,
+    UsersComponent,
+    AddComponent,
+    DetailComponent,
+    FormComponent,
     EditComponent,
     CloudinaryPipe
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    UsersRoutesModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, UsersRoutesModule]
 })
-export class UsersModule { }
+export class UsersModule {}

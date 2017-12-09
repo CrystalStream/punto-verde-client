@@ -23,7 +23,7 @@ export class ImageService extends BaseApiService {
   /*
 	* Get base url
 	*/
-  getBaseUrl(){
+  getBaseUrl() {
     return `${environment.baseUrl}images`;
   }
 

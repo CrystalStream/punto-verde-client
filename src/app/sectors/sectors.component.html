@@ -1,42 +1,50 @@
-<div class="row align-spaced">
-	<div class="columns">
-		<h3>Sectores</h3>
-		<hr>
-	</div>
-</div>
-<div class="row align-spaced">
-	<div class="small-12 medium-12 columns">
-		<a routerLink="add" class="button primary float-right">Agregar</a>
-	</div>
-</div>
-<div class="row">
-  <table class="stack">
-    <thead>
-      <tr>
-        <th width="350">Nombre</th>
-        <th width="150">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let sector of sectors">
-        <td><a [routerLink]="['show', sector.uuid]">{{sector.name}}</a></td>
-        <td colspan="2">
-          <a [routerLink]="['edit', sector.uuid]" class="button small warning">
-            <i class="fa fa-pencil"></i>
-          </a>
-          <a (click)="deleteSector(sector.uuid)" class="button small alert">
-            <i class="fa fa-times"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-    </table>
-    <div class="small-12 medium-12 columns">
-      <h3>Colonias</h3>
+<div class="small-12 columns">
+  <div>
+    <div class="columns">
+      <h3>Sectores</h3>
       <hr>
-      <div class="small-12 medium-9 columns">
+    </div>
+  </div>
+  <div class="row align-spaced">
+    <div class="small-12 medium-12 columns">
+      <a routerLink="add" class="button primary float-right">Agregar</a>
+    </div>
+  </div>
+  <div class="row">
+    <table class="stack">
+      <thead>
+        <tr>
+          <th width="350">Nombre</th>
+          <th width="150">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sector of sectors">
+          <td><a [routerLink]="['show', sector.uuid]">{{sector.name}}</a></td>
+          <td colspan="2">
+            <a [routerLink]="['edit', sector.uuid]" class="button small warning">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a (click)="deleteSector(sector.uuid)" class="button small alert">
+              <i class="fa fa-times"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="small-12 columns">
+  <div class="small-12 medium-12 columns">
+    <h3>Colonias</h3>
+    <hr>
+    <div class="row">
+      <div class="small-12 medium-12 columns">
           <a routerLink="" class="button primary float-right">Agregar</a>
       </div>
+    </div>
+    <div class="row">
       <table>
         <thead>
           <tr>
@@ -68,4 +76,5 @@
         </tbody>
       </table>
     </div>
+  </div>
 </div>

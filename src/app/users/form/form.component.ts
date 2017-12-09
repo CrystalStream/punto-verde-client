@@ -24,7 +24,7 @@ declare var cloudinary: any;
 })
 export class FormComponent implements OnInit {
   // Edit mode
-  @Input() editMode: boolean = false;
+  @Input() editMode = false;
 
   // Sectors array
   sectors: [{ [key: string]: any }];
@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
   userForm: FormGroup;
 
   // Default password value
-  DEFAULT_PASSWORD: string = 'default123';
+  DEFAULT_PASSWORD = 'default123';
 
   // Notification error message
   notificationError: object = { position: 'top', location: '#main-wrapper', duration: '2200', type: 'error' };
@@ -242,7 +242,7 @@ export class FormComponent implements OnInit {
     (error, photos)  => {
       if (!error) {
         photos.forEach( p => {
-          let pObject = {
+          const pObject = {
             'src': p.path
           };
           this.photos.push(pObject);
@@ -284,7 +284,7 @@ export class FormComponent implements OnInit {
           this.NotifyService.show(`No se puede borrar la imagen!`, this.notificationError);
           console.error('Error: FormComponent@deleteAsset: ', response);
         }
-      })
+      });
     console.log('before this.photos: ', this.photos);
     console.log('affter this.photos: ', this.photos);
   }

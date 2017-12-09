@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RoutesModule } from './routes/routes.module';
-import { NavbarModule } from './navbar/navbar.module';
-import { SidebarModule } from './sidebar/sidebar.module';
 import { UsersModule } from './users/users.module';
 import { SectorsModule } from './sectors/sectors.module';
 import { ScrapsModule } from './scraps/scraps.module';
@@ -31,8 +29,6 @@ import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
     ReactiveFormsModule,
     NgNotifyPopup,
     RoutesModule,
-    NavbarModule,
-    SidebarModule,
     UsersModule,
     SectorsModule,
     ScrapsModule,

@@ -22,7 +22,7 @@ export class SectorService extends BaseApiService{
   /*
 	* Get base url
 	*/
-  getBaseUrl(){
+  getBaseUrl() {
     return `${environment.baseUrl}sectors`;
   }
 
