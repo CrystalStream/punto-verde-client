@@ -205,6 +205,8 @@ export class FormComponent implements OnInit {
         this.userForm.get('address').setValidators([Validators.required]);
       }
       this.userForm.get('RFC').updateValueAndValidity();
+      this.userForm.get('sector').updateValueAndValidity();
+      this.userForm.get('address').updateValueAndValidity();
     });
   }
 
