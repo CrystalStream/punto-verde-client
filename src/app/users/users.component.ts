@@ -1,7 +1,9 @@
 import { NotificationService } from 'ng2-notify-popup';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from '../shared/services/api/user.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -9,13 +11,12 @@ import { UserService } from '../shared/services/api/user.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
   // array to hold users
   users: Array<any>;
 
   // loading object
-  loading: {[key: string]: any} = {
-    all: false,
+  loading: { [key: string]: any } = {
+    all: false
   };
 
   // Limit for the query
@@ -41,7 +42,12 @@ export class UsersComponent implements OnInit {
   * constructor
   * @param{UserService} UserService
   */
-  constructor(private UserService: UserService, private NotifyService: NotificationService) { }
+  constructor(
+    private UserService: UserService,
+    private NotifyService: NotificationService,
+    public AuthService: AuthService,
+    private router: Router
+  ) {}
 
   /*
   * init
@@ -52,8 +58,10 @@ export class UsersComponent implements OnInit {
       .then(() => {
         this.loading.all = true;
       })
-      .catch( err => {
-        console.error(JSON.parse('{Code: \'500\', message: err, method: \'UsersComponent.ngOnInit()\'}'));
+      .catch(err => {
+        console.error(
+          `{Code: 500, message: ${err}, method: UsersComponent.ngOnInit()}`
+        );
       });
   }
 
@@ -62,20 +70,23 @@ export class UsersComponent implements OnInit {
   */
   getAllUsers(): Promise<any> {
     return this.UserService.findAll({}, this.limit, this.next)
-      .then( (response: any) => {
-        console.log('response: ', response);
+      .then((response: any) => {
         this.users = response.data;
         this.willPaginate = response.total > this.limit;
         if (this.willPaginate) {
-          this.totalPages = Math.ceil((response.total / this.limit));
-          console.log('totalPages: ', this.totalPages);
-          console.log('currentPage: ', this.currentPage);
+          this.totalPages = Math.ceil(response.total / this.limit);
           this.showNext = this.currentPage + 1 <= this.totalPages;
-          console.log('this.showNext: ', this.showNext);
         }
       })
-      .catch( err => {
-        console.error(JSON.parse('{Code: \'500\', message: err, method: \'UsersComponent.getAllUsers()\'}'));
+      .catch(err => {
+        if (err.status === 401 && err.statusText === 'Unauthorized') {
+          this.AuthService.logout().then(response => {
+            this.router.navigateByUrl('/login');
+          });
+        }
+        console.error(
+          `{Code: 500, message: ${err}, method: UsersComponent.getAllUsers()}`
+        );
       });
   }
 
@@ -85,33 +96,38 @@ export class UsersComponent implements OnInit {
   */
   deleteUser(uuid) {
     this.UserService.destroy(uuid)
-      .then( response => {
+      .then(response => {
         if (response.code === 'OK') {
-          this.users = this.users.filter( user => user.uuid !== uuid);
-          this.NotifyService.show(`Usuario eliminado`,
-          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+          this.users = this.users.filter(user => user.uuid !== uuid);
+          this.NotifyService.show(`Usuario eliminado`, {
+            position: 'top',
+            location: '#main-wrapper',
+            duration: '2000',
+            type: 'error'
+          });
         } else {
-          this.NotifyService.show(`Error al eliminar`,
-          { position: 'top', location: '#main-wrapper', duration: '2000', type: 'error' });
+          this.NotifyService.show(`Error al eliminar`, {
+            position: 'top',
+            location: '#main-wrapper',
+            duration: '2000',
+            type: 'error'
+          });
         }
       })
-      .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+      .catch(err => console.error(`{'error': ${err}}`));
   }
-
 
   nextPage() {
     this.next += this.limit;
-    this.currentPage ++;
+    this.currentPage++;
     this.getAllUsers();
   }
-
 
   prevPage() {
     if (this.next > 0) {
       this.next -= this.limit;
-      this.currentPage --;
+      this.currentPage--;
       this.getAllUsers();
     }
   }
-
 }
