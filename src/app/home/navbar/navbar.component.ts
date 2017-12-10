@@ -13,9 +13,13 @@ export class NavbarComponent implements OnInit {
   // Either show the navbar and the sidebar.
   @Input() isUserLoggedIn = false;
 
+  currentUser: any;
+
   constructor(public AuthService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentUser = JSON.parse(this.AuthService.getUser());
+  }
 
   /*
   * Logout

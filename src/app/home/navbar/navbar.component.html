@@ -5,7 +5,7 @@
   </div>
   <div class="columns show-for-medium" *ngIf="isUserLoggedIn">
     <div class="app-dashboard-search-bar-container">
-      Bienvenido Admin!
+      Bienvenido {{currentUser.name}}!
     </div>
   </div>
   <div class="columns shrink app-dashboard-top-bar-actions" *ngIf="isUserLoggedIn">
