@@ -44,6 +44,7 @@ export class AuthService {
   * @param{data} user data
   */
   login(data: any) {
+    data.adminOnly = true;
     return this.http
     .post(this.baseUrl, data)
     .toPromise()

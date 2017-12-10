@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   // Either show the navbar and the sidebar.
   @Input() isUserLoggedIn = false;
 
+  // current user info
   currentUser: any;
 
   constructor(public AuthService: AuthService, private router: Router) {}
