@@ -18,6 +18,22 @@ export class UsersComponent implements OnInit {
     all: false,
   };
 
+  // Limit for the query
+  limit = 20;
+
+  // next for pagination
+  next = 0;
+  showNext = true;
+
+  // Current page for pagination
+  currentPage = 1;
+
+  // Total pages of the pagination
+  totalPages = 1;
+
+  // should paginate
+  willPaginate = false;
+
   // promises array
   promises: Promise<any>[] = [];
 
@@ -45,10 +61,18 @@ export class UsersComponent implements OnInit {
   * Get all the users from the API.
   */
   getAllUsers(): Promise<any> {
-    return this.UserService.findAll()
+    return this.UserService.findAll({}, this.limit, this.next)
       .then( (response: any) => {
+        console.log('response: ', response);
         this.users = response.data;
-        console.log('this.users', this.users);
+        this.willPaginate = response.total > this.limit;
+        if (this.willPaginate) {
+          this.totalPages = Math.ceil((response.total / this.limit));
+          console.log('totalPages: ', this.totalPages);
+          console.log('currentPage: ', this.currentPage);
+          this.showNext = this.currentPage + 1 <= this.totalPages;
+          console.log('this.showNext: ', this.showNext);
+        }
       })
       .catch( err => {
         console.error(JSON.parse('{Code: \'500\', message: err, method: \'UsersComponent.getAllUsers()\'}'));
@@ -72,6 +96,22 @@ export class UsersComponent implements OnInit {
         }
       })
       .catch( err => console.error(JSON.parse(`{'error': ${err}}`)));
+  }
+
+
+  nextPage() {
+    this.next += this.limit;
+    this.currentPage ++;
+    this.getAllUsers();
+  }
+
+
+  prevPage() {
+    if (this.next > 0) {
+      this.next -= this.limit;
+      this.currentPage --;
+      this.getAllUsers();
+    }
   }
 
 }

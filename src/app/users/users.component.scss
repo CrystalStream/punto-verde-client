@@ -1,4 +1,4 @@
-@import '../../../node_modules/foundation-sites/scss/util/util';
+@import '../../assets/foundation-sites/_global.scss';
 
 $hoverLinkColor: #B22D09;
 
@@ -19,4 +19,22 @@ $orange-color: #ffae00;
     background: $orange-color;
     color: black;
 	}
+}
+.button-group {
+  &.no-margin {
+    margin-bottom: 0;
+  }
+}
+.button {
+  &.blue {
+    background: $blue-color;
+    padding: .5rem;
+    font-size: 17px;
+  }
+}
+
+.helper-text {
+  margin-right: 2.5rem;
+  color: darken($light-gray, 40);
+  margin-bottom: .5rem;
 }

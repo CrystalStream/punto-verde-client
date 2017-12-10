@@ -6,11 +6,28 @@
 </div>
 <div class="row align-spaced">
 	<div class="small-12 medium-9 columns">
-		<a routerLink="add" class="button primary float-right">Agregar</a>
+		<a routerLink="add" class="button primary float-right">
+      <i class="fa fa-plus fa-fw"></i>  Agregar
+    </a>
 	</div>
 </div>
 <div class="row">
+  <div class="small-12 columns">
+    <div class="button-group no-margin" *ngIf="willPaginate">
+      <button type="button" class="button blue" (click)="prevPage()" [disabled]="currentPage == 1">
+        <i class="fa fa-caret-left fa-fw"></i>
+      </button>
+      <button type="button" class="button blue" (click)="nextPage()" [disabled]="!showNext">
+        <i class="fa fa-caret-right fa-fw"></i>
+      </button>
+    </div>
+  </div>
 	<div class="small-12 columns">
+    <div class="float-right" *ngIf="willPaginate">
+      <span class="helper-text">
+        Pagina {{ currentPage }} de {{ totalPages }}
+      </span>
+    </div>
 		<table class="stack">
 		  <thead>
 		    <tr>
@@ -37,6 +54,16 @@
 		      </td>
 		    </tr>
 		  </tbody>
-		</table>
+    </table>
+    <div class="small-12 columns" *ngIf="willPaginate">
+      <div class="button-group">
+        <button type="button" class="button blue" (click)="prevPage()" [disabled]="currentPage == 1">
+          <i class="fa fa-caret-left fa-fw"></i>
+        </button>
+        <button type="button" class="button blue" (click)="nextPage()" [disabled]="!showNext">
+          <i class="fa fa-caret-right fa-fw"></i>
+        </button>
+      </div>
+    </div>
 	</div>
 </div>

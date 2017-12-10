@@ -62,6 +62,7 @@ export class SectorsComponent implements OnInit {
   getAllSectors(): Promise<any> {
     return this.SectorService.findAll()
       .then(response => {
+        console.log('response: ', response);
         this.sectors = response.data;
         console.log('this.sectors', this.sectors);
       })
