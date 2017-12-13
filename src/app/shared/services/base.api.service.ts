@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { AuthService } from './auth.service';
 
+import { environment } from './../../../environments/environment';
+
 import 'rxjs/add/operator/toPromise';
 
 /*
@@ -14,6 +16,9 @@ export abstract class BaseApiService {
 
   // user jwt
   token: string;
+
+  // model for searching
+  abstract model: string;
 
   /*
 	* constructor
@@ -142,6 +147,22 @@ export abstract class BaseApiService {
       .delete(`${this.getBaseUrl()}/${uuid}/${association}/${fk}`, { headers: this.headers })
       .toPromise()
       .then(response => response.json())
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
+  }
+
+  /*
+  * Search accros the models by the name email and RFC depending the case
+  * @param{any} criteria. the criteria parameters.
+  */
+  search(criteria: any) {
+    criteria.models = this.model;
+    return this.http
+      .get(`${environment.baseUrl}search`, {
+        headers: this.headers,
+        params: criteria
+      })
+      .toPromise()
+      .then( response => response.json())
       .catch(err => Promise.reject(this._handleError(err.message || err)));
   }
 

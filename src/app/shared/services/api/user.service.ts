@@ -10,6 +10,10 @@ import { AuthService } from '../auth.service';
 */
 @Injectable()
 export class UserService extends BaseApiService {
+
+  // Model for the search.
+  model = 'user';
+
   /*
 	* constructor
   * @param{Htpp} http

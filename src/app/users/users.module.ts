@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsersRoutesModule } from './users.routes.module';
 
 import { UsersComponent } from './users.component';
@@ -19,6 +19,6 @@ import { CloudinaryPipe } from '../shared/pipes/cloudinary.pipe';
     EditComponent,
     CloudinaryPipe
   ],
-  imports: [CommonModule, ReactiveFormsModule, UsersRoutesModule]
+  imports: [CommonModule, ReactiveFormsModule, UsersRoutesModule, FormsModule]
 })
 export class UsersModule {}

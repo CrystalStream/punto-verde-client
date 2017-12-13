@@ -35,6 +35,12 @@ export class UsersComponent implements OnInit {
   // should paginate
   willPaginate = false;
 
+  // Search string for user
+  searchString: string;
+
+  // Serach role for user
+  searchRole = 'regular';
+
   // promises array
   promises: Promise<any>[] = [];
 
@@ -112,16 +118,49 @@ export class UsersComponent implements OnInit {
       .catch(err => console.error(`{'error': ${err}}`));
   }
 
+  /*
+  * Go to next page of the pagination
+  */
   nextPage() {
     this.next += this.limit;
     this.currentPage++;
     this.getAllUsers();
   }
 
+  /*
+  * Go to previous page of the pagination
+  */
   prevPage() {
     if (this.next > 0) {
       this.next -= this.limit;
       this.currentPage--;
+      this.getAllUsers();
+    }
+  }
+
+  /*
+  * Full text search on user name, email or RFC
+  */
+  search() {
+    this.next = 0;
+    this.currentPage = 1;
+    this.willPaginate = false;
+    if(this.searchString) {
+      const searchEntry = {
+        q: this.searchString,
+        role: this.searchRole
+      }
+      this.UserService.search(searchEntry)
+        .then( response => this.users = response.data.user)
+        .catch(err => console.error(`{'UserComponentn@search': ${err}}`));
+    }
+  }
+
+  /*
+  * Reset the search to show all user when the user erase the search box
+  */
+  resetSearch() {
+    if(this.searchString.trim().length === 0) {
       this.getAllUsers();
     }
   }

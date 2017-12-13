@@ -13,6 +13,9 @@ import { AuthService } from '../auth.service';
 @Injectable()
 export class SectorService extends BaseApiService{
 
+  // Model for the search.
+  model = 'sector';
+
   /*
 	* constructor
 	*/

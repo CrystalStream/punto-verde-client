@@ -13,6 +13,9 @@ import { AuthService } from '../auth.service';
 @Injectable()
 export class ImageService extends BaseApiService {
 
+  // Model for the search.
+  model = 'image';
+
   /*
   * Constructor
   * @param{Http} http
