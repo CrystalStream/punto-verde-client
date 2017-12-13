@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { StorageService } from './storage.service';
 import { environment } from '../../../environments/environment';
@@ -16,7 +17,7 @@ export class AuthService {
   * Creates an instance of AuthService.
   * @param {StorageService} StorageService
   */
-  constructor(public StorageService: StorageService, public http: Http) {}
+  constructor(public StorageService: StorageService, public http: Http, private router: Router) {}
 
   /*
   * Check if the user is logged in.
@@ -56,10 +57,8 @@ export class AuthService {
   * Destroy the local storage and emit the logout event.
   */
   logout() {
-    return new Promise((resolve, reject) => {
-      this.isLogin.emit(false);
-      localStorage.clear();
-      resolve(true);
-    })
+    this.isLogin.emit(false);
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 }

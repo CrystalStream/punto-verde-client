@@ -79,11 +79,6 @@ export class UsersComponent implements OnInit {
         }
       })
       .catch(err => {
-        if (err.status === 401 && err.statusText === 'Unauthorized') {
-          this.AuthService.logout().then(response => {
-            this.router.navigateByUrl('/login');
-          });
-        }
         console.error(
           `{Code: 500, message: ${err}, method: UsersComponent.getAllUsers()}`
         );

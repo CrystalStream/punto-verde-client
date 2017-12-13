@@ -57,7 +57,7 @@ export abstract class BaseApiService {
       })
       .toPromise()
       .then(response => response.json())
-      .catch(err => Promise.reject(err.message || err));
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
   }
 
   /*
@@ -75,7 +75,7 @@ export abstract class BaseApiService {
       })
       .toPromise()
       .then(response => response.json())
-      .catch(err => Promise.reject(err.message || err));
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
   }
 
   /*
@@ -87,7 +87,7 @@ export abstract class BaseApiService {
       .post(this.getBaseUrl(), data, { headers: this.headers })
       .toPromise()
       .then(response => response.json())
-      .catch(err => Promise.reject(err.message || err));
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
   }
 
   /*
@@ -99,7 +99,7 @@ export abstract class BaseApiService {
       .delete(`${this.getBaseUrl()}/${id}`, { headers: this.headers })
       .toPromise()
       .then(response => response.json())
-      .catch(err => Promise.reject(err.message || err));
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
   }
 
   /*
@@ -112,7 +112,7 @@ export abstract class BaseApiService {
       .put(`${this.getBaseUrl()}/${id}`, data, { headers: this.headers })
       .toPromise()
       .then(response => response.json())
-      .catch(err => Promise.reject(err.message || err));
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
   }
 
   /*
@@ -128,7 +128,7 @@ export abstract class BaseApiService {
       })
       .toPromise()
       .then(response => response.json())
-      .catch(err => Promise.reject(err.message || err))
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
   }
 
   /*
@@ -142,6 +142,19 @@ export abstract class BaseApiService {
       .delete(`${this.getBaseUrl()}/${uuid}/${association}/${fk}`, { headers: this.headers })
       .toPromise()
       .then(response => response.json())
-      .catch(err => Promise.reject(err.message || err));
+      .catch(err => Promise.reject(this._handleError(err.message || err)));
+  }
+
+ /*
+  * Logut in case the error is the expired token.
+  * @param{any} err. the model uuid over we are going to remove from.
+  */
+  _handleError(err: any) {
+    console.log('_handleError', err);
+    if (typeof err !== 'string' && err.status === 401 && err.statusText === 'Unauthorized') {
+      console.log('went to logout fro the token expired');
+      this.AuthService.logout();
+    }
+    return err;
   }
 }
