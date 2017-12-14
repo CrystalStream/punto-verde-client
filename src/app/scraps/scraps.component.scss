@@ -1,0 +1,32 @@
+@import '../../assets/foundation-sites/_global.scss';
+
+$footer-card-color: #2c3840;
+
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  &.primary {
+    background: $success-color;
+    color: $black;
+  }
+}
+.card-section-footer {
+  overflow: hidden;
+  margin: 1rem -1rem -1rem;
+  padding: .8rem 1rem 0 0;
+  &.primary {
+    background: $success-color;
+  }
+}
+
+.borderB_soft-gray {
+  border-bottom: 2px solid $light-gray;
+ }
+
+ .scrap-item {
+   margin-bottom: 1rem;
+   border-bottom: 5px solid $light-gray;
+   &:nth-last-child(-n+3) {
+     border-bottom: none;
+   }
+ }

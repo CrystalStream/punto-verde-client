@@ -481,6 +481,22 @@ $global-color-pick-contrast-tolerance: 0 !default;
     }
   }
 
+  .list-grp {
+    border: 1px solid $light-gray;
+    border-radius: 5px 5px 0 0;
+    list-style: none;
+    margin: 0;
+    .list-grp-item {
+      padding: .8rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid $light-gray;
+      .list-key {
+        color: darken($light-gray, 40);
+        text-transform: capitalize;
+      }
+    }
+  }
+
 }
 
 
