@@ -1,0 +1,47 @@
+<form [formGroup]="scrapsForm" novalidate (ngSubmit)="save()">
+  <div class="align-center">
+    <fieldset class="small-12 medium-6 columns fieldset borderB_succes">
+      <legend>Datos de residuo</legend>
+      <div class="row">
+        <div class="small-12 medium-12 cell text-center">
+          <label>Nombre del residuo:</label>
+            <input type="text" placeholder="Nombre" formControlName="name">
+            <span class="form-error"
+              *ngIf="scrapsForm.get('name').hasError('required') && scrapsForm.get('name').touched">
+            El nombre es requerido. Porfavor inserta un nombre.
+              </span>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="small-12 medium-6 columns fieldset borderB_secondary">
+      <legend>Precio/Kg</legend>
+      <div class="row">
+        <div class="small-12 medium-12 cell text-center">
+          <label>Precio (Pesos):</label>
+            <input type="number" placeholder="Nombre" formControlName="valuePerKg">
+            <span class="form-error"
+              *ngIf="scrapsForm.get('valuePerKg').hasError('required') && scrapsForm.get('valuePerKg').touched">
+            El precio es requerido.
+              </span>
+            <span class="form-error"
+            *ngIf="scrapsForm.get('valuePerKg').hasError('minValue') && scrapsForm.get('valuePerKg').touched">
+            Porfavor ingresa solo valores positivos.
+            </span>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="">
+    <button *ngIf="!editMode" class="button warning large" type="submit" [disabled]="scrapsForm.invalid">
+      Guardar <i class="fa fa-save"></i>
+      </button>
+    <button *ngIf="editMode" class="button secondary large" (click)="update()" type="button" [disabled]="scrapsForm.invalid">
+      Actualizar <i class="fa fa-save"></i>
+      </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button routerLink="/scraps" class="button alert large" type="button">
+      Cancelar <i class="fa fa-reply fa-fw"></i>
+      </button>
+  </div>
+</form>

@@ -15,6 +15,7 @@ import { NotificationService } from 'ng2-notify-popup';
 import { UserService } from './shared/services/api/user.service';
 import { SectorService } from './shared/services/api/sector.service';
 import { ImageService } from './shared/services/api/image.service';
+import { ScrapService } from './shared/services/api/scrap.service';
 import { StorageService } from './shared/services/storage.service';
 import { AuthService } from './shared/services/auth.service';
 
@@ -46,6 +47,7 @@ import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
     SectorService,
     NotificationService,
     ImageService,
+    ScrapService,
     StorageService,
     AuthService,
     AuthGuard,

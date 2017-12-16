@@ -36,8 +36,7 @@ export class SectorsComponent implements OnInit {
   */
   constructor(
     private SectorService: SectorService,
-    private NotifyService: NotificationService,
-    private UserService: UserService
+    private NotifyService: NotificationService
   ) {}
 
   /*
@@ -51,7 +50,7 @@ export class SectorsComponent implements OnInit {
       })
       .catch(err => {
         console.error(
-          JSON.parse('{Code: \'500\', message: err, method: \'SectorComponent.ngOnInit()\'}')
+          ('{Code: \'500\', message: err, method: \'SectorComponent.ngOnInit()\'}')
         );
       });
   }
@@ -68,7 +67,7 @@ export class SectorsComponent implements OnInit {
       })
       .catch(err => {
         console.error(
-          JSON.parse('{Code: \'500\', message: err, method: \'SectorsComponent.getAllSectors()\'}')
+          ('{Code: \'500\', message: err, method: \'SectorsComponent.getAllSectors()\'}')
         );
       });
   }

@@ -2,6 +2,11 @@
 
 $footer-card-color: #2c3840;
 
+h5 {
+  margin-top: 10%;
+  font-size: 3rem;
+  color: $light-gray;
+}
 .card-header {
   font-size: 18px;
   font-weight: bold;
@@ -16,6 +21,14 @@ $footer-card-color: #2c3840;
   padding: .8rem 1rem 0 0;
   &.primary {
     background: $success-color;
+  }
+}
+
+.list-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  .label {
+    color: white;
   }
 }
 

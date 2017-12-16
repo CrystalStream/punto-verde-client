@@ -1,189 +1,41 @@
 <div class="row">
   <div class="small 12 medium-12 columns">
     <div class="float-right">
-      <button class="button primary large">
+      <a routerLink="add" class="button primary large">
         <i class="fa fa-plus fa-fw"></i> Agregar
-      </button>
+      </a>
     </div>
     <hr>
   </div>
-  <div class="small-12 medium-4 columns scrap-item">
+  <div class="small-12 medium-4 columns scrap-item" *ngFor="let scrap of scraps">
     <div class="card">
       <div class="card-divider card-header primary">
-        <span> Nombre del scrpa</span>
+        <span> {{ scrap.name }}</span>
       </div>
       <div class="card-section">
        <ul class="list-grp">
           <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
+            <span class="list-key">Valor por kilo</span>
             <span class="list-value float-right">
-              <span class="label warning">Valor</span>
-            </span>
-          </li>
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label alert">Valor</span>
+              <span class="label warning">{{ scrap.valuePerKg | currency:'USD':true}}</span>
             </span>
           </li>
        </ul>
        <div class="card-section-footer primary">
         <div class="float-right">
-          <button class="button primary">Ver</button>
-          <button class="button secondary">Editar</button>
+          <a [routerLink]="['edit', scrap.uuid]" class="button secondary small">
+            <i class="fa fa-pencil fa-fw"></i>
+          </a>
+          <button class="button alert small hide">
+            <i class="fa fa-times fa-fw"></i>
+          </button>
         </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="small 12 medium-12 columns text-center align-middle" *ngIf="scraps && !scraps.length">
+    <h5> <i class="fa fa-exclamation fa-fw"></i><br> No hay Residuos</h5>
   </div>
 
-  <div class="small-12 medium-4 columns scrap-item">
-    <div class="card">
-      <div class="card-divider card-header primary">
-        <span> Nombre del scrpa</span>
-      </div>
-      <div class="card-section">
-       <ul class="list-grp">
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label warning">Valor</span>
-            </span>
-          </li>
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label alert">Valor</span>
-            </span>
-          </li>
-       </ul>
-       <div class="card-section-footer primary">
-        <div class="float-right">
-          <button class="button primary">Ver</button>
-          <button class="button secondary">Editar</button>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="small-12 medium-4 columns scrap-item">
-    <div class="card">
-      <div class="card-divider card-header primary">
-        <span> Nombre del scrpa</span>
-      </div>
-      <div class="card-section">
-       <ul class="list-grp">
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label warning">Valor</span>
-            </span>
-          </li>
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label alert">Valor</span>
-            </span>
-          </li>
-       </ul>
-       <div class="card-section-footer primary">
-        <div class="float-right">
-          <button class="button primary">Ver</button>
-          <button class="button secondary">Editar</button>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="small-12 medium-4 columns scrap-item">
-    <div class="card">
-      <div class="card-divider card-header primary">
-        <span> Nombre del scrpa</span>
-      </div>
-      <div class="card-section">
-       <ul class="list-grp">
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label warning">Valor</span>
-            </span>
-          </li>
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label alert">Valor</span>
-            </span>
-          </li>
-       </ul>
-       <div class="card-section-footer primary">
-        <div class="float-right">
-          <button class="button primary">Ver</button>
-          <button class="button secondary">Editar</button>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="small-12 medium-4 columns scrap-item">
-    <div class="card">
-      <div class="card-divider card-header primary">
-        <span> Nombre del scrpa</span>
-      </div>
-      <div class="card-section">
-       <ul class="list-grp">
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label warning">Valor</span>
-            </span>
-          </li>
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label alert">Valor</span>
-            </span>
-          </li>
-       </ul>
-       <div class="card-section-footer primary">
-        <div class="float-right">
-          <button class="button primary">Ver</button>
-          <button class="button secondary">Editar</button>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="small-12 medium-4 columns scrap-item">
-    <div class="card">
-      <div class="card-divider card-header primary">
-        <span> Nombre del scrpa</span>
-      </div>
-      <div class="card-section">
-       <ul class="list-grp">
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label warning">Valor</span>
-            </span>
-          </li>
-          <li class="list-grp-item">
-            <span class="list-key">Attributo</span>
-            <span class="list-value float-right">
-              <span class="label alert">Valor</span>
-            </span>
-          </li>
-       </ul>
-       <div class="card-section-footer primary">
-        <div class="float-right">
-          <button class="button primary">Ver</button>
-          <button class="button secondary">Editar</button>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

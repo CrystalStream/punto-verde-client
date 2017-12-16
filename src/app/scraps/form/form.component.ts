@@ -1,17 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-
-import { UserService } from './../../shared/services/api/user.service';
-import { SectorService } from '../../shared/services/api/sector.service';
+import { ScrapService } from '../../shared/services/api/scrap.service';
 import { NotificationService } from 'ng2-notify-popup';
 
-declare var $: any;
+import { minValue } from '../../shared/validators/min.value';
 
 @Component({
-  selector: 'app-form-sectors',
+  selector: 'app-form-scraps',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
@@ -20,12 +17,12 @@ export class FormComponent implements OnInit {
   @Input() editMode = false;
 
   /*Sector uuid*/
-  sectorId: string;
+  scrapId: string;
 
   // promises array
   promises: Promise<any>[] = [];
 
-  sectorForm: FormGroup;
+  scrapsForm: FormGroup;
 
   // Notification error message
   notificationError: object = {
@@ -44,40 +41,43 @@ export class FormComponent implements OnInit {
   };
 
   constructor(
-    public SectorService: SectorService,
+    public ScrapService: ScrapService,
     public route: ActivatedRoute,
     public router: Router,
     private NotifyService: NotificationService
   ) {}
 
   ngOnInit() {
-    // init foundation js
-    $(document).foundation();
 
-    this.sectorForm = new FormGroup({
-      name: new FormControl(null, Validators.required)
+    this.scrapsForm = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      valuePerKg: new FormControl(null, [Validators.required, minValue(0)])
     });
 
     /* EDIT MODE*/
     if (this.editMode) {
       this.route.params.subscribe(params => {
-        this.sectorId = params.id;
+        this.scrapId = params.id;
       });
-      this.promises.push(this.getSector(this.sectorId));
+      this.promises.push(this.getScrap(this.scrapId));
     }
+
   }
+
 
   /*
   * Creates a sector
   */
   save() {
-    if (this.sectorForm.valid) {
-      this.SectorService.save(this.sectorForm.value)
+    if (this.scrapsForm.valid) {
+      console.log('this.scrapsForm.value: ', this.scrapsForm.value);
+      this.ScrapService.save(this.scrapsForm.value)
         .then(response => {
+          console.log('response: ', response);
           if (response.code === 'CREATED') {
-            // redirect to /sectors and show a notification
-            this.router.navigateByUrl('/sectors');
-            this.NotifyService.show('Sector agregado correctamente', this.notificationSuccess);
+            // redirect to /scraps and show a notification
+            this.router.navigateByUrl('/scraps');
+            this.NotifyService.show('Residuo agregado correctamente', this.notificationSuccess);
           } else {
             this.NotifyService.show(
               `ERROR (${response.code}) - ${response.statusText}`,
@@ -95,13 +95,12 @@ export class FormComponent implements OnInit {
   }
 
   update() {
-    delete this.sectorForm.value.password;
-    this.SectorService.update(this.sectorId, this.sectorForm.value)
+    this.ScrapService.update(this.scrapId, this.scrapsForm.value)
       .then(response => {
         if (response.code === 'OK') {
-          // redirect to /sectors and show a notification
-          this.router.navigateByUrl('/sectors');
-          this.NotifyService.show('Sector actualizado correctamente', this.notificationSuccess);
+          // redirect to /scraps and show a notification
+          this.router.navigateByUrl('/scraps');
+          this.NotifyService.show('Residuo actualizado correctamente', this.notificationSuccess);
         } else {
           this.NotifyService.show(
             `ERROR (${response.code}) - ${response.statusText}`,
@@ -112,9 +111,11 @@ export class FormComponent implements OnInit {
       .catch(err => console.log(`{'error': ${err}}`));
   }
 
-  getSector(uuid) {
-    return this.SectorService.findOne(uuid)
-      .then(response => this.sectorForm.reset(response.data))
-      .catch(err => console.error(`{'error': ${err}}`));
+
+  getScrap(uuid) {
+    return this.ScrapService.findOne(uuid)
+      .then(response => this.scrapsForm.reset(response.data))
+      .catch(err => console.error(`{'FormComponent@getScrap error': ${err}}`));
   }
+
 }
