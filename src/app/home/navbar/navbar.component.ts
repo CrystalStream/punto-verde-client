@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './../../shared/services/auth.service';
+import { StorageService } from './../../shared/services/storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,9 +17,11 @@ export class NavbarComponent implements OnInit {
   // current user info
   currentUser: any;
 
-  constructor(public AuthService: AuthService, private router: Router) {}
+  constructor(public AuthService: AuthService, private router: Router, public StorageService: StorageService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentUser = JSON.parse(this.StorageService.getCurrentUser());
+  }
 
   /*
   * Logout
