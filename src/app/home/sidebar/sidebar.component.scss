@@ -10,7 +10,13 @@ body {
 }
 
 .menu-vertical-item {
-  border-bottom: 1px dotted lighten($success-color, 20);
+  border-bottom: 1px solid darken($light-gray, 60);
+  a {
+    color: white;
+  }
+  &.is-active a {
+    font-size: 1.4rem;
+  }
 }
 
 .app-dashboard {
@@ -94,14 +100,16 @@ body {
 }
 
 .app-dashboard-sidebar {
-  background-color: $white;
+  background-color: $app-dashboard-top-nav-color;
   font-size: 1.1rem;
   height: 100%;
   overflow-x: visible;
   overflow-y: auto;
   z-index: 1;
   transition: all .3s .3s;
-  padding-top: 1rem;
+  @include breakpoint(small only) {
+    padding-top: 1rem;
+  }
 
 
   .app-dashboard-open-sidebar, .app-dashboard-close-sidebar{

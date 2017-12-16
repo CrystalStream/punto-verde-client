@@ -278,10 +278,6 @@ $global-color-pick-contrast-tolerance: 0 !default;
     padding: 0px;
   }
 
-  .menu-vertical-item {
-    border-bottom: 1px dotted lighten($success-color, 20);
-  }
-
   .app-dashboard {
     height: 100vh;
     display: flex;
@@ -370,7 +366,6 @@ $global-color-pick-contrast-tolerance: 0 !default;
     overflow-y: auto;
     z-index: 1;
     transition: all .3s .3s;
-    padding-top: 1rem;
 
 
     .app-dashboard-open-sidebar, .app-dashboard-close-sidebar{
