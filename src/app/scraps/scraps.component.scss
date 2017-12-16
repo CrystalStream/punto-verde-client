@@ -1,26 +1,31 @@
 @import '../../assets/foundation-sites/_global.scss';
 
 $footer-card-color: #2c3840;
+$primary-color-blue: #1779ba;
 
 h5 {
   margin-top: 10%;
   font-size: 3rem;
   color: $light-gray;
 }
-.card-header {
-  font-size: 18px;
-  font-weight: bold;
-  &.primary {
-    background: $success-color;
-    color: $black;
+.card {
+  box-shadow: 1px 0px 12px -5px #0a0a0a;
+  .card-header {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    &.primary {
+      background: $primary-color-blue;
+      color: $white;
+    }
   }
-}
-.card-section-footer {
-  overflow: hidden;
-  margin: 1rem -1rem -1rem;
-  padding: .8rem 1rem 0 0;
-  &.primary {
-    background: $success-color;
+  .card-section-footer {
+    overflow: hidden;
+    margin: 1rem -1rem -1rem;
+    padding: .8rem 1rem 0 0;
+    &.primary {
+      background: $primary-color-blue;
+    }
   }
 }
 
