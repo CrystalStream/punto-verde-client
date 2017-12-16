@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // check for user
-    this.checkUserLogin();
+    // this.checkUserLogin();
 
     // subscribe to the isLogin event.
     this.AuthService.isLogin.subscribe( (isLogin: boolean) => {

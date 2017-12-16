@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
 import { environment } from '../../../environments/environment';
 
+import * as _ from 'lodash';
+
 @Injectable()
 export class AuthService {
   // base url
@@ -23,7 +25,7 @@ export class AuthService {
   * Check if the user is logged in.
   */
   isUserLoggedIn() {
-    return !!this.StorageService.getCurrentUser();
+    return _.has(this.StorageService.getCurrentUser(), 'name');
   }
 
   /*

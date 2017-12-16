@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 /*
 *	Storage service class
 */
@@ -31,7 +32,7 @@ export class StorageService {
   * @param {string} user
   */
   getCurrentUser() {
-    return localStorage.getItem('currentUser');
+    return JSON.parse(localStorage.getItem('currentUser')) || {};
   }
 
 
