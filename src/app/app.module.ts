@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RoutesModule } from './routes/routes.module';
 import { UsersModule } from './users/users.module';
 import { SectorsModule } from './sectors/sectors.module';
+import { NeighborhoodModule } from './neighborhood/neighborhood.module';
 import { ScrapsModule } from './scraps/scraps.module';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
@@ -38,6 +39,7 @@ import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
     RoutesModule,
     UsersModule,
     SectorsModule,
+    NeighborhoodModule,
     ScrapsModule,
     HomeModule,
     AuthModule
