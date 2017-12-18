@@ -188,6 +188,9 @@ export class FormComponent implements OnInit {
   */
   checkValidators() {
     this.userForm.get('role').valueChanges.subscribe((role: string) => {
+      this.userForm.get('RFC').setValue(null);
+      this.userForm.get('sector').setValue(null);
+      this.userForm.get('address').setValue(null);
       if (this.editMode) {
         this.userForm.get('password').setValidators(null);
       }

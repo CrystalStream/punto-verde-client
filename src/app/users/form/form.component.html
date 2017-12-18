@@ -51,8 +51,8 @@
             Inserta el RFC de la empresa.
           </span>
           <span class="form-error"
-                *ngIf=" userForm.get('RFC').hasError('minlength') && !userForm.get('RFC').hasError('required') && userForm.get('RFC').touched">
-            Porfavor ingresa un RFC valido. Longitud minima {{ userForm.get('rfc').getError('minlength').requiredLength }} caracteres.
+                *ngIf="userForm.get('RFC').hasError('minlength') && !userForm.get('RFC').hasError('required') && userForm.get('RFC').touched">
+            Porfavor ingresa un RFC valido. Longitud minima {{ userForm.get('RFC').getError('minlength').requiredLength }} caracteres.
           </span>
         </div>
       </div>
