@@ -7,7 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 
 const registerRoutes: Routes = [
-  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] }
+  { path: 'punto-verde', component: RegisterComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
