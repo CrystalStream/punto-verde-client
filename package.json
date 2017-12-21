@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@jaspero/ng2-select": "^0.1.2",
     "@types/node": "^8.0.54",
     "core-js": "^2.4.1",
     "dotenv": "^4.0.0",
