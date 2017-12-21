@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from '../shared/services/api/user.service';
-import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -51,7 +50,6 @@ export class UsersComponent implements OnInit {
   constructor(
     private UserService: UserService,
     private NotifyService: NotificationService,
-    public AuthService: AuthService,
     private router: Router
   ) {}
 

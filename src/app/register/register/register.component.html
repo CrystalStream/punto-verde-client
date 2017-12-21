@@ -11,10 +11,13 @@
     <br>
   </div>
 
-  <div class="small-12">
+  <div class="small-12" *ngIf="loading.all">
     <ul class="tabs" data-tabs id="example-tabs">
-      <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Sector 1</a></li>
-      <li class="tabs-title"><a data-tabs-target="panel2" href="#panel2">Sector 2</a></li>
+      <li class="tabs-title" *ngFor="let sector of sectors"
+          [ngClass]="(activeSector === sector.uuid) ? 'is-active' : ''"
+            (click)="setActiveSector(sector)">
+        <a>{{ sector.name }}</a>
+      </li>
     </ul>
     <div class="tabs-content" data-tabs-content="example-tabs">
       <div class="tabs-panel is-active" id="panel1">
@@ -26,7 +29,7 @@
               <h6>Usuario</h6>
               <hr>
               <div class="column align-self-middle">
-                <jaspero-select [options]="options"></jaspero-select>
+                <jaspero-select [options]="users"></jaspero-select>
               </div>
             </div>
 
@@ -36,23 +39,8 @@
               <hr>
               <div class="column align-self-middle">
                 <div class="row">
-                  <div class="small-6 columns">
-                    <button class="button primary">Scrap 1</button>
-                  </div>
-                  <div class="small-6 columns">
-                    <button class="button primary">Scrap 1</button>
-                  </div>
-                  <div class="small-6 columns">
-                    <button class="button primary">Scrap 1</button>
-                  </div>
-                  <div class="small-6 columns">
-                    <button class="button primary">Scrap 1</button>
-                  </div>
-                  <div class="small-6 columns">
-                    <button class="button primary">Scrap 1</button>
-                  </div>
-                  <div class="small-6 columns">
-                    <button class="button primary">Scrap 1</button>
+                  <div class="small-6 columns" *ngFor="let scrap of scraps">
+                    <button class="button primary text-uppercase text-bold">{{ scrap.name }}</button>
                   </div>
                 </div>
               </div>
