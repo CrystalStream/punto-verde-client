@@ -1,6 +1,10 @@
 @import '../../../assets/foundation-sites/_global.scss';
 
+$selected-color: salmon;
 
+.form-error {
+  display: inline-block;
+}
 .register-item {
   @include breakpoint(medium up) {
     border-right: 1px solid $light-gray;
@@ -27,5 +31,26 @@
 
   .selected-item {
     margin-bottom: 10px;
+  }
+}
+
+.button-group {
+  padding: .5rem 1rem;
+  &.wrapping {
+    flex-wrap: wrap;
+  }
+  .button {
+    &.scrap-item{
+      margin: .2rem;
+    }
+  }
+  input {
+    display: none;
+    &:checked + label {
+      background-color: salmon;
+      &:active {
+        background-color: salmon;
+      }
+    }
   }
 }

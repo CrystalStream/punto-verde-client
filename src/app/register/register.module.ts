@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterRoutesModule } from './register.routes.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectComponent } from '@jaspero/ng2-select';
 
+import { RegisterRoutesModule } from './register.routes.module';
 import { RegisterComponent } from './register/register.component';
 
 
@@ -11,7 +11,8 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     CommonModule,
     RegisterRoutesModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [RegisterComponent, SelectComponent]
 })
