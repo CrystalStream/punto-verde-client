@@ -129,7 +129,9 @@ export class RegisterComponent implements OnInit {
   setActiveSector(sector: any) {
     this.activeSector = sector.uuid;
     this.users =  sector.users.map( user => ({ name: user.name, uuid: user.uuid}));
-    this.neighborhoods =  sector.neighborhoods.map( n => ({ name: n.name, uuid: n.uuid}));
+    this.neighborhoods =  sector.neighborhoods
+                                    .map( n => ({ name: n.name, uuid: n.uuid, active: n.active }))
+                                    .filter( n => n.active);
     this.registerForm.reset();
   }
 
