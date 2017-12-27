@@ -63,8 +63,7 @@ export class RegisterComponent implements OnInit {
     private ScrapService: ScrapService,
     private SectorService: SectorService,
     private NotifyService: NotificationService,
-    private RecycleService: RecycleService,
-    private router: Router
+    private RecycleService: RecycleService
   ) {}
 
   ngOnInit() {
@@ -130,13 +129,17 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    let recycle = _.map(this.registerForm.value, this.pickValuesToRegister.bind(this)).reduce( (recy) => recy);
-    console.log('recycle: ', recycle);
+    const recycle = _.map(this.registerForm.value, this.pickValuesToRegister.bind(this)).reduce( (recy) => recy);
     this.submitting = true;
     this.RecycleService.save(recycle)
       .then( response => {
-        console.log('response: ', response);
         this.submitting = false;
+        if (response.code === 'CREATED') {
+          this.registerForm.reset();
+          this.NotifyService.show(`Registro hecho correctamente`, this.notificationSuccess);
+        } else {
+          this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
+        }
       });
   }
 
