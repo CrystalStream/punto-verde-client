@@ -24,9 +24,6 @@ export class DetailComponent implements OnInit {
     all: false,
   };
 
-  // User points
-  userPoints = 0;
-
   // promises array
   promises: Promise<any>[] = [];
 
@@ -44,14 +41,6 @@ export class DetailComponent implements OnInit {
     Promise.all(this.promises)
       .then(() => {
         this.loading.all = true;
-        if (this.user.points > 0) {
-          const pointsInterval = setInterval( () => {
-            this.userPoints ++;
-            if (this.userPoints >= this.user.points) {
-              clearInterval(pointsInterval);
-            }
-          }, 10);
-        }
       })
     .catch( err => {
         // console.error(JSON.parse("{Code: '500', message: err, method: 'DetailComponent.ngOnInit()' }"))
