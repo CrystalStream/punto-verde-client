@@ -124,6 +124,7 @@ export abstract class BaseApiService {
   count(filter: object = {}) {
     return this.http
       .get(`${this.getBaseUrl()}/count`, {
+        headers: this._getHeader(),
         params: {
           filter
         }

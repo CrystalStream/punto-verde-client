@@ -8,9 +8,6 @@ import { NotificationService } from 'ng2-notify-popup';
 import { ScrapService } from './../../shared/services/api/scrap.service';
 import { SectorService } from './../../shared/services/api/sector.service';
 
-// Jquery
-declare var $: any;
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -91,13 +88,10 @@ export class RegisterComponent implements OnInit {
     Promise.all(this.promises)
       .then( () => {
         if (this.sectors.length) {
-          console.log('this.sectors: ', this.sectors);
           this.setActiveSector(this.sectors[0]);
           this.loading.all = true;
         }
       });
-    // init foundation js
-    $(document).foundation();
   }
 
   /*
@@ -124,7 +118,7 @@ export class RegisterComponent implements OnInit {
 
   /*
   * Set the sector to display users..
-  * @param{string} sectorId
+  * @param{any} sector
   */
   setActiveSector(sector: any) {
     this.activeSector = sector.uuid;
@@ -136,11 +130,14 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log('form', this.registerForm);
+    let recycle = _.map(this.registerForm.value, this.pickValuesToRegister.bind(this)).reduce( (recy) => recy);
+    console.log('recycle: ', recycle);
     this.submitting = true;
-    setTimeout(() => {
-      this.submitting = false;
-    }, 1000);
+    this.RecycleService.save(recycle)
+      .then( response => {
+        console.log('response: ', response);
+        this.submitting = false;
+      });
   }
 
   changeEntity(event) {
@@ -154,5 +151,11 @@ export class RegisterComponent implements OnInit {
     }
     this.RecycleService.changeEndpoint(this.isForUsers);
     this.registerForm.reset();
+  }
+
+  pickValuesToRegister(value, key, collection) {
+    return this.isForUsers ?
+      ({ user: collection.user.uuid, scrapKg: collection.scrapKg, scrap: collection.scrap }) :
+      ({ neighborhood: collection.neighborhood.uuid, scrapKg: collection.scrapKg, scrap: collection.scrap });
   }
 }
