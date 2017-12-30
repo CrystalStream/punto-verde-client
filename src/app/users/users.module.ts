@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsersRoutesModule } from './users.routes.module';
+import { CounterModule } from 'ngx-counter';
 
 import { UsersComponent } from './users.component';
 import { AddComponent } from './add/add.component';
@@ -19,6 +20,6 @@ import { CloudinaryPipe } from '../shared/pipes/cloudinary.pipe';
     EditComponent,
     CloudinaryPipe
   ],
-  imports: [CommonModule, ReactiveFormsModule, UsersRoutesModule, FormsModule]
+  imports: [CommonModule, ReactiveFormsModule, UsersRoutesModule, FormsModule, CounterModule]
 })
 export class UsersModule {}

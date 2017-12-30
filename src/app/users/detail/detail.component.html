@@ -5,8 +5,9 @@
 	</div>
 	<div class="small-12 medium-7 medium-offset-1 columns">
 		<div class="row align-center">
-			<div class="column align-self-middle user-points">
-				<span>{{ user.points }}</span> <br> <span class="subheader">Puntos.</span>
+			<div class="column align-self-middle user-points text-center">
+        <ngx-counter [countValue]=0 [limit]=counterUserpoints theme="green" [speed]=10 size="big" ></ngx-counter><small class="real-points">({{ user.points }})</small>
+        <br><span class="subheader">Puntos.</span><br>
 			</div>
 			<div class="column align-self-middle text-center">
 				<div class="panel callout" [ngClass]="user.role">

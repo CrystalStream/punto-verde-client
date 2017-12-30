@@ -16,6 +16,9 @@ export class DetailComponent implements OnInit {
   // User
   user: {[key: string]: any};
 
+  // user points for the counter
+  counterUserpoints = 0;
+
   // uuid of user
   userUuid: Observable<string>;
 
@@ -40,6 +43,7 @@ export class DetailComponent implements OnInit {
 
     Promise.all(this.promises)
       .then(() => {
+        this.counterUserpoints = Math.floor(this.user.points);
         this.loading.all = true;
       })
     .catch( err => {
