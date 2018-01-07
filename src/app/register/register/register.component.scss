@@ -1,0 +1,56 @@
+@import '../../../assets/foundation-sites/_global.scss';
+
+$selected-color: salmon;
+
+.form-error {
+  display: inline-block;
+}
+.register-item {
+  @include breakpoint(medium up) {
+    border-right: 1px solid $light-gray;
+    &:last-child {
+      border-right: none;
+    }
+  }
+  hr {
+    margin: .5rem 1rem 1rem;
+  }
+  .shrink-padding {
+    .column {
+      padding-right: 5px;
+      padding-left: 5px;
+      max-width: none;
+      &.shrink {
+        flex: 0 0 20%;
+      }
+      &.shrink_2x {
+        flex: 0 0 40%;
+      }
+    }
+  }
+
+  .selected-item {
+    margin-bottom: 10px;
+  }
+}
+
+.button-group {
+  padding: .5rem 1rem;
+  &.wrapping {
+    flex-wrap: wrap;
+  }
+  .button {
+    &.scrap-item{
+      margin: .2rem;
+    }
+  }
+  input {
+    display: none;
+    &:checked + label {
+      background-color: salmon;
+      &:active {
+        background-color: salmon;
+      }
+    }
+  }
+}

@@ -16,6 +16,9 @@ export class DetailComponent implements OnInit {
   // User
   user: {[key: string]: any};
 
+  // user points for the counter
+  counterUserpoints = 0;
+
   // uuid of user
   userUuid: Observable<string>;
 
@@ -23,9 +26,6 @@ export class DetailComponent implements OnInit {
   loading: {[key: string]: any} = {
     all: false,
   };
-
-  // User points
-  userPoints = 0;
 
   // promises array
   promises: Promise<any>[] = [];
@@ -43,15 +43,8 @@ export class DetailComponent implements OnInit {
 
     Promise.all(this.promises)
       .then(() => {
+        this.counterUserpoints = Math.floor(this.user.points);
         this.loading.all = true;
-        if (this.user.points > 0) {
-          const pointsInterval = setInterval( () => {
-            this.userPoints ++;
-            if (this.userPoints >= this.user.points) {
-              clearInterval(pointsInterval);
-            }
-          }, 10);
-        }
       })
     .catch( err => {
         // console.error(JSON.parse("{Code: '500', message: err, method: 'DetailComponent.ngOnInit()' }"))

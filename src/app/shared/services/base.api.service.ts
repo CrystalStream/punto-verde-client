@@ -24,10 +24,7 @@ export abstract class BaseApiService {
 	* constructor
 	* param{Http} http service
 	*/
-  constructor(public http: Http, public AuthService: AuthService) {
-    this.token = this.AuthService.getToken();
-    this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}`});
-  }
+  constructor(public http: Http, public AuthService: AuthService) {}
 
   /*
 	* Get base url (should be implemented on the child class)
@@ -51,7 +48,7 @@ export abstract class BaseApiService {
   ) {
     return this.http
       .get(this.getBaseUrl(), {
-        headers: this.headers,
+        headers: this._getHeader(),
         params: {
           where,
           limit,
@@ -73,7 +70,7 @@ export abstract class BaseApiService {
     console.log('populate', populate);
     return this.http
       .get(`${this.getBaseUrl()}/${id}`, {
-        headers: this.headers,
+        headers: this._getHeader(),
         params: {
           populate
         }
@@ -89,7 +86,7 @@ export abstract class BaseApiService {
 	*/
   save(data: object) {
     return this.http
-      .post(this.getBaseUrl(), data, { headers: this.headers })
+      .post(this.getBaseUrl(), data, { headers: this._getHeader() })
       .toPromise()
       .then(response => response.json())
       .catch(err => Promise.reject(this._handleError(err.message || err)));
@@ -101,7 +98,7 @@ export abstract class BaseApiService {
 	*/
   destroy(id: string) {
     return this.http
-      .delete(`${this.getBaseUrl()}/${id}`, { headers: this.headers })
+      .delete(`${this.getBaseUrl()}/${id}`, { headers: this._getHeader() })
       .toPromise()
       .then(response => response.json())
       .catch(err => Promise.reject(this._handleError(err.message || err)));
@@ -114,7 +111,7 @@ export abstract class BaseApiService {
 	*/
   update(id: string, data: object) {
     return this.http
-      .put(`${this.getBaseUrl()}/${id}`, data, { headers: this.headers })
+      .put(`${this.getBaseUrl()}/${id}`, data, { headers: this._getHeader() })
       .toPromise()
       .then(response => response.json())
       .catch(err => Promise.reject(this._handleError(err.message || err)));
@@ -127,6 +124,7 @@ export abstract class BaseApiService {
   count(filter: object = {}) {
     return this.http
       .get(`${this.getBaseUrl()}/count`, {
+        headers: this._getHeader(),
         params: {
           filter
         }
@@ -144,7 +142,7 @@ export abstract class BaseApiService {
   */
   remove(uuid: string, association: string, fk: string) {
     return this.http
-      .delete(`${this.getBaseUrl()}/${uuid}/${association}/${fk}`, { headers: this.headers })
+      .delete(`${this.getBaseUrl()}/${uuid}/${association}/${fk}`, { headers: this._getHeader() })
       .toPromise()
       .then(response => response.json())
       .catch(err => Promise.reject(this._handleError(err.message || err)));
@@ -158,7 +156,7 @@ export abstract class BaseApiService {
     criteria.models = this.model;
     return this.http
       .get(`${environment.baseUrl}search`, {
-        headers: this.headers,
+        headers: this._getHeader(),
         params: criteria
       })
       .toPromise()
@@ -177,5 +175,14 @@ export abstract class BaseApiService {
       this.AuthService.logout();
     }
     return err;
+  }
+
+  /*
+  * Set the token to the header
+  */
+  _getHeader(): Headers {
+    this.token = this.AuthService.getToken();
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.token}`});
+    return this.headers;
   }
 }

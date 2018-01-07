@@ -492,6 +492,23 @@ $global-color-pick-contrast-tolerance: 0 !default;
     }
   }
 
+  .tabs-title {
+    &.is-active {
+      background: $light-gray;
+      a:hover {
+        background: $light-gray;
+      }
+    }
+  }
+
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
 }
 
 

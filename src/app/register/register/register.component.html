@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="columns large-expand">
+    <label>Colonia:</label>
+    <div class="switch">
+      <input class="switch-input" id="neighborhood?" type="checkbox" (change)="changeEntity($event)" >
+      <label class="switch-paddle" for="neighborhood?">
+        <span class="switch-active" aria-hidden="Si">Si</span>
+        <span class="switch-inactive" aria-hidden="No">No</span>
+      </label>
+    </div>
+    <br>
+  </div>
+
+  <div class="small-12" *ngIf="loading.all">
+    <ul class="tabs" data-tabs id="example-tabs">
+      <li class="tabs-title" *ngFor="let sector of sectors"
+          [ngClass]="(activeSector === sector.uuid) ? 'is-active' : ''"
+            (click)="setActiveSector(sector)">
+        <a>{{ sector.name }}</a>
+      </li>
+    </ul>
+    <div class="tabs-content" data-tabs-content="example-tabs">
+      <div class="tabs-panel is-active" id="panel1">
+        <form [formGroup]="registerForm" novalidate (submit)="register()">
+          <div class="row">
+
+            <!-- User -->
+            <div class="small-12 medium-3 columns text-center register-item">
+              <h6>Escoge {{isForUsers ? 'un Usuario': 'una Colonia'}}</h6>
+              <hr>
+              <div class="column align-self-middle">
+                <jaspero-select [options]="users" formControlName="user" *ngIf="isForUsers"></jaspero-select>
+                <jaspero-select [options]="neighborhoods" formControlName="neighborhood" *ngIf="!isForUsers"></jaspero-select>
+                <span class="form-error"
+                    *ngIf="isForUsers && registerForm.get('user') && registerForm.get('user').hasError('required')">
+                 Escoge un usuario para empezar porfavor!.
+                </span>
+                <span class="form-error"
+                    *ngIf="!isForUsers && registerForm.get('neighborhood') && registerForm.get('neighborhood').hasError('required')">
+                 Escoge una colonia para empezar porfavor!.
+                </span>
+              </div>
+            </div>
+
+            <!-- Scrap -->
+            <div class="small-12 medium-3 columns text-center register-item">
+              <h6>Material</h6>
+              <hr>
+              <div class="column align-self-middle">
+                <div class="row">
+                  <div class="button-group round toggle wrapping">
+                    <ng-template ngFor let-scrap [ngForOf]="scraps" let-i="index">
+                      <input type="radio" id="r-{{i}}" value="{{ scrap.uuid }}" name="scrap" formControlName="scrap">
+                      <label class="button text-uppercase text-bold scrap-item" for="r-{{i}}">{{ scrap.name }}</label>
+                    </ng-template>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="small-6 columns" *ngFor="let scrap of scraps">
+                    <button class="button primary text-uppercase text-bold">{{ scrap.name }}</button>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+
+            <!-- Kg -->
+            <div class="small-12 medium-3 columns text-center register-item">
+              <h6>KG</h6>
+              <hr>
+              <div class="align-self-middle">
+                <div class="shrink-padding selected-item">
+                  <input type="number" formControlName="scrapKg">
+                  <span class="form-error"
+                      *ngIf="registerForm.get('scrapKg').hasError('required') && registerForm.get('scrapKg').touched">
+                  Ingresa una cantidad valida!.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Done -->
+            <div class="small-12 medium-3 columns text-center register-item">
+              <h6>Listo</h6>
+              <hr>
+              <div class="column align-self-middle">
+                <button type="submit" class="button success" *ngIf="registerForm.valid && !submitting">
+                  <i class="fa fa-check fa-fw"></i>
+                  Listo!
+                </button>
+                <p *ngIf="registerForm.invalid && !submitting" class="text-center">
+                  <i class="fa fa-exclamation-circle fa-fw"></i> <br>
+                  Porfavor escoge un Usuario/Colonia, seguido del material y los kilos.
+                </p>
+                <p class="text-center" *ngIf="submitting">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i> <br> <br>
+                    <span class="text-bold">Guardando...</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
