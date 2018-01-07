@@ -1,0 +1,47 @@
+<div class="row" *ngIf="loading.all">
+	<div class="small-12 medium-3 text-center column align-self-middle">
+        <h2><i class="fa fa-map-signs fa-3x" aria-hidden="true"></i></h2>
+    </div>
+	<div class="small-12 medium-7 medium-offset-1 columns">
+		<div class="row align-center">
+			<div class="column align-self-middle neighborhoood-points">
+                <h2><span>{{ neighborhoodPoints }}</span> <span class="subheader">Puntos.</span></h2>
+				
+            </div>
+		</div>
+		<br><br>
+		<ul class="accordion">
+			<li>Nombre de colonia: <span class="float-right">{{ neighborhood.name }}</span></li>
+            <hr>
+            <li>Estado: <span class="float-right" *ngIf='neighborhood.active === true'> Activo </span></li>
+			<hr>
+		</ul>
+	</div>
+	<div class="small-12 columns" *ngIf="neighborhood.sector">
+		<h3 class="">Sector</h3>
+		<table>
+			<thead>
+				<th>Nombre</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td><a [routerLink]="['/sectors/show', neighborhood.sector.uuid]">{{ neighborhood.sector.name }}</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="small-12 columns">
+		<hr>
+		<div class="float-right">
+			<a [routerLink]="['/neighborhoods/edit', neighborhood.uuid]" class="button warning large">
+				<i class="fa fa-pencil fa-fw"></i> Editar
+			</a>
+			<button (click)="deleteUser(neighborhood.uuid)" class="button alert large">
+				<i class="fa fa-times fa-fw"></i> Borrar
+			</button>
+		</div>
+	</div>
+</div>
+<div *ngIf="!loading.all" class="row">
+	<i class="fa fa-spinner fa-pulse fa-3x float-center"></i>
+</div>

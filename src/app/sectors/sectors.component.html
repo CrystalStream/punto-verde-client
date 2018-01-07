@@ -11,6 +11,26 @@
     </div>
   </div>
   <div class="row">
+    <div class="shrink columns">
+      <form #searchForm="ngForm" (ngSubmit)="search()" novalidate>
+          <input type="text" name="searchString" placeholder="Buscar..." [(ngModel)]="searchString" (keyup)="resetSearch()">
+      </form>
+    </div>
+        <div class="expand columns">
+          <div class="button-group no-margin" *ngIf="willPaginate">
+            <button type="button" class="button blue" (click)="prevPage()" [disabled]="currentPage == 1">
+              <i class="fa fa-caret-left fa-fw"></i>
+            </button>
+            <button type="button" class="button blue" (click)="nextPage()" [disabled]="!showNext">
+              <i class="fa fa-caret-right fa-fw"></i>
+            </button>
+          </div>
+        </div>
+        <div class="shrink columns" *ngIf="willPaginate">
+          <span class="helper-text">
+            Pagina {{ currentPage }} de {{ totalPages }}
+          </span>
+        </div>
     <table class="stack">
       <thead>
         <tr>

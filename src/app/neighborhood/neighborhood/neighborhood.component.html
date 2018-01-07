@@ -1,43 +1,83 @@
-<div class="small-12 columns">
-  <div class="small-12 medium-12 columns">
-    <h3>Colonias</h3>
-    <hr>
+<div class="align-spaced">
+	<div class="columns">
+		<h3>Colonias</h3>
+		<hr>
+	</div>
+</div>
+<div class="row align-spaced">
+	<div class="small-12 medium-9 columns">
+		<a routerLink="add" class="button primary float-right">
+      <i class="fa fa-plus fa-fw"></i>  Agregar
+    </a>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 columns">
     <div class="row">
-      <div class="small-12 medium-12 columns">
-          <a routerLink="" class="button primary float-right">Agregar</a>
+      <div class="shrink columns">
+        <form #searchForm="ngForm" (ngSubmit)="search()" novalidate>
+          <input type="text" name="searchString" placeholder="Buscar..." [(ngModel)]="searchString" (keyup)="resetSearch()">
+        </form>
+      </div>
+      <div class="expand columns">
+        <div class="button-group no-margin" *ngIf="willPaginate">
+          <button type="button" class="button blue" (click)="prevPage()" [disabled]="currentPage == 1">
+            <i class="fa fa-caret-left fa-fw"></i>
+          </button>
+          <button type="button" class="button blue" (click)="nextPage()" [disabled]="!showNext">
+            <i class="fa fa-caret-right fa-fw"></i>
+          </button>
+        </div>
+      </div>
+      <div class="shrink columns" *ngIf="willPaginate">
+        <span class="helper-text">
+          Pagina {{ currentPage }} de {{ totalPages }}
+        </span>
       </div>
     </div>
-    <div class="row">
-      <table>
-        <thead>
-          <tr>
-            <th width="100">Table Header</th>
-            <th>Table Header</th>
-            <th width="100">Table Header</th>
-            <th width="100">Table Header</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Content Goes Here</td>
-            <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
-            <td>Content Goes Here</td>
-            <td>Content Goes Here</td>
-          </tr>
-          <tr>
-            <td>Content Goes Here</td>
-            <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-            <td>Content Goes Here</td>
-            <td>Content Goes Here</td>
-          </tr>
-          <tr>
-            <td>Content Goes Here</td>
-            <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-            <td>Content Goes Here</td>
-            <td>Content Goes Here</td>
-          </tr>
-        </tbody>
-      </table>
+		<table class="stack">
+		  <thead>
+		    <tr>
+		      <th width="200">Nombre</th>
+          <th width="150">Sector</th>
+          <th width="150">Puntos</th>
+		      <th width="150">Estado</th>
+		      <th width="150">Acciones</th>
+		    </tr>
+      </thead>
+      <tbody>
+		    <tr *ngFor="let neighborhood of neighborhoods">
+          <td>
+            <a *ngIf="neighborhood.active === true" [routerLink]="['show', neighborhood.uuid]" >{{ neighborhood.name }}</a>
+            <span *ngIf="!neighborhood.active === true">{{ neighborhood.name }}</span>
+          </td>
+          <td>
+            <a *ngIf="neighborhood.active === true" [routerLink]="['show', neighborhood.uuid]">{{ neighborhood.sector.name }}</a>
+            <span *ngIf="!neighborhood.active === true">{{ neighborhood.sector.name }}</span>
+          </td>
+		      <td><a>{{ neighborhood.points }}</a></td>
+          <td *ngIf="neighborhood.active === true"><span class="label online"> Activo  </span></td>
+          <td *ngIf="neighborhood.active === false"><span class="label offline">Inactivo</span></td>
+		      <td colspan="2">
+		      	<a [routerLink]="['edit', neighborhood.uuid]" class="button small warning">
+		      		<i class="fa fa-pencil"></i>
+		      	</a>
+		      	<a (click)="deleteNeighborhood(neighborhood.uuid)" class="button small alert">
+		      		<i class="fa fa-times"></i>
+		      	</a>
+		      </td>
+		    </tr>
+		  </tbody>
+    </table>
+    <div class="small-12 columns" *ngIf="willPaginate">
+      <div class="button-group">
+        <button type="button" class="button blue" (click)="prevPage()" [disabled]="currentPage == 1">
+          <i class="fa fa-caret-left fa-fw"></i>
+        </button>
+        <button type="button" class="button blue" (click)="nextPage()" [disabled]="!showNext">
+          <i class="fa fa-caret-right fa-fw"></i>
+        </button>
+      </div>
     </div>
-  </div>
+	</div>
 </div>

@@ -18,6 +18,7 @@ import { SectorService } from './shared/services/api/sector.service';
 import { ImageService } from './shared/services/api/image.service';
 import { ScrapService } from './shared/services/api/scrap.service';
 import { StorageService } from './shared/services/storage.service';
+import { NeighborhoodService } from './shared/services/api/neighborhood.service';
 import { AuthService } from './shared/services/auth.service';
 
 import { AuthGuard } from './shared/guards/auth.guard';
@@ -51,6 +52,7 @@ import { CloudinaryPipe } from './shared/pipes/cloudinary.pipe';
     ImageService,
     ScrapService,
     StorageService,
+    NeighborhoodService,
     AuthService,
     AuthGuard,
     HomeGuard

@@ -1,0 +1,43 @@
+<form [formGroup]="neighborhoodForm" novalidate (ngSubmit)="save()">
+	<div class="small-offset-0 medium-offset-3">
+		<fieldset class="small-12 medium-8 cell fieldset borderB_succes">
+			 <legend>Datos de colonia</legend>
+				 <div class="row">
+					<div class="small-12 medium-12 cell text-center">
+						<label>Nombre de colonia:</label>
+							<input type="text" placeholder="Nombre" formControlName="name">
+							<span class="form-error"
+								*ngIf="neighborhoodForm.get('name').hasError('required') && neighborhoodForm.get('name').touched">
+							El nombre es requerido. Porfavor inserta un nombre.
+							</span>
+					</div>
+				 </div>
+				 <div class="row">
+					<div class="small-12 medium-12 cell text-center">
+						<label>Sector:</label>
+							<select formControlName="sector">
+								<option *ngFor="let sector of sectors" value="{{sector.uuid}}">{{sector.name}}</option>
+							</select>
+					</div>
+				 </div>
+				 <div class="row">
+					<div class="small-12 medium-12 cell text-center">
+						<label>Estado de la colonia:</label>
+						<input type="checkbox" name="active" value='true' formControlName="active"><label>Activo</label>
+					</div>
+				 </div>
+		 </fieldset>
+		 <div class="medium-offset-2">
+			<button *ngIf="!editMode" class="button warning large" type="submit" [disabled]="neighborhoodForm.invalid">
+				Guardar <i class="fa fa-save"></i>
+		   </button>
+			<button *ngIf="editMode" class="button secondary large" (click)="update()" type="button" [disabled]="neighborhoodForm.invalid">
+				Actualizar <i class="fa fa-save"></i>
+		   </button>
+		   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		   <button routerLink="/neighborhoods" class="button alert large" type="button">
+				Cancelar <i class="fa fa-reply fa-fw"></i>
+		   </button>
+		</div>
+	</div>
+</form>
