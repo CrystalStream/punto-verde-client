@@ -51,8 +51,6 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // init foundation js
-    $(document).foundation();
 
     this.sectorForm = new FormGroup({
       name: new FormControl(null, Validators.required)

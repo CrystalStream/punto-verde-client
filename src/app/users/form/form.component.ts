@@ -70,8 +70,6 @@ export class FormComponent implements OnInit {
   * init
   */
   ngOnInit() {
-    // init foundation js
-    $(document).foundation();
 
     // Create the form
     this.userForm = new FormGroup({
