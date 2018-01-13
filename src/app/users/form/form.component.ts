@@ -113,15 +113,25 @@ export class FormComponent implements OnInit {
       this.UserService
         .save(this.userForm.value)
         .then(response => {
-          if (response.code === 'CREATED') {
-            // redirect to /users and show a notification
-            this.router.navigateByUrl('/users');
-            this.NotifyService.show(`Usuarios agregado correctamente`, this.notificationSuccess);
-          } else {
-            this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
-          }
+          console.log('response: ', response);
+          // if (response.code === 'CREATED') {
+          //   // redirect to /users and show a notification
+          //   this.router.navigateByUrl('/users');
+          //   this.NotifyService.show(`Usuarios agregado correctamente`, this.notificationSuccess);
+          // } else {
+          //   this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
+          // }
         })
-        .catch(err => console.error('Error: FormComponent@save: ', err));
+        .catch(err => {
+          const errorDetail = JSON.parse(err._body);
+          if ( errorDetail.data.hasOwnProperty('email') ) {
+            errorDetail.data.email.forEach( error => {
+              if ( error.rule === 'unique' ) {
+                this.NotifyService.show('ERROR. Ya existe un usuario con ese email! ingresa otro porfavor!', this.notificationError);
+              }
+            });
+          }
+        });
     } else {
       this.NotifyService.show('ERROR. Porfavor corrigue los datos e intentalo de nuevo!.', this.notificationError);
     }
