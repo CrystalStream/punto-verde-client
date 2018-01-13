@@ -21,7 +21,8 @@ import { DetailComponent } from './detail/detail.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SectorsRoutesModule
+    SectorsRoutesModule,
+    FormsModule
 
   ]
 })

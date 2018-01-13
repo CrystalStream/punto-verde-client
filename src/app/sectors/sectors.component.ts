@@ -1,7 +1,8 @@
+import { SectorService } from './../shared/services/api/sector.service';
+import { AuthService } from './../shared/services/auth.service';
 import { NotificationService } from 'ng2-notify-popup';
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SectorService } from '../shared/services/api/sector.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../shared/services/api/user.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -17,8 +18,6 @@ export class SectorsComponent implements OnInit {
   // User
   user: { [key: string]: any };
 
-  haySector = false;
-
   // array to hold users
   sectors: Array<any>;
 
@@ -26,6 +25,25 @@ export class SectorsComponent implements OnInit {
   loading: { [value: string]: any } = {
     all: false
   };
+
+  // Limit for the query
+  limit = 20;
+
+  // next for pagination
+  next = 0;
+  showNext = true;
+
+  // Current page for pagination
+  currentPage = 1;
+
+  // Total pages of the pagination
+  totalPages = 1;
+
+  // should paginate
+  willPaginate = false;
+
+  // Search string for user
+  searchString: string;
 
   // promises array
   promises: Promise<any>[] = [];
@@ -36,7 +54,9 @@ export class SectorsComponent implements OnInit {
   */
   constructor(
     private SectorService: SectorService,
-    private NotifyService: NotificationService
+    private NotifyService: NotificationService,
+    public AuthService: AuthService,
+    private router: Router
   ) {}
 
   /*
@@ -97,6 +117,51 @@ export class SectorsComponent implements OnInit {
           }
         })
         .catch(err => console.error(JSON.parse(`{'error': ${err}}`)));
+    }
+  }
+  /*
+  * Go to next page of the pagination
+  */
+  nextPage() {
+    this.next += this.limit;
+    this.currentPage++;
+    this.getAllSectors();
+  }
+
+  /*
+  * Go to previous page of the pagination
+  */
+  prevPage() {
+    if (this.next > 0) {
+      this.next -= this.limit;
+      this.currentPage--;
+      this.getAllSectors();
+    }
+  }
+
+  /*
+  * Full text search on user name, email or RFC
+  */
+  search() {
+    this.next = 0;
+    this.currentPage = 1;
+    this.willPaginate = false;
+    if(this.searchString) {
+      const searchEntry = {
+        q: this.searchString,
+      }
+      this.SectorService.search(searchEntry)
+        .then( response => this.sectors = response.data.sector)
+        .catch(err => console.error(`{'Neighborhood Componentn@search': ${err}}`));
+    }
+  }
+
+  /*
+  * Reset the search to show all user when the user erase the search box
+  */
+  resetSearch() {
+    if(this.searchString.trim().length === 0) {
+      this.getAllSectors();
     }
   }
 }

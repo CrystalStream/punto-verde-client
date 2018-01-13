@@ -1,0 +1,37 @@
+@import '../../../assets/foundation-sites/_global.scss';
+
+$hoverLinkColor: #B22D09;
+
+$blue-color: #1779ba;
+$green-color: #2BAB60;
+$orange-color: #ffae00;
+
+.label {
+  text-transform: uppercase;
+  font-weight: bold;
+  &.online {
+		background: $green-color;
+	}
+	&.offline {
+    background: $orange-color;
+    color: black;
+	}
+}
+.button-group {
+  &.no-margin {
+    margin-bottom: 0;
+  }
+}
+.button {
+  &.blue {
+    background: $blue-color;
+    padding: .5rem;
+    font-size: 17px;
+  }
+}
+
+.helper-text {
+  margin-right: 2.5rem;
+  color: darken($light-gray, 40);
+  margin-bottom: .5rem;
+}

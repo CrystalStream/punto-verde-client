@@ -49,6 +49,7 @@ export class DetailComponent implements OnInit {
     return this.SectorService.findOne(uuid, 'users')
       .then( response => {
         this.sector = response.data;
+        console.log(this.sector)
       })
       .catch( err => console.log('Error SectorDetailComponent@getSector: ', err));
   }

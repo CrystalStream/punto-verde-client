@@ -1,3 +1,4 @@
+import { NeighborhoodService } from './services/api/neighborhood.service';
 import { UserService } from './services/api/user.service';
 import { SectorService } from './services/api/sector.service';
 import { ImageService } from './services/api/image.service';
@@ -48,6 +49,7 @@ export const SHARED_PROVIDERS = [
   ScrapService,
   StorageService,
   RecycleService,
+  NeighborhoodService,
   AuthService,
   AuthGuard,
   HomeGuard
