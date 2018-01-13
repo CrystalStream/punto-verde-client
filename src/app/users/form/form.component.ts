@@ -111,14 +111,13 @@ export class FormComponent implements OnInit {
       this.UserService
         .save(this.userForm.value)
         .then(response => {
-          console.log('response: ', response);
-          // if (response.code === 'CREATED') {
-          //   // redirect to /users and show a notification
-          //   this.router.navigateByUrl('/users');
-          //   this.NotifyService.show(`Usuarios agregado correctamente`, this.notificationSuccess);
-          // } else {
-          //   this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
-          // }
+          if (response.code === 'CREATED') {
+            // redirect to /users and show a notification
+            this.router.navigateByUrl('/users');
+            this.NotifyService.show(`Usuarios agregado correctamente`, this.notificationSuccess);
+          } else {
+            this.NotifyService.show(`ERROR (${response.code}) - ${response.statusText}`, this.notificationError);
+          }
         })
         .catch(err => {
           const errorDetail = JSON.parse(err._body);
