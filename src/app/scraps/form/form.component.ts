@@ -85,7 +85,16 @@ export class FormComponent implements OnInit {
             );
           }
         })
-        .catch(err => console.error(`{'error': ${err}}`));
+        .catch(err => {
+          const errorDetail = JSON.parse(err._body);
+          if ( errorDetail.data.hasOwnProperty('name') ) {
+            errorDetail.data.name.forEach( error => {
+              if ( error.rule === 'unique' ) {
+                this.NotifyService.show('ERROR. Ya existe un residuo con ese nombre!', this.notificationError);
+              }
+            });
+          }
+        });
     } else {
       this.NotifyService.show(
         'ERROR. Porfavor corrigue los datos e intentalo de nuevo!.',
