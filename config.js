@@ -22,6 +22,10 @@ export const environment = {
   uploadPreset: ${process.env.UPLOAD_PRESET}
 };
 `;
+console.log('VARS');
+console.log(process.env.BASE_URL);
+console.log(process.env.CLOUD_NAME);
+console.log(process.env.UPLOAD_PRESET);
 
 
 writeFile(targetPath, envConfigFile, function (err) {
