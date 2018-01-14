@@ -1,5 +1,5 @@
-import { writeFile } from 'fs';
-import { argv } from 'yargs';
+const fs = require('fs');
+const argv = require('yargs').argv
 
 // This is good for local dev environments, when it's better to
 // store a projects environment variables in a .gitignore'd file
@@ -28,7 +28,7 @@ console.log(process.env.CLOUD_NAME);
 console.log(process.env.UPLOAD_PRESET);
 
 
-writeFile(targetPath, envConfigFile, function (err) {
+fs.writeFile(targetPath, envConfigFile, function (err) {
   if (err) {
     console.log(err);
   }
