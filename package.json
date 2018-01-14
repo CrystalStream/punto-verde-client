@@ -4,8 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "config": "ts-node ./config.ts",
     "start": "node server.js",
-    "build": "ng build -prod",
+    "build": "npm run config -- --environment=prod && ng build -aot=false",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -36,6 +37,7 @@
     "ng2-notify-popup": "^0.1.25",
     "ngx-counter": "^0.3.2",
     "rxjs": "^5.4.2",
+    "yargs": "^10.1.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
