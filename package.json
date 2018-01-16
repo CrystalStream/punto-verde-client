@@ -9,8 +9,7 @@
     "build": "npm run config -- --environment=prod && ng build -aot=false",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "npm run build prod"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
