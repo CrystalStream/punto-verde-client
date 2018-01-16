@@ -17,9 +17,9 @@ const targetPath = `./src/environments/environment.${environment}.ts`;
 const envConfigFile = `
 export const environment = {
   production: ${isProd},
-  baseUrl: ${process.env.BASE_URL},
-  cloudName: ${process.env.CLOUD_NAME},
-  uploadPreset: ${process.env.UPLOAD_PRESET}
+  baseUrl: '${process.env.BASE_URL}',
+  cloudName: '${process.env.CLOUD_NAME}',
+  uploadPreset: '${process.env.UPLOAD_PRESET}'
 };
 `;
 console.log('VARS');
