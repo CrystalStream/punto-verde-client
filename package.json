@@ -6,14 +6,16 @@
     "ng": "ng",
     "config": "node ./config.js",
     "start": "node server.js",
-    "build": "npm run config -- --environment=prod && ng build -aot=false",
+    "build": "npm run config -- --environment=prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build -aot=false"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.2.4",
+    "@angular/compiler-cli": "^4.2.4",
     "@angular/cli": "1.4.8",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
@@ -38,8 +40,7 @@
     "rxjs": "^5.4.2",
     "yargs": "^10.1.1",
     "zone.js": "^0.8.14",
-    "typescript": "~2.3.3",
-    "@angular/compiler-cli": "^4.2.4"
+    "typescript": "~2.3.3"
   },
   "devDependencies": {
     "@angular/language-service": "^4.2.4",
