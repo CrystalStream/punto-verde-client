@@ -62,7 +62,7 @@
     "node": "8.9.3",
     "npm": "5.5.1"
   },
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/CrystalStream/punto-verde-client.git",
   "author": "Cristofer Flores <cristofer.flort@gmail.com>"
 }
