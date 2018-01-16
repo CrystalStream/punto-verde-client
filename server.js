@@ -28,7 +28,7 @@ app.use(express.static('dist'));
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
 app.get('/*', function(req, res) {
-  res.sendFile(path.join('./dist/index.html'));
+  res.sendFile('./dist/index.html');
 });
 
 // Start the app by listening on the default
