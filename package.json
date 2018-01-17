@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "npm --production=false install && ng build -aot=false"
+    "heroku-postbuild": "npm --production=false install && ng build -prod -aot=false"
   },
   "private": true,
   "dependencies": {
