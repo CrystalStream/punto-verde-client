@@ -3,7 +3,9 @@ const argv = require('yargs').argv
 
 // This is good for local dev environments, when it's better to
 // store a projects environment variables in a .gitignore'd file
-require('dotenv').config();
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 // Would be passed to script like this:
 // `ts-node set-env.ts --environment=dev`
