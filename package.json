@@ -9,7 +9,8 @@
     "build": "npm run config -- --environment=prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "npm --production=false install && ng build -aot"
   },
   "private": true,
   "dependencies": {

@@ -5,7 +5,7 @@ const app = express();
 
 const forceSSL = function() {
   return function (req, res, next) {
-    console.log('path.resolve(): ', path.resolve('./dist/index.html'));
+    console.log('path.resolve(index.html): ', path.resolve('index.html'));
     if (req.headers['x-forwarded-proto'] !== 'https') {
       return res.redirect(
        ['https://', req.get('Host'), req.url].join('')
@@ -27,7 +27,7 @@ app.use(express.static('dist'));
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
 app.get('/*', function(req, res) {
-  res.sendFile( 'index.html' );
+  res.sendFile( path.resolve('index.html') );
 });
 
 // Start the app by listening on the default
