@@ -11,6 +11,8 @@ import { SectorService } from '../../shared/services/api/sector.service';
 import { NotificationService } from 'ng2-notify-popup';
 import { ImageService } from '../../shared/services/api/image.service';
 
+import * as _ from 'lodash';
+
 // for jquery
 declare var $: any;
 
@@ -139,7 +141,7 @@ export class FormComponent implements OnInit {
   */
   update() {
     this.UserService
-      .update(this.userId, this.userForm.value)
+      .update(this.userId, _.omit(this.userForm.value, ['password']))
       .then(response => {
         if (response.code === 'OK') {
           this.router.navigateByUrl('/users');
