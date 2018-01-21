@@ -22,12 +22,12 @@ app.use(forceSSL());
 
 // Run the app by serving the static files
 // in the dist directory
-app.use(express.static('dist'));
+app.use('/', express.static('dist', { redirect: false }));
 
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
 app.all('/*', function(req, res) {
-  res.sendFile('index.html', { root: __dirname });
+  res.sendFile(path.resolve('dist/index.html'));
 });
 
 // Start the app by listening on the default
